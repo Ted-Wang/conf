@@ -1,3 +1,6 @@
+
+" Ted Wang's .vimrc, v0.03, 2019-09-17
+
 " -----------------Ted Wang base settings-------------------
 set fencs=utf-8,gbk,gb2312,gb18030,ucs-bom,cp936,latin1
 set nu
@@ -8,14 +11,14 @@ set shiftwidth=4
 set clipboard=unnamed
 syntax on
 set nowrap
-set hidden                          " Allow buffer switching without saving
+set hidden           " Allow buffer switching without saving
 set virtualedit=onemore             " Allow for cursor beyond last character
 set nospell                         " Spell checking off, because it's impact Chinese characters a lot
-set history=1000                    " default is 50 or 200 or etc...
+set history=1000     " default is 50 or 200 or etc...
 set viewoptions=folds,options,cursor,unix,slash   " Better Unix / Windows compatibility	----这行到底做了什么，得找机会试试
-set whichwrap=b,s,<,>,[,]           " 默认值是b,s 在行首按←或者在行尾按→是不能将光标移动至上一行或下一行的。
+set whichwrap=b,s,<,>,[,]              " 默认值是b,s 在行首按←或者在行尾按→是不能将光标移动至上一行或下一行的。
 
-set undofile                        " So is persistent undo ... enable this option will create a lots of temp files in ~/.vimundo/
+set noundofile         " So is persistent undo ... enable this option will create a lots of temp files in ~/.vimundo/
 let mapleader = ','
 
 silent function! OSX()
@@ -101,5 +104,4 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif   
 "     color solarized             " Load a colorscheme
 " endif
 " -----------------Ted Wang Optional settings end-------------------
-
 
