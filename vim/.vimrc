@@ -11,14 +11,15 @@ set shiftwidth=4
 set clipboard=unnamed
 syntax on
 set nowrap
-set hidden           " Allow buffer switching without saving
+set hidden                          " Allow buffer switching without saving
 set virtualedit=onemore             " Allow for cursor beyond last character
 set nospell                         " Spell checking off, because it's impact Chinese characters a lot
-set history=1000     " default is 50 or 200 or etc...
-set viewoptions=folds,options,cursor,unix,slash   " Better Unix / Windows compatibility	----这行到底做了什么，得找机会试试
-set whichwrap=b,s,<,>,[,]              " 默认值是b,s 在行首按←或者在行尾按→是不能将光标移动至上一行或下一行的。
+set history=1000                    " default is 50 or 200 or etc...
+set whichwrap=b,s,<,>,[,]           " 默认值是b,s 在行首按←或者在行尾按→是不能将光标移动至上一行或下一行的。
 
-set noundofile         " So is persistent undo ... enable this option will create a lots of temp files in ~/.vimundo/
+set viewoptions=folds,options,cursor,unix,slash   " Better Unix / Windows compatibility	----这行到底做了什么，得找机会试试
+
+set noundofile                      " So is persistent undo ... enable this option will create a lots of temp files in ~/.vimundo/
 let mapleader = ','
 
 silent function! OSX()
@@ -35,11 +36,15 @@ silent function! WINDOWS()
 endfunction
 
 if has('gui_running')
-	set lines=50 columns=120 
-	set cursorline        " Highlight current line
+    set lines=50 columns=120 
+    set cursorline        " Highlight current line
+    colorscheme desert    " 使用经典的 desert 配色，综合来看，在 win/gvim，Linux/gvim，git-bash 里，效果都还不错。
 elseif MINGW()            " for vim in git-bash
-	set lines=50 columns=120 
-	set cursorline        " Highlight current line
+    set lines=50 columns=120 
+    set cursorline        " Highlight current line
+    colorscheme desert    " git-bash 里也使用 sesert
+elseif LINUX()
+    " do nonthing         " Linux/Shell 里还是留空使用 terminal 的 theme 。
 endif
 
 " the following piece if copied from spf13/.vimrc
