@@ -21,6 +21,7 @@ set viewoptions=folds,options,cursor,unix,slash   " Better Unix / Windows compat
 
 set noundofile                      " So is persistent undo ... enable this option will create a lots of temp files in ~/.vimundo/
 let mapleader = ','
+set autochdir                       " Always switch to the current file directory
 
 silent function! OSX()
     return has('macunix')
@@ -81,7 +82,7 @@ set statusline=%<%f\%w%h%m%r\ [%{&ff}/%Y]\ [%{getcwd()}]%=%-14.(%=\:b%n%y%m%r%w\
 " -----------------Ted Wang base settings end-------------------
 
 " -----------------Ted Wang Optional settings-------------------
-autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif    " Always switch to the current file directory
+" autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif    " Always switch to the current file directory
 
 " nmap <silent> <leader>/ :set invhlsearch<CR>
 " nnoremap Y y$
