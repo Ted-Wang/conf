@@ -16,7 +16,7 @@ if [ ! -f ~/.bashrc ]; then
     touch ~/.bashrc
     sudo chmod 644 ~/.bashrc
 fi
-sudo echo "so ~/ted.bashrc" >> ~/.bashrc
+sudo echo "source ~/ted.bashrc" >> ~/.bashrc
 
 echo correct font fall back
 sudo cp /etc/fonts/conf.avail/64-language-selector-prefer.conf /etc/fonts/conf.avail/64-language-selector-prefer.conf.bak
