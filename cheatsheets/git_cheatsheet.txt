@@ -4,7 +4,7 @@ git init
 git status
 git add *
 git commit -m "message"
-	git commit -a -m "message"  ----以上2步合成一步，但是注意，这样只提交“修改过的文件”，新添加的文件，没有被tracked，必须用 git add
+git commit -am "message"        ----以上2步合成一步，但是注意，这样只提交“修改过的文件，包括删除的”，新添加的文件，没有被tracked，必须用 git add
 git commit -a                   ----使用-a可以查看有哪些文件会被提交，不填message即可取消提交，相当于dry run
 git checkout <tag_name>
 git checkout master             ----从 tag 回到 mainline 最新的 commit
@@ -16,6 +16,11 @@ git show <tag>
 	cd .. && rm -rf projectDir
 
 git mv <old_name> <new_name>    ----rename，重命名，不同于直接 mv，这是能在 git status 里追踪到的
+git rm <file_name>              ----从 stage 区域删除文件（同时删除工作区中的文件）。
+                                    ----如果是用 rm 删除了文件，可以选择：1）执行 git rm 或者 git add <file>，把删除操作推送到stage区，然后再commit。2）git commit -am "message"
+git rm -r mydir                 ----删除目录
+git restore --staged <file>     ----撤销 git rm 的删除
+git checkout <file>             ----撤销 rm 删除的文件(就是从版本库更新文件，会丢失没有提交的修改)
 
 git reset HEAD~1                ----undo 最后一次 commit
 git reset HEAD                  ----undo git add *
