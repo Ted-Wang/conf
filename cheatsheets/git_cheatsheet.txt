@@ -54,6 +54,12 @@ git branch -d dev
 git checkout -b dev       ----创建并切换到dev分支
 git switch -c dev         ----新版本的Git提供了新的git switch命令来切换分支
 
+git fetch origin master
+git log -p master..origin/master
+git stash
+git merge origin/master
+git stash pop
+
 git remote -v
 git remote set-url origin <url>
 git remote add <name> <url>
