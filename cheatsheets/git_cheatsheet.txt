@@ -35,6 +35,8 @@ git reset HEAD~1                ----undo 最后一次 commit
 git reset HEAD                  ----undo git add *
 git reset HEAD --hard           ----undo，并且同时修改当前工作区
 
+git reflog                      ----显示 HEAD 的变化历史，可以找到上一次 HEAD 指向的 commit，再次使用 reset 命令恢复
+
 git log -3
 git log --oneline --decorate    ----#oneline 只显示 hash 和 message，decorate 会同时显示所有 references (e.g., branches, tags, etc)
 git log --stat                  ----显示每个 commit 增加了多少行，删除了多少行(修改一行会被显示 增加1行+删除1行)
