@@ -116,10 +116,9 @@ git diff                    ----此命令比较的是工作目录(Working tree)�
 git diff --cached   	    ----索引和最后一次提交之间的变化; 查看已经git add ，但没有git commit 的改动。
 git diff HEAD       	    ----自上次提交以来工作树中的更改；包括工作区和已经staged的修改。如果运行“git commit -a”，查看将会提交什么(不填message会取消提交)。
 git diff HEAD^ HEAD         ----比较上次提交和上上次提交
+git config --global diff.tool winmerge/vimdiff		# 配置 diff.tool，保证 winmerge/diff 的可执行文件在path中。主要的几种diff工具，git会自动配置。“mingw64\libexec\git-core\mergetools”
+git config --global difftool.prompt false				# 取消 difftool 的确认提示
 
-
-atlassian 的 git tutorials https://www.atlassian.com/git/tutorials
-[译]Atlassian Git系列教程 https://www.cnblogs.com/irocker/p/atlassian-git-tutorials.html
 
 一文告诉你如何导出 Git 变更文件 https://zhuanlan.zhihu.com/p/74796130
 方法1，使用 git 自带命令 git archive, 语法如下。
@@ -128,6 +127,13 @@ atlassian 的 git tutorials https://www.atlassian.com/git/tutorials
 方法2，下载 TortoiseGit Git 客户端软件，使用方法和 svn 的 export 功能类似。
 
 
+Pro Git book https://git-scm.com/book/zh/v2
+Reference https://git-scm.com/docs
+
+【易百教程】Git教程 https://www.yiibai.com/git
+【廖雪峰】Git教程 https://www.liaoxuefeng.com/wiki/896043488029600
+atlassian 的 git tutorials https://www.atlassian.com/git/tutorials
+[译]Atlassian Git系列教程 https://www.cnblogs.com/irocker/p/atlassian-git-tutorials.html
 
 
 
