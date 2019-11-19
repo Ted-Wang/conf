@@ -1,7 +1,9 @@
 #!/bin/bash
 
+basefolder=${0%/*}
+
 echo setting up .vimrc
-cp vim/ted.vimrc ~/
+cp $basefolder/vim/ted.vimrc ~/
 sudo chmod 644 ~/ted.vimrc
 if [ ! -f ~/.vimrc ]; then
     touch ~/.vimrc
@@ -10,7 +12,7 @@ fi
 sudo echo "so ~/ted.vimrc" >> ~/.vimrc
 
 echo setting up .bashrc
-cp bash/ted.bashrc ~/
+cp $basefolder/bash/ted.bashrc ~/
 sudo chmod 644 ~/ted.bashrc
 if [ ! -f ~/.bashrc ]; then
     touch ~/.bashrc
