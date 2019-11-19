@@ -1,8 +1,15 @@
 [git][git frequently used commands][git/cheatsheet][git cheatsheet]
 
+# From the docs of git diff, --staged is a synonym of --cached
+
 git init
+git init prjDir                 ----指定初始仓库的名字，并创建对应目录
+git init --bare prjDir.git      ----创建一个初始仓库（中心仓库），这个仓储不会有工作目录，通常用于在服务器上创建一个裸仓库。
+
 git status
-git add *
+git add *                       ----不包括删除的文件，也不包括.开头的文件
+git add .                       ----当前目录及其子目录的所有文件，包括.开头的文件
+git add -A                      ----当前库的所有文件，如果pwd在子目录，parents 目录的修改也包括。
 git commit -m "message"
 git commit -am "message"        ----以上2步合成一步，但是注意，这样只提交“修改过的文件，包括删除的”，新添加的文件，没有被tracked，必须用 git add
 git commit -a                   ----使用-a可以查看有哪些文件会被提交，不填message即可取消提交，相当于dry run
@@ -19,15 +26,14 @@ git mv <old_name> <new_name>    ----rename，重命名，不同于直接 mv，�
 git rm <file_name>              ----从 stage 区域删除文件（同时删除工作区中的文件）。
                                     ----如果是用 rm 删除了文件，可以选择：1）执行 git rm 或者 git add <file>，把删除操作推送到stage区，然后再commit。2）git commit -am "message"
 git rm -r mydir                 ----删除目录
-git restore --staged <file>     ----撤销 git rm 的删除
-git checkout <file>             ----撤销 rm 删除的文件(就是从版本库更新文件，会丢失没有提交的修改)
+git rm -r --cached mydir        ----仅仅从 stage area 删除文件（工作区保留）
 
+git restore --staged <file>     ----撤销 git rm 的删除
+git checkout -- <file>          ----撤销 rm 删除的文件(刷先从工作获取文件，没有则从版本库更新文件，会丢失没有提交的修改)
+git reset HEAD -- <file>        ----从版本库获取文件，覆盖 index 区，工作区保留。--hard，同时覆盖工作区。
 git reset HEAD~1                ----undo 最后一次 commit
 git reset HEAD                  ----undo git add *
-git reset HEAD --hard           ----undo 并且同时修改当前工作区
-
-git init prjDir                 ----指定初始仓库的名字，并创建对应目录
-git init --bare prjDir.git      ----创建一个初始仓库（中心仓库），这个仓储不会有工作目录，通常用于在服务器上创建一个裸仓库。
+git reset HEAD --hard           ----undo，并且同时修改当前工作区
 
 git log -3
 git log --oneline --decorate    ----#oneline 只显示 hash 和 message，decorate 会同时显示所有 references (e.g., branches, tags, etc)
@@ -76,6 +82,7 @@ git pull <远程主机名> <远程分支名>:<本地分支名>
 git push <远程主机名> <本地分支名>:<远程分支名>
 	git push
 	git push origin master
+	git push origin --tags		----git默认不会push tags
 
 git config --global/system/local -l
 git config --global -e
