@@ -1,0 +1,107 @@
+
+
+MySql中的事件
+http://my.oschina.net/tsl0922/blog/67711
+
+Mysql常见命令.
+http://my.oschina.net/chengjiansunboy/blog/55595
+
+MySQL 5.5 和 5.6 默认参数值的差异	----不错！
+http://www.oschina.net/question/12_90733
+
+安装完 MySQL 后必须调整的 10 项配置 
+http://www.oschina.net/translate/10-mysql-settings-to-tune-after-installation
+
+
+关于DBeaver连接MySQL数据库遇到的版本问题解决 https://my.oschina.net/u/3880151/blog/1825764
+* 注意，在此时我们需要下载对应本地MySQL版本的驱动包。笔者的MySQL版本为5.7，所以下载5.1.22版本以上的驱动包，笔者选择对应版本为5.1.46（8.0.X版本测试会报错）。
+
+How To Install MySQL on Ubuntu 18.04 https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-18-04
+	sudo apt update
+	sudo apt install mysql-server
+	sudo mysql_secure_installation
+Step 3 — (Optional) Adjusting User Authentication and Privileges
+In order to use a password to connect to MySQL as root, you will need to switch its authentication method from auth_socket to mysql_native_password. To do this, open up the MySQL prompt from your terminal:
+	sudo mysql
+Next, check which authentication method each of your MySQL user accounts use with the following command:
+	mysql>SELECT user,authentication_string,plugin,host FROM mysql.user;
+	mysql>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+	mysql>FLUSH PRIVILEGES;
+for create a user:
+	sudo mysql
+	mysql>CREATE USER 'sammy'@'localhost' IDENTIFIED BY 'password';
+	mysql>GRANT ALL PRIVILEGES ON *.* TO 'sammy'@'localhost' WITH GRANT OPTION;
+Step 4 — Testing MySQL
+	systemctl status mysql.service
+For an additional check, you can try connecting to the database using the mysqladmin tool, which is a client that lets you run administrative commands.
+	sudo mysqladmin -p -u root version
+
+
+	show databases;
+	SHOW TABLES;
+	SHOW COLUMNS FROM tableName;	--查看表结构
+	describe tableName;
+	use databaseName;
+
+Ubuntu 18.04 安装 MySQL 5.7【解决普通用户登录、密码修改、远程访问等问题】https://blog.csdn.net/gulang03/article/details/82790821
+局域网访问的关键几点：
+1. 必须建立对应host字段为%的用户，如果需要root用户远程登录，也一样
+2. mysql配置文件中的bind-address 要修改成0.0.0.0，默认的是127.0.0.1
+	sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+3. 如果是某些云服务主机，可能会设置防火墙，需要配置3306端口通过。注意：ufw是debian/ubuntu系统默认的防火墙，centOS不适用。
+	sudo ufw enable/disable
+	sudo ufw allow 3306/tcp
+	sudo ufw status
+	ufw --help
+
+### MySQL 用户管理
+
+How to create a superuser in MySQL?
+https://tableplus.io/blog/2018/10/how-to-create-a-superuser-in-mysql.html
+
+6.2.8 Adding Accounts, Assigning Privileges, and Dropping Accounts	----MySQL 手册还是更详细一些
+https://dev.mysql.com/doc/refman/8.0/en/creating-accounts.html
+
+
+使用root连接MySQL，创建2个用户并授权（grant all privileges）
+% mysql -u root -p
+	CREATE USER 'ted'@'localhost' IDENTIFIED BY 'password';
+	GRANT ALL PRIVILEGES ON *.* TO 'ted'@'localhost' WITH GRANT OPTION;
+	CREATE USER 'ted'@'%' IDENTIFIED BY 'password';
+	GRANT ALL PRIVILEGES ON *.* TO 'ted'@'%' WITH GRANT OPTION;
+	
+	FLUSH PRIVILEGES;
+
+Both 'ted'@'localhost' and 'username'@'%' are superuser accounts with full privileges to do anything.
+The 'ted'@‘localhost' account can be used only when connecting from the local host. The 'ted'@'%' account uses the '%' wildcard for the host part, so it can be used to connect from any host.
+
+To double check the privileges given to the new user, run SHOW GRANTS command:
+	SHOW GRANTS FOR username;
+To revoke account privileges, use the REVOKE statement. 
+	REVOKE ALL ON wordpress.* FROM 'wp'@'localhost';
+
+
+mysql批量执行sql文件
+https://www.cnblogs.com/aaron-shu/p/5928965.html
+在mysql下执行source batch.sql; batch.sql 文件里可以嵌套执行其他 *.sql 文件
+
+
+### DML, DDL
+
+create DATABASE `test`
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
+
+GRANT ALL PRIVILEGES ON `test`.* TO "ted"@"%";
+FLUSH PRIVILEGES;
+
+GRANT ALL PRIVILEGES ON `test`.* TO "ted"@"%" IDENTIFIED BY "wp_pass_132";
+FLUSH PRIVILEGES;
+
+https://dev.mysql.com/doc/refman/8.0/en/creating-tables.html
+CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20),
+       species VARCHAR(20), sex CHAR(1), birth DATE, death DATE);
+
+DESCRIBE pet;
+
+
