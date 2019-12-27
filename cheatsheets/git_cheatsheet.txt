@@ -55,12 +55,15 @@ git tag -d <tagname>      ----删除一个tag
 
 git branch
 git branch -v
+git branch -vv            ----查看当前分支以及上游分支
 git branch dev            ----创建分支
-git checkout master
-git merge dev
-git branch -d dev
 git checkout -b dev       ----创建并切换到dev分支
+git checkout master
 git switch -c dev         ----新版本的Git提供了新的git switch命令来切换分支
+git merge dev
+git branch -d dev test    ----删除本地分支dev、test（没有merged的分支无法删除）
+git branch -d -r origin/todo origin/html origin/man       ----删除远程分支todo、html、man
+git branch -D dev         ----强行删除分支（包括没有merged的分支），Shortcut for --delete --force.
 
 git fetch origin master
 git log -p master..origin/master
