@@ -1,18 +1,21 @@
 @echo off
+
+rem Usage: mpback, mpback full, mpback all
+rem if argument like "full" or "all" not provided, will not back the "backup" folder, which size is quite big.
+
 cd /d %~dp0
 set WINRAR="C:\Program Files\WinRAR\WinRAR.exe"
-set SZIP="C:\Program Files\7-Zip\7z.exe"
-set ZIP=%SZIP%
+set S-ZIP="C:\Program Files\7-Zip\7z.exe"
+set ZIP=%S-ZIP%
 
 
 rem set minipad2_path=D:\Program\daily_notes
 set minipad2_path=D:\A_notes\minipad2_2016-07-07
 set target_path=D:\Backup\Back_Notes\minipad2
 
-set DAY=%date%
-set TIM=%time%
-set TIM=%TIM: =0%
-set DATE_SUFFIX=%DAY:~0,4%-%DAY:~5,2%-%DAY:~8,2%_%TIM:~0,2%-%TIM:~3,2%-%TIM:~6,2%
+
+set TIM=%time: =0%
+set DATE_SUFFIX="%DATE:~0,4%_%DATE:~5,2%_%DATE:~8,2%_%TIM:~0,2%_%TIM:~3,2%_%TIM:~6,2%"
 
 rem echo %DATE_SUFFIX%
 set "arg1=%1"
