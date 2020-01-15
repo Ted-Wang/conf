@@ -2,7 +2,7 @@
 
 basefolder=${0%/*}
 
-echo setting up .vimrc
+echo setting up vimrc
 cp $basefolder/vim/ted.vimrc ~/
 chmod 644 ~/ted.vimrc
 if [ ! -f ~/.vimrc ]; then
@@ -11,12 +11,13 @@ if [ ! -f ~/.vimrc ]; then
 fi
 if grep -Eq "^so(urce){0,1}\s+~/ted\.vimrc$" ~/.vimrc
 then 
-    # do nothing
+    : # do nothing
 else
     echo "so ~/ted.vimrc" >> ~/.vimrc
 fi
+echo done.
 
-echo setting up .bashrc
+echo setting up bashrc
 cp $basefolder/bash/ted.bashrc ~/
 chmod 644 ~/ted.bashrc
 if [ ! -f ~/.bashrc ]; then
@@ -25,7 +26,8 @@ if [ ! -f ~/.bashrc ]; then
 fi
 if grep -Eq "^source\s+~/ted.bashrc$" ~/.bashrc
 then
-    # do nothing
+    : # do nothing
 else 
     echo "source ~/ted.bashrc" >> ~/.bashrc
 fi
+echo done.
