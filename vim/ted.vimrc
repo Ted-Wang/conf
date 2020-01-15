@@ -38,28 +38,28 @@ endfunction
 
 if has('gui_running')
     set lines=50 columns=120 
-    set cursorline        " Highlight current line
-    colorscheme desert    " 使用经典的 desert 配色，综合来看，在 win/gvim，Linux/gvim，git-bash 里，效果都还不错。
-elseif MINGW()            " for vim in git-bash
+    set cursorline                  " Highlight current line
+    colorscheme desert              " 使用经典的 desert 配色，综合来看，在 win/gvim，Linux/gvim，git-bash 里，效果都还不错。
+elseif MINGW()                      " for vim in git-bash
     set lines=50 columns=120 
-    set cursorline        " Highlight current line
-    colorscheme desert    " git-bash 里也使用 sesert
+    set cursorline                  " Highlight current line
+    colorscheme desert              " git-bash 里也使用 sesert
 elseif LINUX()
-    " do nonthing         " Linux/Shell 里还是留空使用 terminal 的 theme 。
+     " do nonthing                  " Linux/Shell 里还是留空使用 terminal 的 theme 。
 endif
 
 " the following piece if copied from spf13/.vimrc
 if has('clipboard')
-    if has('unnamedplus')  " When possible use + register for copy-paste
+    if has('unnamedplus')           " When possible use + register for copy-paste
         set clipboard=unnamed,unnamedplus
-    else         " On mac and Windows, use * register for copy-paste
+    else                            " On mac and Windows, use * register for copy-paste
         set clipboard=unnamed
     endif
 endif
 
 " font settings
 if has('gui_running')
-    set guioptions-=T           " Remove the toolbar
+    set guioptions-=T               " Remove the toolbar
     if LINUX()
         set guifont=Andale\ Mono\ Regular\ 10,Menlo\ Regular\ 10,Consolas\ Regular\ 10,Courier\ New\ Regular\ 10
     elseif OSX()
@@ -69,9 +69,9 @@ if has('gui_running')
     endif
 else
     if &term == 'xterm' || &term == 'screen'
-        set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        set t_Co=256                " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
     endif
-    "set term=builtin_ansi      " Make arrow and other keys work
+    "set term=builtin_ansi          " Make arrow and other keys work
 endif
 
 set ruler                                           " Show the ruler
@@ -79,6 +79,8 @@ set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)  " A ruler on steroids
 " set format statusline. This option override the ruler?
 set laststatus=2
 set statusline=%<%f\%w%h%m%r\ [%{&ff}/%Y]\ [%{getcwd()}]%=%-14.(%=\:b%n%y%m%r%w\ %l,%c%V%)\ %p%%
+
+cmap w!! w !sudo tee > /dev/null %          " Allow saving of files as sudo when I forgot to start vim using sudo.
 " -----------------Ted Wang base settings end-------------------
 
 " -----------------Ted Wang Optional settings-------------------

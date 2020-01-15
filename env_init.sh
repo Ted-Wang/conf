@@ -9,7 +9,12 @@ if [ ! -f ~/.vimrc ]; then
     touch ~/.vimrc
     sudo chmod 644 ~/.vimrc
 fi
-sudo echo "so ~/ted.vimrc" >> ~/.vimrc
+if grep -Eq "^so(urce){0,1}\s+~/ted\.vimrc$" ~/.vimrc
+then 
+    # do nothing
+else
+    sudo echo "so ~/ted.vimrc" >> ~/.vimrc
+fi
 
 echo setting up .bashrc
 cp $basefolder/bash/ted.bashrc ~/
@@ -18,10 +23,10 @@ if [ ! -f ~/.bashrc ]; then
     touch ~/.bashrc
     sudo chmod 644 ~/.bashrc
 fi
-sudo echo "source ~/ted.bashrc" >> ~/.bashrc
-
-echo correct font fall back
-sudo cp /etc/fonts/conf.avail/64-language-selector-prefer.conf /etc/fonts/conf.avail/64-language-selector-prefer.conf.bak
-sudo sh -c 'sudo cat ./linux/64-language-selector-prefer.conf > /etc/fonts/conf.avail/64-language-selector-prefer.conf'
-sudo fc-cache -fv
+if grep -Eq "^source\s+~/ted.bashrc$" ~/.bashrc
+then
+    # do nothing
+else 
+    sudo echo "source ~/ted.bashrc" >> ~/.bashrc
+fi
 
