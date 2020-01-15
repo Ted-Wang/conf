@@ -1,11 +1,12 @@
 #!/bin/bash
 
 basefolder=${0%/*}
+BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 unameOut="$(uname -s)"
 case $unameOut in
     Linux*) runIn=Linux-shell;;
-    Mingw*) runIn=Win/git-bash;;
+    MINGW*) runIn=Win/git-bash;;
     Darwin*) runIn=Mac;;
 esac
 if [ "$runIn" == "Win/git-bash" ]; then
@@ -17,7 +18,7 @@ else
 fi
 
 echo setting up vimrc
-cp $basefolder/vim/ted.vimrc ~/
+cp $BASE_DIR/vim/ted.vimrc ~/
 $SUDO chmod 644 ~/ted.vimrc
 if [ ! -f ~/.vimrc ]; then
     touch ~/.vimrc
@@ -36,7 +37,7 @@ fi
 echo done.
 
 echo setting up bashrc
-cp $basefolder/bash/ted.bashrc ~/
+cp $BASE_DIR/bash/ted.bashrc ~/
 $SUDO chmod 644 ~/ted.bashrc
 if [ ! -f ~/.bashrc ]; then
     touch ~/.bashrc
@@ -52,4 +53,5 @@ if [ -f ~/ted.bashrc ]; then
 fi
 EOF
 fi
+source ~/ted.bashrc
 echo done.

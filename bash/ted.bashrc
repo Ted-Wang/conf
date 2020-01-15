@@ -28,5 +28,19 @@
 
 
 
+currentEnv()
+{
+    unameOut="$(uname -s)"
+    case $unameOut in
+        Linux*) runningIn=Linux;;
+        MINGW*) runningIn=git-bash;;
+        Darwin*) runningIn=Mac;;
+    esac
+    echo $runningIn
+    unset unameOut
+    unset runningIn
+    return 0
+}
 
+#export -f currentEnv
 
