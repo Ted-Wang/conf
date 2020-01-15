@@ -80,7 +80,8 @@ set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)  " A ruler on steroids
 set laststatus=2
 set statusline=%<%f\%w%h%m%r\ [%{&ff}/%Y]\ [%{getcwd()}]%=%-14.(%=\:b%n%y%m%r%w\ %l,%c%V%)\ %p%%
 
-cmap w!! w !sudo tee > /dev/null %          " Allow saving of files as sudo when I forgot to start vim using sudo.
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
 " -----------------Ted Wang base settings end-------------------
 
 " -----------------Ted Wang Optional settings-------------------
