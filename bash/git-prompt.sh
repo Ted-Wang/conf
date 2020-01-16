@@ -1,6 +1,6 @@
 
 # import __git_ps1() function for Manjaro
-pacman --help > /dev/null
+pacman --help > /dev/null 2>&1
 if [ $? == 0 ] && [ -f /usr/share/git/completion/git-prompt.sh ]; then
     source /usr/share/git/completion/git-prompt.sh
 fi
