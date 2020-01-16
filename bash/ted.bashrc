@@ -44,3 +44,6 @@ currentEnv()
 
 #export -f currentEnv
 
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+
