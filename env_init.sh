@@ -58,7 +58,7 @@ echo done.
 
 echo setting up shell prompt to show git info
 if [ "$runIn" == "Linux-shell" ]; then
-    $SUDO cat ~/$GIT_PROMPT >> ~/ted.bashrc
+    $SUDO cat $BASE_DIR/bash/$GIT_PROMPT >> ~/ted.bashrc
     #source ~/$GIT_PROMPT
 fi
 echo done.
