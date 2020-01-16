@@ -2,6 +2,7 @@
 
 #basefolder=${0%/*}
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+GIT_PROMPT=git-prompt.sh
 
 unameOut="$(uname -s)"
 case $unameOut in
@@ -11,7 +12,7 @@ case $unameOut in
 esac
 if [ "$runIn" == "Win/git-bash" ]; then
     SUDO="";
-elif [ "$runin" == "Linux-shell" ]; then
+elif [ "$runIn" == "Linux-shell" ]; then
     SUDO=sudo;
 else
     SUDO=sudo;
@@ -53,5 +54,13 @@ if [ -f ~/ted.bashrc ]; then
 fi
 EOF
 fi
-source ~/ted.bashrc
 echo done.
+
+echo setting up shell prompt to show git info
+if [ "$runIn" == "Linux-shell" ]; then
+    $SUDO cat ~/$GIT_PROMPT >> ~/ted.bashrc
+    #source ~/$GIT_PROMPT
+fi
+echo done.
+
+source ~/ted.bashrc
