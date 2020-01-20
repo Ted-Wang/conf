@@ -61,11 +61,11 @@ endif
 if has('gui_running')
     set guioptions-=T               " Remove the toolbar
     if LINUX()
-        set guifont=Andale\ Mono\ Regular\ 10,Menlo\ Regular\ 10,Consolas\ Regular\ 10,Courier\ New\ Regular\ 10
+        set guifont=Ubuntu\ Mono\ Regular\ 12,Noto\ Sans\ Mono\ Regular\ 9,Noto\ Sans\ Mono\ CJK\ SC\ Regular\ 9
     elseif OSX()
         set guifont=Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
     elseif WINDOWS()
-        set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+        set guifont=Consolas:h10,Courier_New:h10,Courier\ New\ Regular\ 10
     endif
 else
     if &term == 'xterm' || &term == 'screen'

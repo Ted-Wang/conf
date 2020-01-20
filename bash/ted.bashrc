@@ -47,3 +47,9 @@ currentEnv()
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 
+
+pacman --help > /dev/null 2>&1
+if [ $? == 0 ] && [ -f /usr/share/git/completion/git-prompt.sh ]; then
+    alias ll='ls -alF'
+    alias sudo='sudo -E'
+fi
