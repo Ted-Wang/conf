@@ -15,12 +15,16 @@ esac
 git --version > /dev/null 2>&1
 if [ $? == 0 ]; then 
     if [ "$runIn" == "Linux-shell" ]; then
-        # shell prompt with git branch
-        export PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[36m\]\$(__git_ps1 '(%s)')\[\033[0m\]\$ "
+        # shell prompt with git branch. color pink for path(\w)
+        #export PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[01;36m\]\$(__git_ps1 '(%s)')\[\033[0m\]\$ "
+        # color blue for path(\w). this blue[38;5;26] is performed better then [01;34m] while in a server terminal.
+        export PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[38;5;26m\]\w\[\033[01;36m\]\$(__git_ps1 '(%s)')\[\033[0m\]\$ "
     fi
         # keep git-bash in Windows unchanged.
 else
     # shell prompt without git
-    export PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[0m\]\$ "
+    #export PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[0m\]\$ "
+    # blue color for path
+    export PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[38;5;26m\]\w\[\033[0m\]\$ "
 fi
 
