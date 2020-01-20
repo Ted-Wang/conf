@@ -2,7 +2,7 @@
 
 #basefolder=${0%/*}
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-GIT_PROMPT=git-prompt.sh
+SHELL_PROMPT=shell_prompt.bashrc
 
 unameOut="$(uname -s)"
 case $unameOut in
@@ -19,7 +19,7 @@ else
 fi
 
 echo setting up vimrc
-cp $BASE_DIR/vim/ted.vimrc ~/
+cp -p $BASE_DIR/vim/ted.vimrc ~/
 $SUDO chmod 644 ~/ted.vimrc
 if [ ! -f ~/.vimrc ]; then
     touch ~/.vimrc
@@ -38,7 +38,7 @@ fi
 echo done.
 
 echo setting up bashrc
-cp $BASE_DIR/bash/ted.bashrc ~/
+cp -p $BASE_DIR/bash/ted.bashrc ~/
 $SUDO chmod 644 ~/ted.bashrc
 if [ ! -f ~/.bashrc ]; then
     touch ~/.bashrc
@@ -56,11 +56,9 @@ EOF
 fi
 echo done.
 
-echo setting up shell prompt to show git info
-if [ "$runIn" == "Linux-shell" ]; then
-    $SUDO cat $BASE_DIR/bash/$GIT_PROMPT >> ~/ted.bashrc
-    #source ~/$GIT_PROMPT
-fi
-echo done.
+# shell prompt
+$SUDO cat $BASE_DIR/bash/$SHELL_PROMPT >> ~/ted.bashrc
+# cp -p $BASE_DIR/bash/$SHELL_PROMPT ~/
+# echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
 
 source ~/ted.bashrc
