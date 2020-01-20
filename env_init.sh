@@ -19,7 +19,7 @@ else
 fi
 
 echo setting up vimrc
-cp -p $BASE_DIR/vim/ted.vimrc ~/
+\cp $BASE_DIR/vim/ted.vimrc ~/
 $SUDO chmod 644 ~/ted.vimrc
 if [ ! -f ~/.vimrc ]; then
     touch ~/.vimrc
@@ -38,7 +38,7 @@ fi
 echo done.
 
 echo setting up bashrc
-cp -p $BASE_DIR/bash/ted.bashrc ~/
+\cp $BASE_DIR/bash/ted.bashrc ~/
 $SUDO chmod 644 ~/ted.bashrc
 if [ ! -f ~/.bashrc ]; then
     touch ~/.bashrc
@@ -58,7 +58,7 @@ echo done.
 
 # shell prompt
 $SUDO cat $BASE_DIR/bash/$SHELL_PROMPT >> ~/ted.bashrc
-# cp -p $BASE_DIR/bash/$SHELL_PROMPT ~/
+# \cp $BASE_DIR/bash/$SHELL_PROMPT ~/
 # echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
 
 source ~/ted.bashrc
