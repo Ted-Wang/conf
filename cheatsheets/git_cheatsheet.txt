@@ -38,6 +38,7 @@ git reset HEAD --hard           ----undo，并且同时修改当前工作区
 git reflog                      ----显示 HEAD 的变化历史，可以找到上一次 HEAD 指向的 commit，再次使用 reset 命令恢复
 
 git log -3
+git log origin/master           ----git fetch 以后，可以看到 master 和 origin/master 之间差了多少个 commits。
 git log --oneline --decorate    ----#oneline 只显示 hash 和 message，decorate 会同时显示所有 references (e.g., branches, tags, etc)
 git log --stat                  ----显示每个 commit 增加了多少行，删除了多少行(修改一行会被显示 增加1行+删除1行)
 git log -p                      ----显示每个 commit 具体的修改内容
@@ -66,6 +67,7 @@ git branch -d -r origin/todo origin/html origin/man       ----删除远程分支
 git branch -D dev         ----强行删除分支（包括没有merged的分支），Shortcut for --delete --force.
 
 git fetch origin master
+git log --oneline origin/master
 git log -p master..origin/master
 git stash
 git merge origin/master
