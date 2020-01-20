@@ -1,0 +1,6 @@
+
+# add the following 3 lines into ~/.xinitrc or ~/.xprofile. if no sure, add in both.
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+

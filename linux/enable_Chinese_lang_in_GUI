@@ -1,0 +1,6 @@
+
+# add the following 3 lines into ~/.xinitrc or ~/.xprofile. if no sure, add in both.
+export LANG=zh_CN.UTF-8
+export LANGUAGE=zh_CN:en_US
+export LC_CTYPE=en_US.UTF-8
+
