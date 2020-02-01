@@ -1,0 +1,363 @@
+[vim/cheatsheet]
+
+### tips
+
+* evim 或者 vim -y 可以进入easy模式。但是，怎么退出呢？。。。。ctrl+L 进入命令模式，然后:q
+
+* vim --version 可以看到 当前的feature list 还有 配置文件位置信息。
+	在 ubuntu 或者 raspberry 原生的 vim 上运行这个命令可以发现，大部分feature都没有
+* 在vim中使用:verison命令可以看到一样的结果
+
+* Linux 经常会 ctrl+z挂起 vim，进入shell，之后在 fg 调回 vim。但是，这样做的话，在挂起后的 shell 里，无法获取vim中copy的内容，即使 set clipboard=unnamed 也不行！
+* 要想从vim中copy命令到shell执行：https://stackoverflow.com/questions/2782752/how-can-i-open-a-shell-inside-a-vim-window
+	vim8之后可以用:ter(minal) 在一个vim windows 中打开一个terminal，这个terminal里是可以ctrl+shift+v获取 clipboard 里的值的。	----注意要exit，:q，2个动作才能退出。
+
+* 怎么能在命令模式的命令行copy/paste？
+q: q/ 可以从命令历史、搜索历史中copy
+paste 可以用 <C+r><C+w> 插入 copy 的内容(word)
+<ctrl+r>"				//where " stands for default register.
+How to copy yanked text to VI command prompt https://stackoverflow.com/questions/906535/how-to-copy-yanked-text-to-vi-command-prompt
+
+* vim显示不可见特殊字符 https://blog.csdn.net/jichenchen1990/article/details/72652207
+* 让vim显示空格,及tab字符 vim 多行注释（转）https://www.cnblogs.com/chenwenbiao/archive/2011/10/26/2225467.html
+	:set list
+	:set nolist
+	:set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<      # 设置显示哪些隐藏字符，以及如何显示
+
+* vim 中 获取当前编辑文件名 https://blog.csdn.net/ustczwc/article/details/8845044
+	:f[ile]/Ctrl+G
+
+^w gf -- 在新的标签页里打开光标下路径指定的文件。
+
+change fileformat to change the EOL, :set ff=dos/unix/mac, which will change the EOL to CR+LF/LF/CR
+set syntax
+set noh
+set ft=xml
+
+Ctrl+A 对光标下的数字+1
+Ctrl+X 对光标下（或者光标右边第一个）数字减一
+
+Vim 有什么奇技淫巧？https://www.zhihu.com/question/27478597/answer/136760781
+正则排序，:sort r /regex/
+	sort r /【.\+】/		//按照【】中的内容排序
+
+
+### Regex 正则
+
+\d: 表示十进制数
+\s: 表示空格
+\S: 非空字符
+\a: 英文字母
+\|: 表示 或
+\.: 表示.
+{m,n}: 表示m到n个字符。这要和 \s与\a等连用，如 \a\{m,n} 表示m 到n个英文字母。
+{m,}: 表示m到无限多个字符。
+**: 当前目录下的所有子目录。
+:help pattern得到更多帮助。
+
+http://vimregex.com/
+Vim的正则比较特殊，很多字符都需要转译，比如\+表示匹配数量，不能直接用+，只有*能直接用，还有\{m,n}等等
+见 4.7 Regexp Operator Precedence
+Quantifier	Description
+	* 		matches 0 or more of the preceding characters, ranges or metacharacters .* matches everything including empty line
+	\+ 		matches 1 or more of the preceding characters...
+	\= 		matches 0 or 1 more of the preceding characters...
+	\{n,m} 	matches from n to m of the preceding characters...
+	\{n} 	matches exactly n times of the preceding characters...
+	\{,m} 	matches at most m (from 0 to m) of the preceding characters...
+	\{n,} 	matches at least n of of the preceding characters...
+上面是默认的贪心匹配，懒惰匹配在vim中在数量之前用-表示
+Quantifier	Description
+.-*			懒惰匹配（non-greedy match），已经测试过
+\{-}		matches 0 or more of the preceding atom, as few as possible
+\{-n,m}		matches 1 or more of the preceding characters...
+\{-n,}		matches at lease or more of the preceding characters...
+\{-,m}		matches 1 or more of the preceding characters...
+
+4.5 Grouping and Backreferences
+#	Meaning												#	Meaning
+&	the whole matched pattern							\L	the following characters are made lowercase
+\0	the whole matched pattern							\U	the following characters are made uppercase
+\1	the matched pattern in the first pair of \(\)	\E	end of \U and \L
+\2	the matched pattern in the second pair of \(\)	\e	end of \U and \L
+...	...													\r	split line in two at this point
+\9	the matched pattern in the ninth pair of \(\)	\l	next character made lowercase
+~	the previous substitute string					\u	next character made uppercase
+----\L\U可以进行大小写转换，\r可以分行，等等
+
+4.7 Regexp Operator Precedence
+分组的括号()，|(表示OR)的，也都要转译，\(\), \|
+
+
+### Folding，折行
+
+Vim 有什么奇技淫巧？https://www.zhihu.com/question/27478597/answer/805176447
+zf 创建折行，f 表示 fold
+zo 打开折行，o 表示 open
+zc 关闭折行，c 表示 close
+zd 删除折行，d 表示 delete
+
+zf 最变态的功能就是可以与 text-object 配合工作。比如：
+zfa{折叠成对大括号之间的内容，包括大括号所在行，一般用于折叠函数定义、 循环、只有一个分支的条件判断。
+zfi{ 折叠成对大括号之间的内容，不包括大括号所在行，一般用于折叠条件判断的多个分支、try-cache 的各部分内容。
+不管代码有多长，一个 zfo{或者zfi{ 立马折叠。
+
+
+### file，window，文件操作，窗口
+:qa!					//强制退出所有正在编辑的文件
+:e(dit)					//<path/to/file>	打开/新建一个文件
+
+:e(dit) newfile.txt  	//open/create a new file
+:saveas newName.txt	//save as a new file
+:file rename.txt		//rename current file
+:sp						//垂直分割窗口，并打开当前buffer，窗口位置在下方
+:vs						//水平分割窗口，并打开当前buffer，窗口位置在右边
+
+:w !sudo tee %			//通过 sudo 写入没有权限的文件
+:.w(rite) otherfile	//将当前行写入另一个文件
+:.w(rite) >> otherfile	//将当前行追加到另一个文件末尾
+
+
+#### 分屏
+:sp
+:vs
+vimdiff f1 f2
+vim -d f1 f2		//这里也可以用 -o -O 参数
+:diffs[plit] fileName
+:vert diffsplit fileName
+[c
+]c
+vim -o file1 file2:水平分割窗口，同时打开file1和file2
+vim -O file1 file2:垂直分割窗口，同时打开file1和file2
+Ctrl+w  +h/j/k/l/w/p，w next，p last。注意这两个是不同的，并非是互逆的操作。重复
+Ctrl+w  +H/J/K/L 把当前窗口放到左/下/上/右边
+Ctrl+w c/:bd/:q  都能关闭当前窗口
+
+
+### Buffer 缓冲区
+
+How can I edit multiple files in VIM? https://unix.stackexchange.com/questions/27586/how-can-i-edit-multiple-files-in-vim
+【Vim命令大全】史上最全的Vim命令	----9.3 缓冲区 https://www.cnblogs.com/qlqwjy/p/8361368.html
+:ls/:buffers/:files	# 列出所有缓冲区
+Ctrl+^/:b#				# Switch between last/current buffer.
+:bn/bp					# Go to next/previous buffer.
+:b(n)或(n)b				# switch to buffer n
+:bf/bl					# Go to first/last buffer.
+:bd(elete) 3/文件名	# 删除当前/第n个缓冲区		----建议用这个关闭 buffer
+:bd 1 2 3				# close buffer 1, 2, 3
+:5,7bd					# close buffer 5, 6, 7
+Ctrl+G/:file/:f		# Show filename
+:ba(ll)					# 把所有的缓冲区在当前页中打开，每个缓冲区占一个窗口。
+:badd file				# 增加一个缓冲区，文件是必须的。		----这个跟 :e file 的区别，感觉就是只是增加，但是不会切换到新的buffer。
+:bunload 				# 卸载缓冲区				----这个跟 bd 有何区别？
+:(n)bw					# Clear the current/n buffer, including all marks, options settings etc.	----建议一般不要用这个
+:help buffer
+:args	opened file list, [] around current
+* 所有跟在后面的缓冲区编号，都可以换成文件名
+
+* 另外注意【bufdo】。Run a command in multiple buffers https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers
+
+
+### 标签 tab
+Vim 多文件编辑：标签页
+https://harttle.land/2015/11/12/vim-tabpage.html
+tab打开关闭：
+	:tabe[dit] {file}   edit specified file in a new tab
+	:tabf[ind] {file}   open a new tab with filename given, searching the 'path' to find it
+	:tabc[lose]         close current tab
+	:tabc[lose] {i}     close i-th tab
+	:tabo[nly]          close all other tabs (show only the current tab)
+tab移动：
+	:tabs         list all tabs including their displayed window
+	:tabm 0       move current tab to first
+	:tabm         move current tab to last
+	:tabm {i}     move current tab to position i+1
+tab跳转：
+	:tabn         go to next tab
+	:tabp         go to previous tab
+	:tabfirst     go to first tab
+	:tablast      go to last tab
+在normal模式下，
+	gt            go to next tab
+	gT            go to previous tab
+	{i}gt         go to tab in position i
+	Ctrl+Alt+PageUp/Ctrl+Alt+PageDown	go to previous/next tab
+
+
+### Move
+
+h j k l		//一般h和l很少用，使用 w b e 代替。
+w e b		//要注意的是e b w会把标点也当做单词分隔符，如对don't连续使用dw，会把这当做三个单word (don,',t) 分3次来删除，而大写的E B W则不会，一次删光。
+0 ^ $		//行首/第一个非空字符/行尾
+* # %		//% 各种括号对匹配跳转，不仅能移动到匹配的(),{}或[]上，而且能在#if，#else， #endif之间跳跃。
+			//* 只匹配出现的单词，对于中文没有断字。如果查找当前词的所有字串，可以使用g*。(https://harttle.land/2015/12/03/little-known-vim-skills.html)
+(){}		//句首/句尾/段首/段尾
+g$/g^/gj/gk		//超长行折行时使用，以折叠之后的行为单位移动
+
+gg/G/20G/:20/50%/20|	//光标移动到指定位置
+C+d/u, C+f/b, C+e/y	//屏幕移动，半屏/整屏/单行
+H/M/L		//移动光标到 顶行/中间行/底行
+zt/zz/zb	//移动屏幕，将当前行至于 顶部/中间/底部
+
+``			last location，上次编辑的位置
+`.			last edit location，上次修改的位置
+`"			上次离开的位置
+`0			open last file
+C+o/C+i		跟其他编辑器的 alt+left/right 类似。详见  :help jump-motions
+ctrl+^		在最近两个缓冲区(buffer)间切换。
+
+gd			go to definition of current word
+
+
+### Edit
+
+正常模式(normal-mode) 
+命令模式(command-mode)
+插入模式(insert-mode)
+可视模式(visual-mode) 
+
+ddkP	向上移动一行，vim没有这个命令，只能用 ddkP
+"+dd	剪贴到系统剪贴板，*也是
+"+p		从系统剪贴板粘贴
+:put+	同上
+
+增： a, i, o
+	A是移动到行尾进入insert模式，类似的，I是行首插入，o在下面增加一行并进入insert模式，O则是在上面增加一行进入insert模式
+删：(基于字符、单词、行、段落、括号之间的删除，了解 text object)主要命令是 x, d
+	X删除光标之前的字符，D当前位置删除到行尾，相当于d$
+	:11,22d 删除第 11 行到第 22 行
+改： 基于字符和单词的修改 r, c，s；
+	r 单个字符替换；R 会进入"Replace mode"，连续替换；
+	c cw，删除到单词末尾，并进入insert模式；ciw，caw，c$，c0，cc类似。C等同于c$
+	s 删除当前字符，并进入insert模式(等于c+space，或者x+i)；S删除当前行，进入insert模式（等同于cc）
+查1：f/F+c 向右/向左 搜索字符。;/, 继续向右/向左搜索。如果是F，则反过来，;/, 继续向左/向右搜索
+	 t/T+c 和f一样，只是不包括c，大写的F和T一样，反方向且不包括c。
+查2："/" 和 "?" 搜索(之后会单开一期讲搜索，单文件、多文件、模糊搜索等，涉及到一些插件)。
+	n/N		继续同向/反向搜索。
+	q:		打开命令行历史缓冲区， 可以像编辑文件一样编辑命令。
+	q/q?	可以打开查找历史记录。同样可以编辑。
+查3：*/# 向后/向前查找当前单词
+查4：% 在各种括号((),[],{})间对称移动
+合并： J 合并行，3JJ 合并2行
+选择模式：v，V，Ctrl+v，v进入visual 模式，移动选择；Ctrl+v，进入 visual block模式，矩形选择； V 进入 visual line 模式，整行选择
+
+u/C+r		//undo/redo
+<</>>		//缩进，indent
+
+auto-complete，在编辑模式下
+	Ctrl+N，ctrl+P，自动完成 next/previous keyword. 
+	C+X C+F auto complete file name。
+
+copy & paste
+y/p, Y=yy, 
+p在光标之后复制，P在光标之前复制。如果是行操作，就是复制到当前行之后/之前
+
+* v,d,y,c 这些命令，可以和“位移”指令一起使用，实现非常灵活的功能：
+	d3fa	一直删到第3个字符a（包括a）。
+	vit		选中整个标签内的内容
+	d/hh<Enter> 从当前位置，一直删除到hh所在位置(不包括hh)
+* v,d,y,c 还可以跟文本对象(text object)一起使用
+	da<		剪切<>之间的内容，包含<>。
+	va{		选中整个{}的内容，也包括{}自身
+	viw		选中一个word，不包括空格
+	yit		复制整个标签(tag)内的内容
+* v,d,y,c 还可以和“bookmark”结合，比如：	
+	y'a		从当前位置，复制到书签a所在的行行首
+	y`a		复制到书签a所在位置
+
+gu //to Lower Case
+gU //to Upper Case
+gUw //当前word to Upper Case
+g~ //swap case
+g~i[ //[]内所有大小写反向
+guu, gUU, g~~ //作用与当前行
+
+16进制编辑
+:%!xxd			//将当前文件内容全部转为16进制显示（可以编辑）
+:%!xxd -r		//还原(编辑之后)
+
+### Command
+
+:%normal I#			//用#注释掉整个文件(%代表整个文件)
+:1,4normal I#		//用#注释掉1-4行
+:3,6y				//复制3-6行的内容
+:'<,'>normal .		//对“选中部分”执行上一条命令(.)
+:,+3d				//删除当前行(,)到+3行，即从当前行开始，删除4行，相当于4dd
+:1,+2d				//对“从第1行开始，到当前行+2的行”，执行删除(d)
+	这里可以用";"代替","做分割分隔符，区别是","的后面是相对于当前行定位，而;的后面是相当于前面一个位置定位。比如：
+:1;+2d				//删除从1行开始，到之后的+2的行，即从第一行开始，删除3行
+:1s/pattern/something/g		//在第一行匹配并且替换全部(g)的匹配
+:2,/pattern/d		//从第二行开始，一直到当前行之后第一个匹配的pattern，之间的内容，全部删除。----注意这里的/pattern/是作为“范围”的end来使用的。
+:%j					//Joins all the lines together.
+:%p					//Prints the buffer to the console output.
+
+
+* normal 命令，是在指定范围的每一行上运行一些“普通命令(normal commands)”，比如d, i, x, . 等等。
+	----就是在命令模式中(:)，执行normal模式的命令
+:%normal i// 		用//注释掉整个文件(%)
+
+* global 命令形式
+	:[range]global/{pattern}/{command}
+/^/匹配文件的所有行（这是查找的一个常用技巧，如果用/./则是匹配非空行，/^$/匹配空行）	----这个好像不能用于s命令
+s命令和g命令，有类似之处，区别在于：
+	1） s是匹配之后替换，g是匹配之后执行命令
+	2） s默认范围是当前行，g默认是整个文档
+	3） s是对匹配的【内容进行操作】，g是对匹配的【行操作】
+global命令可以接"s"命令，例如：
+	:g/.*/s/pattern/replacement
+
+* substitude 命令
+* global,vglobal的意思是：在1）指定范围内的(没有指定则默认整个文档)，2）所有(匹配/非匹配)行上，3）执行命令(Ex command)
+	:[range]global/{pattern}/{command}，例如:
+	:,/^$/g/foo/d	----从当前行(,)，到下一个空行(/^$/正则匹配)，查找包含foo(g/foo)的行，执行删除命令(/d)
+* substitute 命令的意思是，在1）指定范围内的(没有指定则默认当前行)，2）所有匹配内容，3）替换(第一个出现的匹配，或者用/g指定替换全部匹配)
+	:[range]s/search/replace/[flags][count]
+	在默认情况下，s命令仅将本行中第一个出现的字符替换。如果想要将所有出现的字符都替换，可以在命令后使用g(global)标记：
+		:%s/from/to/g	在全文范围(%)内，搜索from，并全部替换(/g)成to
+* global的“{command}”，可以是一个substitute命令
+	比如，g/.*/s/pattern/replacement
+
+常用的 Ex command ：
+	d 删除
+	m 移动
+	t 拷贝
+	s 替换
+
+### marks 标记、书签
+* mark a-z
+	ma，set a mark
+	'a，move to the beginning of line containing the 'a' mark
+	`a，move to the exact location of the 'a' mark
+
+`{0-9}：回到上[2-10]次关闭vim时最后离开的位置。
+	`0 打开上一次最后关闭的文件
+``: 移动到上次编辑的位置。''也可以，不过``精确到列，而''精确到行 。如果想跳转到更老的位置，可以按C-o，跳转到更新的位置用C-i。详见  :help jump-motions
+`": 移动到上次离开的地方。
+`.: 移动到最后改动的地方。
+
+:marks 显示所有标记。
+:delmarks a b -- 删除标记a和b。
+:delmarks a-c -- 删除标记a、b和c。
+:delmarks a c-f -- 删除标记a、c、d、e、f。
+:delmarks! -- 删除当前缓冲区的所有标记。
+
+
+### Registers 寄存器
+
+使用 Vim 寄存器
+https://harttle.land/2016/07/25/vim-registers.html
+* Vim提供了10类共48个寄存器，除了a-z26个命名寄存器，Vim还提供了很多特殊寄存器。
+* "ayy可以拷贝当前行到寄存器a中，而"ap则可以粘贴寄存器a中的内容
+* "+p可以粘贴剪切板的内容，
+* ":p可以粘贴上一个Vim命令（比如你刚刚费力拼写的正则表达式），
+* "/p可以粘贴上一次搜索关键词（你猜的没错，正是normal模式下的/foo搜索命令）。
+* ".：上次insert模式中插入的字符串。还记得吗？.命令可以重复上次操作，而".存储了上次插入。
+* "%：当前文件名，不是全路径，也不是纯文件名，而是从当前Vim的工作目录到该文件的路径。
+* ":：上次命令模式下键入的命令。正如@a可以执行"a寄存器中的宏一样，@:可以执行上次命令。
+
+
+
+
+
+
+
