@@ -123,12 +123,13 @@ git stash drop [stash_id]	----删除一个存储的进度。如果不指定stash
 git stash clear	            ----删除所有存储的进度。
 
 git diff                    ----此命令比较的是工作目录(Working tree)和暂存区域快照(index)之间的差异，也就是修改之后还没有 staging 起来的变化内容。
-git diff --cached   	    ----索引和最后一次提交之间的变化; 查看已经git add ，但没有git commit 的改动。
+git diff --cached   	    ----比较索引和最后一次 commit 之间的变化; 查看已经 add ，但没有 commit 的改动。
 git diff HEAD       	    ----自上次提交以来工作树中的更改；包括工作区和已经staged的修改。如果运行“git commit -a”，查看将会提交什么(不填message会取消提交)。
-git diff HEAD^ HEAD         ----比较上次提交和上上次提交
-git config --global diff.tool winmerge/vimdiff		# 配置 diff.tool，保证 winmerge/diff 的可执行文件在path中。主要的几种diff工具，git会自动配置。“mingw64\libexec\git-core\mergetools”
+git diff HEAD^ HEAD^^       ----比较上次提交和上上次提交
+git diff --stat             ----显示两个版本差异的统计信息
+git config --global diff.tool winmerge/vimdiff		    # 配置 diff.tool，保证 winmerge/diff 的可执行文件在path中。主要的几种diff工具，git会自动配置。“mingw64\libexec\git-core\mergetools”
 git config --global difftool.prompt false				# 取消 difftool 的确认提示
-配置好之后，使用 git difftool 命令即可
+配置好之后，使用 git difftool 命令代替 git diff 即可
 
 一文告诉你如何导出 Git 变更文件 https://zhuanlan.zhihu.com/p/74796130
 方法1，使用 git 自带命令 git archive, 语法如下。
