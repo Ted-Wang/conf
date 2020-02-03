@@ -13,6 +13,11 @@ git add -A                      ----当前库的所有文件，如果pwd在子�
 git commit -m "message"
 git commit -am "message"        ----以上2步合成一步，但是注意，这样只提交“修改过的文件，包括删除的”，新添加的文件，没有被tracked，必须用 git add
 git commit -a                   ----使用-a可以查看有哪些文件会被提交，不填message即可取消提交，相当于dry run
+git commit --amend							----合并修改，并且弹出 message 编辑器，可以修改上次的 message
+git commit --amend -m "Fixes bug #43"		----合并修改，并且添加 message
+git commit --amend --no-edit				----合并修改，但是不修改 message
+并修改最后一个commit，相当于把index区域的内容和最后一个commit合并，并修改message。
+注意：要先 git add *，否则工作区的内容是不会被提交的。
 git checkout <tag_name>
 git checkout master             ----从 tag 回到 mainline 最新的 commit
 git checkout -- <filename>      ----回滚一个文件
