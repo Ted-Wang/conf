@@ -26,6 +26,9 @@
 	alias fastuser0='f(){ ssh -o "StrictHostKeyChecking=no" -t root@"$2" '\''useradd '\''$1'\'' -G sudo -s /bin/bash -m && passwd '\''$1'\'''\'';  unset -f f; }; f'
 #调用：fastuser0 ted44 192.168.1.101
 
+# 在 Bash 命令中，默认只有 first word 会 check alias。但是，如果一个 alias 的 value 的最后一个字符是空白字符(space or tab)，那么 next word 也会 check alias。
+# add this alias for running an alias with sudo. see more info: https://coderwall.com/p/9cviza/use-your-aliases-with-sudo
+alias sudo='sudo '
 
 
 currentEnv()
