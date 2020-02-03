@@ -8,6 +8,8 @@
 	在 ubuntu 或者 raspberry 原生的 vim 上运行这个命令可以发现，大部分feature都没有
 * 在vim中使用:verison命令可以看到一样的结果
 
+* 将命令行输出传给 vim 处理：ls -la | vim -
+
 * Linux 经常会 ctrl+z挂起 vim，进入shell，之后在 fg 调回 vim。但是，这样做的话，在挂起后的 shell 里，无法获取vim中copy的内容，即使 set clipboard=unnamed 也不行！
 * 要想从vim中copy命令到shell执行：https://stackoverflow.com/questions/2782752/how-can-i-open-a-shell-inside-a-vim-window
 	vim8之后可以用:ter(minal) 在一个vim windows 中打开一个terminal，这个terminal里是可以ctrl+shift+v获取 clipboard 里的值的。	----注意要exit，:q，2个动作才能退出。
