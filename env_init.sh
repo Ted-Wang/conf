@@ -19,7 +19,7 @@ else
 fi
 
 echo setting up vimrc
-\cp $BASE_DIR/vim/ted.vimrc ~/
+\cp $BASE_DIR/common_conf/ted.vimrc ~/
 $SUDO chmod 644 ~/ted.vimrc
 if [ ! -f ~/.vimrc ]; then
     touch ~/.vimrc
@@ -38,7 +38,7 @@ fi
 echo done.
 
 echo setting up bashrc
-\cp $BASE_DIR/bash/ted.bashrc ~/
+\cp $BASE_DIR/common_conf/ted.bashrc ~/
 $SUDO chmod 644 ~/ted.bashrc
 if [ ! -f ~/.bashrc ]; then
     touch ~/.bashrc
@@ -57,16 +57,19 @@ fi
 echo done.
 
 # shell prompt
-cat $BASE_DIR/bash/$SHELL_PROMPT >> ~/ted.bashrc
-# \cp $BASE_DIR/bash/$SHELL_PROMPT ~/
+cat $BASE_DIR/common_conf/$SHELL_PROMPT >> ~/ted.bashrc
+# \cp $BASE_DIR/common_conf/$SHELL_PROMPT ~/
 # echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
 
 # ssh keep alive
 if [ -f ~/.ssh/config ] && grep -Eq "TCPKeepAlive" ~/.ssh/config || grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
     : # do nothing
 else
-    cat $BASE_DIR/linux/ssh_client_config >> ~/.ssh/config
+    cat $BASE_DIR/common_conf/ssh_client_config >> ~/.ssh/config
 fi
+
+# setup Chinese language support env
+# TBD
 
 source ~/ted.bashrc
 
