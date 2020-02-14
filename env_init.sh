@@ -62,10 +62,8 @@ cat $BASE_DIR/bash/$SHELL_PROMPT >> ~/ted.bashrc
 # echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
 
 # ssh keep alive
-if grep -Eq "TCPKeepAlive" ~/.ssh/config || grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
-    : # do nothing
-else
-    cat $BASE_DIR/linux/ssh_clinet_config >> ~/.ssh/config
+if [ -f ~/.ssh/config ] && ! grep -Eq "TCPKeepAlive" ~/.ssh/config && ! grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
+    cat $BASE_DIR/linux/ssh_client_config >> ~/.ssh/config
 fi
 
 source ~/ted.bashrc
