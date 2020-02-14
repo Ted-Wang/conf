@@ -1,0 +1,15 @@
+[user]
+	name = Ted Wang
+	email = ted.wang2012@gmail.com
+[core]
+	autocrlf = false
+[https]
+    #proxy = socks5://127.0.0.1:2080
+[http]
+    #proxy = socks5://127.0.0.1:2080
+[credential]
+    helper = manager
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false

@@ -57,15 +57,32 @@ fi
 echo done.
 
 # shell prompt
+# as file "~/ted.bashrc" will be copied everytime, no need to check file content here.
 cat $BASE_DIR/common_conf/$SHELL_PROMPT >> ~/ted.bashrc
 # \cp $BASE_DIR/common_conf/$SHELL_PROMPT ~/
 # echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
 
+echo setting up ssh conf
 # ssh keep alive
 if [ -f ~/.ssh/config ] && grep -Eq "TCPKeepAlive" ~/.ssh/config || grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
     : # do nothing
 else
     cat $BASE_DIR/common_conf/ssh_client_config >> ~/.ssh/config
+fi
+
+echo setting up git conf
+# git config
+if [ -f ~/.gitconfig ];then
+    sum1=`md5sum ~/.gitconfig`
+    sum2=`md5sum common_conf/git.gitconfig`
+    sum1=${sum1:0:32}
+    sum2=${sum2:0:32}
+    if [ "$sum1" != "$sum2" ]; then
+        \cp ~/.gitconfig ~/gitconfig.bak.`date "+%Y-%m-%d_%H-%M-%S"`
+        \cp $BASE_DIR/common_conf/git.gitconfig ~/.gitconfig
+    fi
+else
+    \cp $BASE_DIR/common_conf/git.gitconfig ~/.gitconfig
 fi
 
 # setup Chinese language support env
