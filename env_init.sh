@@ -29,7 +29,7 @@ if grep -Eq "^\s*so(urce){0,1}\s+~/ted\.vimrc$" ~/.vimrc
 then 
     : # do nothing
 else
-    $SUDO cat << EOF >> ~/.vimrc
+    cat << EOF >> ~/.vimrc
 if(filereadable(expand("~/ted.vimrc")))
     so ~/ted.vimrc
 endif
@@ -48,7 +48,7 @@ if grep -Eq "^\s*source\s+~/ted.bashrc$" ~/.bashrc
 then
     : # do nothing
 else 
-    $SUDO cat << EOF >> ~/.bashrc
+    cat << EOF >> ~/.bashrc
 if [ -f ~/ted.bashrc ]; then
     source ~/ted.bashrc
 fi
@@ -57,8 +57,16 @@ fi
 echo done.
 
 # shell prompt
-$SUDO cat $BASE_DIR/bash/$SHELL_PROMPT >> ~/ted.bashrc
+cat $BASE_DIR/bash/$SHELL_PROMPT >> ~/ted.bashrc
 # \cp $BASE_DIR/bash/$SHELL_PROMPT ~/
 # echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
 
+# ssh keep alive
+if grep -Eq "TCPKeepAlive" ~/.ssh/config || grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
+    : # do nothing
+else
+    cat $BASE_DIR/linux/ssh_clinet_config >> ~/.ssh/config
+fi
+
 source ~/ted.bashrc
+
