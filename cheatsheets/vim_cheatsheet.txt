@@ -33,8 +33,12 @@ How to copy yanked text to VI command prompt https://stackoverflow.com/questions
 
 change fileformat to change the EOL, :set ff=dos/unix/mac, which will change the EOL to CR+LF/LF/CR
 set syntax
-set noh
 set ft=xml
+
+* search highlighting
+:set hls(earch)!    # turn on highlighting search。后面加"!"可以切换开关。
+:set nohls          # turn off hls. 加"!"同上，可以切换。
+noh         # clear the syntax highlighting one time
 
 Ctrl+A 对光标下的数字+1
 Ctrl+X 对光标下（或者光标右边第一个）数字减一
