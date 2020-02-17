@@ -80,9 +80,13 @@ if [ -f ~/.gitconfig ];then
     if [ "$sum1" != "$sum2" ]; then
         \cp ~/.gitconfig ~/gitconfig.bak.`date "+%Y-%m-%d_%H-%M-%S"`
         \cp $BASE_DIR/common_conf/git.gitconfig ~/.gitconfig
+        echo ~/.gitconfig updated.
+    else
+        echo no need to update ~/.gitconfig
     fi
 else
     \cp $BASE_DIR/common_conf/git.gitconfig ~/.gitconfig
+    echo create ~/.gitconfig
 fi
 
 # setup Chinese language support env
