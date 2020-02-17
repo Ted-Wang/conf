@@ -1,4 +1,4 @@
-[vim/cheatsheet]
+[vim/cheatsheet][vim][cheatsheet]
 
 ### tips
 
@@ -360,6 +360,5 @@ https://harttle.land/2016/07/25/vim-registers.html
 
 
 
-
-
+[//]: # ( vim: set syntax=markdown: )
 

@@ -90,6 +90,7 @@ git fetch <远程主机名> <分支名>
 	git fetch origin master	    ----如果是裸仓库，没有origin，可以先 git remote add origin <url>
 git pull <远程主机名> <远程分支名>:<本地分支名>
 	git pull origin master		----通常本都是省略本地分支名，表示合并同名分支
+* 如果 git pull 发生冲突(conflicts)，解决冲突之后要 git add conflict_file，然后 commit
 
 git push <远程主机名> <本地分支名>:<远程分支名>
 	git push
@@ -147,4 +148,5 @@ atlassian 的 git tutorials https://www.atlassian.com/git/tutorials
 [译]Atlassian Git系列教程 https://www.cnblogs.com/irocker/p/atlassian-git-tutorials.html
 
 
+[//]: # ( vim: set syntax=sh: )
 
