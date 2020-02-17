@@ -38,7 +38,7 @@ set ft=xml
 * search highlighting
 :set hls(earch)!    # turn on highlighting search。后面加"!"可以切换开关。
 :set nohls          # turn off hls. 加"!"同上，可以切换。
-noh         # clear the syntax highlighting one time
+noh                 # clear the syntax highlighting one time
 
 Ctrl+A 对光标下的数字+1
 Ctrl+X 对光标下（或者光标右边第一个）数字减一
@@ -131,7 +131,7 @@ vimdiff f1 f2
 vim -d f1 f2		//这里也可以用 -o -O 参数
 :diffs[plit] fileName
 :vert diffsplit fileName
-[c
+[c                  // 跳转到前一个不同点
 ]c
 vim -o file1 file2:水平分割窗口，同时打开file1和file2
 vim -O file1 file2:垂直分割窗口，同时打开file1和file2
@@ -250,7 +250,8 @@ ddkP	向上移动一行，vim没有这个命令，只能用 ddkP
 u/C+r		//undo/redo
 <</>>		//缩进，indent
 
-auto-complete，在编辑模式下
+#### auto-complete，自动补全
+在编辑模式下
 	Ctrl+N，ctrl+P，自动完成 next/previous keyword. 
 	C+X C+F auto complete file name。
 
