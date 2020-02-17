@@ -1,0 +1,66 @@
+
+### 自动启动
+这个对 Ubuntu 和 Manjaro 都适用
+sudo cp /usr/share/applications/guake.desktop /etc/xdg/autostart
+
+### gvim
+# 卸载默认vim，然后安装gvim(vim-gtk3)
+sudo apt purge vim
+sudo apt install vim-gtk3
+
+### 通过 gsettings 修改默认 terminal
+gsettings set org.gnome.desktop.default-applications.terminal exec guake
+sudo update-alternatives --config x-terminal-emulator	----这个配置优先级很高，会覆盖下面的 dconf 和 系统默认应用中的配置
+
+### 字体 font
+字体 fallback 问题，sudo vim /etc/fonts/conf.avail/64-language-selector-prefer.conf，把 SC 提前，JP放后面
+	fc-cache -fv
+
+### 黑屏问题
+Lubuntu安装完后启动黑屏，是登录界面启动太早，在其他tty登录，然后 sudo vi /etc/lightdm/lightdm.conf
+	[LightDM]
+	logind-check-graphical=true
+
+### 源 source
+* Ubuntu
+	sudo vi /etc/apt/sources.list
+
+* Manjaro
+sudo pacman-mirrors -i -c China -m rank //更新镜像排名，弹出窗口，自己选择5个。可以自己先备份一下 /etc/pacman.d/mirrorlist
+sudo pacman -Syy //更新数据源
+
+Manjaro 也可以在 /etc/pacman.conf 中指定镜像(还是别改这里)，这文件默认 inlcude 了 /etc/pacman.d/mirrorlist
+
+### apt-get
+update是更新软件列表，upgrade是更新软件。
+apt = apt-get、apt-cache 和 apt-config 中最常用命令选项的集合。
+apt 命令由于有交互式功能(进度条，Y/N确认等等)，所以只适合在 CLI 人机交互界面中使用。而 apt-get 才是为了脚本设计的
+
+sudo apt search fcitx		# 搜索仓库
+sudo apt show fcitx		    # 显示包详细信息
+dpkg -l | grep -i fcitx		# 显示已安装包
+
+### pacman
+pacman --help
+pacman -S --help
+
+pacman -S package		# 安装package。注意，-S是同步的意思
+pacman -R package_name	# 删除单个软件包，保留其全部已经安装的依赖关系
+pacman -Rs package_name	# 删除指定软件包，及其所有没有被其他已安装软件包使用的依赖关系：
+
+pacman -Qs regex		# 查询本地已安装的包，参数s表示search，如果使用正则，要加双引号
+pacman -Ss regex		# 在远程包数据库里查询软件包。通常就用这个查找包。
+
+pacman -Ss php
+pacman -Qs java
+
+pacman -Qi 		# 可以查询已安装的包的信息，很详细。不带参数，需要配合grep使用。如果要指定包名，必须准确。
+pacman -Si		# 同上，查询远程包信息。这两个(带i查询)都不支持正则
+
+pacman -Syu		# 升级整个系统。【小心】！ 
+pacman -Syy		# -Sy, download fresh package databases from the server (-Syy to force a refresh even if up to date)
+
+
+
+[//]: # ( vim: set syntax=sh: )
+
