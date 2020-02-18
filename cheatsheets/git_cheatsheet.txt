@@ -52,6 +52,10 @@ git log -S"Hello, World!"       ----display commits by content
 git log -- <file1 file2>        ----只显示指定文件的 commits.
 git shortlog -n                 ----按 author name 分组统计显示每个 user 的 commits。 默认按 author name 排序，-n 是按 commits 数量排序
 
+git log --oneline --graph --decorate --all  ----show graphical commit history
+gitk                            ----pop up a window showing commit graph. The command needs to be installed separately.
+gitk --all                      ----参数可以替换成 branch name. Git-bash 自带了这个图形化工具。 
+
 git tag
 git tag -l 'v1.4.2.*'
 git tag -a v1.4 -m 'my version 1.4'
