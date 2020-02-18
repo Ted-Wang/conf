@@ -67,6 +67,9 @@ echo setting up ssh conf
 if [ -f ~/.ssh/config ] && grep -Eq "TCPKeepAlive" ~/.ssh/config || grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
     : # do nothing
 else
+    if [ ! -d ~/.ssh ]; then
+        mkdir ~/.ssh
+    fi
     cat $BASE_DIR/common_conf/ssh_client_config >> ~/.ssh/config
 fi
 
@@ -80,7 +83,7 @@ if [ -f ~/.gitconfig ];then
     if [ "$sum1" != "$sum2" ]; then
         \cp ~/.gitconfig ~/gitconfig.bak.`date "+%Y-%m-%d_%H-%M-%S"`
         \cp $BASE_DIR/common_conf/git.gitconfig ~/.gitconfig
-        echo ~/.gitconfig updated.
+        echo ~/.gitconfig updated. The old .gitconfig file is renamed as a backup file.
     else
         echo no need to update ~/.gitconfig
     fi
