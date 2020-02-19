@@ -3,18 +3,28 @@
 这个对 Ubuntu 和 Manjaro 都适用
 sudo cp /usr/share/applications/guake.desktop /etc/xdg/autostart
 
-### gvim
-# 卸载默认vim，然后安装gvim(vim-gtk3)
+### editor, gvim
+#- 卸载默认vim，然后安装gvim(vim-gtk)
 sudo apt purge vim
-sudo apt install vim-gtk3
+sudo apt install vim-gtk
+
+#- set vim as default editor
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+sudo update-alternatives --config editor
 
 ### 通过 gsettings 修改默认 terminal
 gsettings set org.gnome.desktop.default-applications.terminal exec guake
-sudo update-alternatives --config x-terminal-emulator	----这个配置优先级很高，会覆盖下面的 dconf 和 系统默认应用中的配置
+sudo update-alternatives --config x-terminal-emulator	# 这个配置优先级很高，会覆盖 dconf 和 系统默认应用中的配置
 
 ### 字体 font
 字体 fallback 问题，sudo vim /etc/fonts/conf.avail/64-language-selector-prefer.conf，把 SC 提前，JP放后面
-	fc-cache -fv
+fc-cache -fv
+
+### Dekstop hung
+ctrl+alt+F1~F6, switch to other tty, then kill the XOrg tty to restart Desktop.
+ps -t tty7
+kill PID
 
 ### 黑屏问题
 Lubuntu安装完后启动黑屏，是登录界面启动太早，在其他tty登录，然后 sudo vi /etc/lightdm/lightdm.conf
@@ -22,14 +32,18 @@ Lubuntu安装完后启动黑屏，是登录界面启动太早，在其他tty登�
 	logind-check-graphical=true
 
 ### 源 source
-* Ubuntu
-	sudo vi /etc/apt/sources.list
+* SJTUG 上海交大软件源镜像服务 https://mirrors.sjtug.sjtu.edu.cn/#/
+    * raspberrypi，/etc/apt/sources.list.d/raspi.list
+        >http://archive.raspberrypi.org/debian/  ->  https://mirrors.sjtug.sjtu.edu.cn/raspberrypi/debian/
+    * Ubuntu，配置文件：/etc/apt/sources.list
+        >http://cn.archive.ubuntu.com/ubuntu  ->  https://mirrors.sjtug.sjtu.edu.cn/ubuntu
+    * Manjaro，配置文件在：/etc/pacman.d/mirrorlist，尽量不要直接修改这个文件，备份一下，用下面命令选择源
+		sudo pacman-mirrors -i -c China -m rank 	    //更新镜像排名，选择中国源
+        sudo pacman -Syy
 
-* Manjaro
-sudo pacman-mirrors -i -c China -m rank //更新镜像排名，弹出窗口，自己选择5个。可以自己先备份一下 /etc/pacman.d/mirrorlist
-sudo pacman -Syy //更新数据源
+* 清华源 https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/
 
-Manjaro 也可以在 /etc/pacman.conf 中指定镜像(还是别改这里)，这文件默认 inlcude 了 /etc/pacman.d/mirrorlist
+* USTC Mirror 中科大源 https://mirrors.ustc.edu.cn/help/manjaro.html
 
 ### apt-get
 update是更新软件列表，upgrade是更新软件。
@@ -61,6 +75,6 @@ pacman -Syu		# 升级整个系统。【小心】！
 pacman -Syy		# -Sy, download fresh package databases from the server (-Syy to force a refresh even if up to date)
 
 
+[//]: # ( vim: set syntax=markdown: )
 
-[//]: # ( vim: set syntax=sh: )
-
+//vim: set syntax=markdown:

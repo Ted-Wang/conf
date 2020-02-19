@@ -1,0 +1,67 @@
+
+cp file{,.bak}          # a shorten typing to backup a file
+touch file_{a..z}.txt   # create a bunch of files
+echo {10..20..2}        # generate a number list
+#- combine several commands' output together
+{ echo "I found all these PNGs:"; find . -iname "*.png"; echo "Within this bunch of files:"; ls; } > PNGs.txt
+
+alt+.       # means the last argument of previous command, repeat to get other one before previous
+!^/!*       # both stand for all arguments of previous command
+
+echo -n > file  # empty a file
+ls -i file      # show inode
+ls -d ~/*/      # list only directories
+ls -l | grep "^d"   # same as upper
+ls -p | grep -v /   # list only files
+find * -maxdepth 0 -type f  # same as upper one
+odu -h --max-depth=0 ~/myfolder    # show size of myfolder
+
+grep -irn "regex" ~/folder  # search all files in ~/folder for "regex". i, ignore case; r, recursive; n, line number & content.
+grep -irl "regex" ~/folder ~/other/file # l, show file names with matches content; L, show file name without matches. 
+grep -irl --include=ted.*rc "font" ~/   # search all my personal rc files, with font related conf, only show file name.
+
+#- redirect script's output to a file combined with a timestamp. useful in crontab job.
+myscript.sh 2> >( while read line; do echo "$(date): ${line}"; done > error.log ) 1>&2
+
+nohup command > executing.log 2>&1 &
+
+### CLI tips
+#- move
+- alt+f/b move foward/backward a word
+- ctrl+a/e move to the start/end of line
+- ctrl+left/right, home/end  works for some terminal
+
+#- cut and paste
+- ctrl+shift+- undo, ----其实是ctrl+_  ，没找到redo
+- ctrl+k/u cut from cursor to the end/start of line
+- alt+d/BS cut from cursor to the end/start of word
+- ctrl+w cut from cursor to previous whitespace
+- ctrl+y paste the last cut text
+- alt+y loop through and paste previously cut text (must use it after ctrl+y)
+- CTRL+t Swap the last two characters before the cursor.
+- ESC+t Swap the last two words before the cursor.
+
+#- OP on history
+- ctrl+r then type term, to search over history, repeat ctrl+r to loop through matched results
+- ctrl+r twice, search the last remembered search term
+- ctrl+j end the search and keep the current matching histroy entry. ESC will be OK as well, but will got a beep
+- ctrl+g cancel the search and restore original line
+- Up/Down arrow keys，go through the history
+
+### String Operation in shell script
+str="a sample string"
+echo ${#str}
+echo ${str:2:9}
+echo ${str:0-13:9}
+echo ${str#*sam}        # get string right of "sam"
+echo ${str##*\ }        # get string right of last " "
+echo ${str%am*}         # get string left of "am"
+echo ${str%%\ *}        # get string left of last " "
+
+str5="${name}Script: ${url}index.html"  # concatenate strings
+
+### add proxy for shell
+export http_proxy=http://127.0.0.1:8118
+export https_proxy=http://127.0.0.1:8118
+
+[//]: # ( vim: set syntax=sh: )
