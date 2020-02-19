@@ -11,8 +11,9 @@ alt+.       # means the last argument of previous command, repeat to get other o
 echo `date +%H:%M:%S`,`my_script.sh` >> ~/cputemp/`date +%Y-%m-%d`.csv
 sudo blkid | column -t
 
-sed -E 's/regex/replacement/g' inputFile > outputFile
-sed -i 's/abc/def/g' fileName   # use -i if outputFile same as inputFile
+sed -E 's/regex/replacement/g' inputFile > outputFile   # search and replace based on lines, then output to a new file.
+sed -i 's/abc/def/g' fileName   # use -i to modify origin file, than means outputFile is same as inputFile.
+sed -i.bak 's/abc/def/g' file   # modify file, and backup file.
 sed -i 's/word/d' fileName      # delete lines which contains 'word'
 
 tail -f -n -1000 jboss.log      # -f, follow append data; -n line number; -1000, lines to be print.
