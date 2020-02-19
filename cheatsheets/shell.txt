@@ -8,17 +8,37 @@ echo {10..20..2}        # generate a number list
 alt+.       # means the last argument of previous command, repeat to get other one before previous
 !^/!*       # both stand for all arguments of previous command
 
+echo `date +%H:%M:%S`,`my_script.sh` >> ~/cputemp/`date +%Y-%m-%d`.csv
+sudo blkid | column -t
+
+sed -E 's/regex/replacement/g' inputFile > outputFile
+sed -i 's/abc/def/g' fileName   # use -i if outputFile same as inputFile
+sed -i 's/word/d' fileName      # delete lines which contains 'word'
+
+tail -f -n -1000 jboss.log      # -f, follow append data; -n line number; -1000, lines to be print.
+cat -n jobss.log                # print file with line number
+grep -n "" jboss.log            # same as above
+dpkg -l | grep fcitx | wc -l    # count "fcitx" related packages
+
 echo -n > file  # empty a file
 ls -i file      # show inode
 ls -d ~/*/      # list only directories
 ls -l | grep "^d"   # same as upper
 ls -p | grep -v /   # list only files
-find * -maxdepth 0 -type f  # same as upper one
-odu -h --max-depth=0 ~/myfolder    # show size of myfolder
+find * -maxdepth 0 -type f          # same as upper one
+du -h --max-depth=0 ~/myfolder      # show size of myfolder
+du -h --max-depth=0 --exclude=.git ~/ws     # show size of repo 'conf', without meta data.
 
 grep -irn "regex" ~/folder  # search all files in ~/folder for "regex". i, ignore case; r, recursive; n, line number & content.
 grep -irl "regex" ~/folder ~/other/file # l, show file names with matches content; L, show file name without matches. 
 grep -irl --include=ted.*rc "font" ~/   # search all my personal rc files, with font related conf, only show file name.
+
+find common_conf/ linux_conf/ -name *ted*
+find conf/ | grep -i ted
+find ~/ -iname 'ted'        # find file whose name is exactly 'ted', but match the letters case-insensitively.
+find ~/ -name 'ted' -type f # do not display directories, sockets, or other non-regular file types. 
+find ~/ -name 'ws' --maxdepth 3 -type d # find directories named ws, limit subdirectory traversal to 2 levels beneath the specified directory.
+find ~/ -group dev          # list files in ~/ whose owning group is 'dev'
 
 #- redirect script's output to a file combined with a timestamp. useful in crontab job.
 myscript.sh 2> >( while read line; do echo "$(date): ${line}"; done > error.log ) 1>&2
