@@ -15,3 +15,6 @@ if [ $? == 0 ]; then
     sudo ln -s /etc/fonts/conf.avail/64-language-selector-prefer.conf /etc/fonts/conf.d/64-language-selector-prefer.conf
 fi
 sudo fc-cache -fv
+
+# use following command to check font setting
+# fc-match -s | grep 'Noto Sans CJK'
