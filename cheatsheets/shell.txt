@@ -1,4 +1,6 @@
 
+ctrl+x ctrl+e then ZZ   # send command to vim for editing, then ZZ exit vim, the command will be execute directly.
+
 cp file{,.bak}          # a shorten typing to backup a file
 touch file_{a..z}.txt   # create a bunch of files
 echo {10..20..2}        # generate a number list
