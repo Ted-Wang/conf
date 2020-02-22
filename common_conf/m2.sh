@@ -17,8 +17,8 @@ MARKFILE=$HOME/.local/share/marks.ini
 function m() {
     MARKFILE="${MARKFILE:-$HOME/.local/share/marks.ini}"
     if [ ! -f "$MARKFILE" ]; then
-        mkdir -p -m 766 "${MARKFILE%/*}" 2> /dev/null
-        touch $MARKFILE
+        mkdir -p -m 700 "${MARKFILE%/*}" 2> /dev/null
+        touch $MARKFILE && sudo chmod 700 $MARKFILE
     fi
     case "$1" in
         +*)            # m +foo  - add new bookmark for $PWD
