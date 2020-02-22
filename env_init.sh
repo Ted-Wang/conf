@@ -59,8 +59,9 @@ echo done.
 # shell prompt
 # as file "~/ted.bashrc" will be copied everytime, no need to check file content here.
 cat $BASE_DIR/common_conf/$SHELL_PROMPT >> ~/ted.bashrc
-# \cp $BASE_DIR/common_conf/$SHELL_PROMPT ~/
-# echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
+# another apporach is to copy this file and source it in ~/ted.bashrc
+#\cp $BASE_DIR/common_conf/$SHELL_PROMPT ~/
+#echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
 
 echo setting up ssh conf
 # ssh keep alive
@@ -94,6 +95,22 @@ fi
 
 # setup Chinese language support env
 # TBD
+
+# add m2.sh(a very simple bookmark for shell) to ~/ted.bashrc
+echo '#--------a short bookmark function start--------' >> ~/ted.bashrc
+if [ -f $BASE_DIR/common_conf/m2.sh ];then
+    cat $BASE_DIR/common_conf/m2.sh >> ~/ted.bashrc
+fi
+# another approach is to copy m2.sh and source it in ~/ted.bashrc
+#if [ -f $BASE_DIR/common_conf/m2.sh ];then
+#    \cp $BASE_DIR/common_conf/m2.sh ~/
+#    cat << EOF >> ~/ted.bashrc
+#if [ -f ~/m2.sh ]; then
+#    source ~/m2.sh
+#fi
+#EOF
+echo '#--------a short bookmark function end--------' >> ~/ted.bashrc
+
 
 source ~/ted.bashrc
 
