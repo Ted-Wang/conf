@@ -10,6 +10,8 @@ echo {10..20..2}        # generate a number list
 alt+.       # means the last argument of previous command, repeat to get other one before previous
 !^/!*       # both stand for all arguments of previous command
 
+ls | grep -v file.txt | xargs rm    # rm other files except file.txt in current folder
+
 echo `date +%H:%M:%S`,`my_script.sh` >> ~/cputemp/`date +%Y-%m-%d`.csv
 sudo blkid | column -t
 
