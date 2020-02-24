@@ -1,5 +1,13 @@
 
 ctrl+x ctrl+e then ZZ   # send command to vim for editing, then ZZ exit vim, the command will be execute directly.
+#- 如果你有输了个命令行，但是你改变注意了，但你又不想删除它，因为你要在历史命令中找到它，但你也不想执行它。
+    #- 那么，你可以按下 Alt-#(alt+shift+3) ，于是这个命令关就被加了一个#字符，于是就被注释掉了。
+
+#* 如何在远程服务器运行一个本地脚本
+	#- 无参数
+		ssh user@server 'bash -s' < local.script.sh
+	#- 有参数
+		ssh user@server ARG1="arg1" ARG2="arg2" 'bash -s' < local_script.sh
 
 cp file{,.bak}          # a shorten typing to backup a file
 touch file_{a..z}.txt   # create a bunch of files
