@@ -7,9 +7,9 @@
 
 # 1. Linux 下模拟 windows 的 start。主要对 nohup firefox >&/dev/null & 命令的包装
 # 方法一，通过一个临时函数过度：    ----此方法在传递字符 &(后台运行) 上有问题，会被解释为一个字符串，当作文件名，再想想办法。
-#	alias run='f(){ nohup $@ >&/dev/null '\''&'\'' ;  unset -f f; }; f'
+#	alias run='f(){ nohup $@ >/dev/null 2>&1 '\''&'\'' ;  unset -f f; }; f'
 # 方法二，通过调用一个 sub shell 来过度，注意最后的参数 _ 是必须的。
-    alias run='bash -c '\''nohup "$@" >&/dev/null &'\'' _'
+    alias run='bash -c '\''nohup "$@" >/dev/null 2>&1 &'\'' _'
 
 # 2. 远程快速安装SS、开启BBR
 # 原始命令 git clone -b master https://github.com/Ted-Wang/ss-fly && sudo ss-fly/ss-fly.sh -i ss_pass ss_port && sudo ss-fly/ss-fly.sh -bbr -Y
