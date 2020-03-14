@@ -11,11 +11,15 @@ case $unameOut in
     Darwin*) runIn=Mac;;
 esac
 if [ "$runIn" == "Win/git-bash" ]; then
-    SUDO="";
+    SUDO=""
 elif [ "$runIn" == "Linux-shell" ]; then
-    SUDO=sudo;
+    if [ "$(whoami)" == "root" ]; then
+        SUDO=""
+    else
+        SUDO=sudo
+    fi
 else
-    SUDO=sudo;
+    SUDO=sudo
 fi
 
 echo setting up vimrc
