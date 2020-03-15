@@ -16,30 +16,31 @@
 MARKFILE=$HOME/.local/share/marks.ini
 function m() {
     MARKFILE="${MARKFILE:-$HOME/.local/share/marks.ini}"
+    # echo "store file: $MARKFILE"
     if [ ! -f "$MARKFILE" ]; then
         mkdir -p -m 700 "${MARKFILE%/*}" 2> /dev/null
-        touch $MARKFILE && sudo chmod 700 $MARKFILE
+        touch "$MARKFILE" && sudo chmod 700 "$MARKFILE"
     fi
     case "$1" in
         +*)            # m +foo  - add new bookmark for $PWD
-            if grep -Eq "^${1:1}=" $MARKFILE; then
-                sed -iE "s@${1:1}=.*\$@${1:1}=$(pwd)@" $MARKFILE
+            if grep -Eq "^${1:1}=" "$MARKFILE"; then
+                sed -iE "s@${1:1}=.*\$@${1:1}=$(pwd)@" "$MARKFILE"
             else
-                echo "${1:1}=$(pwd)" >> $MARKFILE
+                echo "${1:1}=$(pwd)" >> "$MARKFILE"
             fi
             ;;
         -*)            # m -foo  - delete a bookmark named "foo"
-            sed -iE "/^${1:1}=/d" $MARKFILE
+            sed -iE "/^${1:1}=/d" "$MARKFILE"
             ;;
         /*)            # m /bar  - search bookmarks matching "bar"
-            grep -E "^.*?${1:1}.*?=" $MARKFILE | sed "s/=/\ ->\ /g"
+            grep -E "^.*?${1:1}.*?=" "$MARKFILE" | sed "s/=/\ ->\ /g"
             ;;
         "")            # m       - list all bookmarks
-            cat $MARKFILE | sed "s/=/\ ->\ /g"
+            cat "$MARKFILE" | sed "s/=/\ ->\ /g"
             ;;
         *)             # m foo   - cd to the bookmark directory
-            if grep -Eq "^${1}=" $MARKFILE; then
-                cd $(sed -E "s@^${1}=(.*)\$@\1@" $MARKFILE | grep -v "=")
+            if grep -Eq "^${1}=" "$MARKFILE"; then
+                cd $(sed -E "s@^${1}=(.*)\$@\1@" "$MARKFILE" | grep -v "=")
             else
                 echo "No such mark: $1"
             fi
@@ -54,9 +55,9 @@ if [ -n "$BASH_VERSION" ]; then
         local curword="${COMP_WORDS[COMP_CWORD]}"
         if [[ "$curword" =~ [-+/].* ]]; then
         #if echo "$curword" | grep -Eq "[-+/].*" ; then
-            COMPREPLY=($(sed -r "s@^(${curword:1}.*?)=(.*$)@${curword:0:1}\1@" $MARKFILE | grep -v "="))
+            COMPREPLY=($(sed -r "s@^(${curword:1}.*?)=(.*$)@${curword:0:1}\1@" "$MARKFILE" | grep -v "="))
         else
-            COMPREPLY=($(sed -r "s@^(${curword}.*?)=(.*$)@\1@" $MARKFILE | grep -v "="))
+            COMPREPLY=($(sed -r "s@^(${curword}.*?)=(.*$)@\1@" "$MARKFILE" | grep -v "="))
         fi
     }
     complete -F _cdmark_complete m
@@ -68,9 +69,9 @@ elif [ -n "$ZSH_VERSION" ]; then
         read -Ac words
         curword="$words[$cword]"
         if [[ "$curword" =~ [-+/].* ]]; then
-            reply=($(sed -r "s@^(${curword:1}.*?)=(.*$)@${curword:0:1}\1@" $MARKFILE | grep -v "="))
+            reply=($(sed -r "s@^(${curword:1}.*?)=(.*$)@${curword:0:1}\1@" "$MARKFILE" | grep -v "="))
         else
-            reply=($(sed -r "s@^(${curword}.*?)=(.*$)@\1@" $MARKFILE | grep -v "="))
+            reply=($(sed -r "s@^(${curword}.*?)=(.*$)@\1@" "$MARKFILE" | grep -v "="))
         fi
     }
     compctl -K _cdmark_complete m
