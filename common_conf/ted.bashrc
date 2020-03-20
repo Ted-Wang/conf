@@ -30,6 +30,7 @@
 # add this alias for running an alias with sudo. see more info: https://coderwall.com/p/9cviza/use-your-aliases-with-sudo
 alias sudo='sudo '
 
+function setzoom() { gsettings set org.gnome.desktop.interface text-scaling-factor "$@"; }
 
 currentEnv()
 {
