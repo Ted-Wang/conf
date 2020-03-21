@@ -3,8 +3,8 @@ function changesrc(){
     if [ -f /etc/os-release ]; then
         os=$(sed -E "s@^ID=(.*)\$@\1@" "/etc/os-release" | grep -v "=")
     fi
-    os=ubuntu
-    os=raspbian
+#    os=ubuntu
+#    os=raspbian
     
     src_file_ubuntu="/etc/apt/sources.list"
     src_file_raspbian="/etc/apt/sources.list"
@@ -31,15 +31,16 @@ function changesrc(){
     echo "OS: $os, selected source: $src_name"
     if [[ "$os" == "ubuntu" ]]; then
         src_url_sjtug='https://mirrors.sjtug.sjtu.edu.cn/'
-        src_url_ustc='https://mirrors.sjtug.sjtu.edu.cn/'
+        src_url_ustc='https://mirrors.ustc.edu.cn/'
         src_url_tsinghua='https://mirrors.tuna.tsinghua.edu.cn/'
         src_url="src_url_$src_name"
         src_url=${!src_url}
         echo "Source url is: $src_url"
         echo "Update source in config file: ${src_file_ubuntu}"
-echo        sudo \cp ${src_file_ubuntu}{,.bak.$(date "+%Y-%m-%d_%H-%M-%S")}
-echo        sudo sed -i "s|http://.*archive.ubuntu.com/|${src_url}|g" ${src_file_ubuntu}
-echo        sudo sed -i "s|http://security.ubuntu.com/|${src_url}|g" ${src_file_ubuntu}
+        sudo \cp ${src_file_ubuntu}{,.bak.$(date "+%Y-%m-%d_%H-%M-%S")}
+        sudo sed -i "s|http://.*archive.ubuntu.com/|${src_url}|g" ${src_file_ubuntu}
+        sudo sed -i "s|http://security.ubuntu.com/|${src_url}|g" ${src_file_ubuntu}
+        sudo sed -i "s|https://.*.edu.cn/|${src_url}|g" ${src_file_ubuntu}
     fi
     if [[ "$os" == "raspbian" ]]; then
         src_url_sjtug='https://mirrors.sjtug.sjtu.edu.cn/raspbian/'
@@ -58,7 +59,9 @@ echo        sudo sed -i "s|http://security.ubuntu.com/|${src_url}|g" ${src_file_
 echo        sudo \cp ${src_file_ubuntu}{,.bak.$(date "+%Y-%m-%d_%H-%M-%S")}
 echo        sudo \cp ${src_file_ubuntu}.d/raspi.list{,.bak.$(date "+%Y-%m-%d_%H-%M-%S")}
 echo        sudo sed -i "s|http://raspbian.raspberrypi.org/|${src_url}|g" ${src_file_raspbian}
+echo        sudo sed -i "s|https://.*.edu.cn/raspbian/|${src_url}|g" ${src_file_raspbian}
 echo        sudo sed -i "s|http://archive.raspberrypi.org/|${src_url_raspi}|g" ${src_file_raspi}
+echo        sudo sed -i "s|https://.*.edu.cn/.*raspberrypi.*/|${src_url_raspi}|g" ${src_file_raspi}
     fi
     if [[ "$os" == "manjaro" ]]; then
         src_url_sjtug='https://mirrors.sjtug.sjtu.edu.cn/manjaro/stable/$repo/$arch'
