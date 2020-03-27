@@ -57,3 +57,7 @@ if [ $? == 0 ] && [ -f /usr/share/git/completion/git-prompt.sh ]; then
     alias ll='ls -alF'
     alias sudo='sudo -E'
 fi
+
+# this is for displaying Chinese character correctly when SSH to Ubuntu Server by a terminal.
+export LANG=en_US.UTF-8
+
