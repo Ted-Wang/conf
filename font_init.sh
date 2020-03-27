@@ -25,7 +25,7 @@ fi
 # install font and create symlink for Linux Mint
 if [[ "$os" == "linuxmint" ]]; then
     # create symbol link for Manjaro
-    sudo apt -y fonts-noto-cjk fonts-noto-mono
+    sudo apt-get -y fonts-noto-cjk fonts-noto-mono
     sudo ln -s /etc/fonts/conf.avail/64-language-selector-prefer.conf /etc/fonts/conf.d/64-language-selector-prefer.conf
 fi
 
