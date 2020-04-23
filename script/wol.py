@@ -6,13 +6,17 @@ import socket
 import struct
 import time
 
-MAC = "B8-97-5A-85-DD-A2"
+MAC = "B8-97-5A-85-DD-A2"      # D-Server
+#MAC = "00-17-A4-DE-F6-C4"      # NX6325
+#MAC = "08-00-27-f5-90-07"      # VM-Mint
+
+ 
 BROADCAST = "172.17.1.255"
 
 def main():
     if len(MAC) != 17:
         raise ValueError("MAC address should be set as form 'XX-XX-XX-XX-XX-XX'")
-    mac_address = MAC.replace("-", '')
+    mac_address = MAC.replace("-", '').replace(':', '')
     data = ''.join(['FFFFFFFFFFFF', mac_address * 16])
     send_data = b''
 
