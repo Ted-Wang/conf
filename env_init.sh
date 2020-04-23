@@ -104,6 +104,10 @@ else
     \cp $GIT_CONF ~/.gitconfig
     echo create ~/.gitconfig
 fi
+# clear temp file
+if [ "${GIT_CONF:0-5:5}" == "linux" ];then
+   \rm $GIT_CONF
+fi 
 
 # setup Chinese language support env
 # TBD
