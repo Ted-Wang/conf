@@ -85,7 +85,7 @@ if [ "$runIn" == "Linux-shell" ]; then
     \cp $GIT_CONF $BASE_DIR/common_conf/git.gitconfig.linux
     GIT_CONF=$BASE_DIR/common_conf/git.gitconfig.linux
     # set credential store to cache in Linux
-    sed -i 's/helper\ =\ manager/helper\ =\ cache --timeout=3600' $GIT_CONF
+    sed -i 's/helper\ =\ manager/helper\ =\ cache --timeout=3600/g' $GIT_CONF
 fi
 # check if .gitconfig is updated, backup it before override.
 if [ -f ~/.gitconfig ];then
