@@ -80,20 +80,28 @@ fi
 
 echo setting up git conf
 # git config
+GIT_CONF=$BASE_DIR/common_conf/git.gitconfig
+if [ "$runIn" == "Linux-shell" ]; then
+    \cp $GIT_CONF $BASE_DIR/common_conf/git.gitconfig.linux
+    GIT_CONF=$BASE_DIR/common_conf/git.gitconfig.linux
+    # set credential store to cache in Linux
+    sed -i 's/helper\ =\ manager/helper\ =\ cache --timeout=3600' $GIT_CONF
+fi
+# check if .gitconfig is updated, backup it before override.
 if [ -f ~/.gitconfig ];then
-    sum1=`md5sum ~/.gitconfig`
-    sum2=`md5sum common_conf/git.gitconfig`
+    sum1=$(md5sum ~/.gitconfig)
+    sum2=$(md5sum $GIT_CONF)
     sum1=${sum1:0:32}
     sum2=${sum2:0:32}
     if [ "$sum1" != "$sum2" ]; then
         \cp ~/.gitconfig ~/gitconfig.bak.`date "+%Y-%m-%d_%H-%M-%S"`
-        \cp $BASE_DIR/common_conf/git.gitconfig ~/.gitconfig
+        \cp $GIT_CONF ~/.gitconfig
         echo ~/.gitconfig updated. The old .gitconfig file is renamed as a backup file.
     else
         echo no need to update ~/.gitconfig
     fi
 else
-    \cp $BASE_DIR/common_conf/git.gitconfig ~/.gitconfig
+    \cp $GIT_CONF ~/.gitconfig
     echo create ~/.gitconfig
 fi
 
