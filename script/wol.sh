@@ -14,12 +14,15 @@ magic_packet=$(
   	printf "$mac_address%.0s" {1..16}
 )
 # need to be hex-escaped
-magic_packet_raw_hex=$(
+magic_packet_hex=$(
   	echo $magic_packet | sed -e 's/../\\x&/g'
 )
 
-# echo $magic_packet_raw_hex
+#echo $magic_packet_hex
 echo waking up machine[$mac], sending wol magic packet to $broadcast:$port
-echo -e $magic_packet_raw_hex | nc -w1 -4ub $broadcast $port		# -b broadcast, without this argument, nc may not send UDP broadcast.
+echo -e $magic_packet_hex | nc -w1 -4ub $broadcast $port		# -b broadcast, without this argument, nc may not send UDP broadcast.
 
-unset mac mac_address broadcast port magic_packet magic_packet_raw_hex
+# another aproach is to use xxd to transfer string to hex
+#echo -n $magic_packet | xxd -r -p | nc -w1 -4ub $broadcast $port
+
+unset mac mac_address broadcast port magic_packet magic_packet_hex
