@@ -30,6 +30,10 @@
 # add this alias for running an alias with sudo. see more info: https://coderwall.com/p/9cviza/use-your-aliases-with-sudo
 alias sudo='sudo '
 
+# LinuxMint 使用了 termbin.com，发现挺不错的。
+alias tb="nc termbin.com 9999"
+# 生成一个paste：echo text | tb；获取内容可以使用：curl http://termbin.com/xftf
+
 function setzoom() { gsettings set org.gnome.desktop.interface text-scaling-factor "$@"; }
 
 currentEnv()
