@@ -75,6 +75,7 @@ fi
 # as file "~/ted.bashrc" will be copied everytime, no need to check file content here.
 source $BASE_DIR/common_conf/$SHELL_PROMPT
 echo $(generateShellPromptWithGit) >> ~/ted.bashrc
+echo "" >> ~/ted.bashrc
 # another apporach is to copy this file and source it in ~/ted.bashrc
 #\cp $BASE_DIR/common_conf/$SHELL_PROMPT ~/
 #echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
