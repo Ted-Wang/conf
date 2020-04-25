@@ -30,7 +30,7 @@ def main():
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        print("echo waking up machine[" + MAC + "], sending wol magic packet to " + BROADCAST + ":" + str(PORT))
+        print("waking up machine[" + MAC + "], sending wol magic packet to " + BROADCAST + ":" + str(PORT))
         sock.sendto(send_data, (BROADCAST, PORT))
         #time.sleep(1)
         #sock.sendto(send_data, (BROADCAST, PORT))
