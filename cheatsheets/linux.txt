@@ -1,4 +1,22 @@
 
+### 源 source
+* SJTUG 上海交大软件源镜像服务 https://mirrors.sjtug.sjtu.edu.cn/#/
+    * raspberrypi，/etc/apt/sources.list.d/raspi.list
+        > http://archive.raspberrypi.org/debian/  ->  https://mirrors.sjtug.sjtu.edu.cn/raspberrypi/debian/
+    * Ubuntu，配置文件：/etc/apt/sources.list
+        > http://cn.archive.ubuntu.com/ubuntu  ->  https://mirrors.sjtug.sjtu.edu.cn/ubuntu
+    * Manjaro，配置文件在：/etc/pacman.d/mirrorlist，尽量不要直接修改这个文件，备份一下，用下面命令选择源
+		> sudo pacman-mirrors -i -c China -m rank 	    //更新镜像排名，选择中国源
+        > sudo pacman -Syy
+    * LinuxMint，配置文件在：/etc/apt/sources.list.d/official-package-repositories.list
+        > 注意，完成后请不要再使用 mintsources（自带的图形化软件源设置工具）进行任何操作，因为在操作后，无论是否有按“确定”，mintsources 均会复写
+        > 对于 LinuxMint 上海交大和清华都提供了源，但是没有提供帮助。只有中科大源提供了帮助文本。
+        > https://mirrors.ustc.edu.cn/help/linuxmint.html
+
+* 清华源 https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/
+
+* USTC Mirror 中科大源 https://mirrors.ustc.edu.cn/help/manjaro.html
+
 ### 自动启动
 这个对 Ubuntu 和 Manjaro 都适用
 sudo cp /usr/share/applications/guake.desktop /etc/xdg/autostart
@@ -31,20 +49,6 @@ Lubuntu安装完后启动黑屏，是登录界面启动太早，在其他tty登�
 	[LightDM]
 	logind-check-graphical=true
 
-### 源 source
-* SJTUG 上海交大软件源镜像服务 https://mirrors.sjtug.sjtu.edu.cn/#/
-    * raspberrypi，/etc/apt/sources.list.d/raspi.list
-        >http://archive.raspberrypi.org/debian/  ->  https://mirrors.sjtug.sjtu.edu.cn/raspberrypi/debian/
-    * Ubuntu，配置文件：/etc/apt/sources.list
-        >http://cn.archive.ubuntu.com/ubuntu  ->  https://mirrors.sjtug.sjtu.edu.cn/ubuntu
-    * Manjaro，配置文件在：/etc/pacman.d/mirrorlist，尽量不要直接修改这个文件，备份一下，用下面命令选择源
-		sudo pacman-mirrors -i -c China -m rank 	    //更新镜像排名，选择中国源
-        sudo pacman -Syy
-
-* 清华源 https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/
-
-* USTC Mirror 中科大源 https://mirrors.ustc.edu.cn/help/manjaro.html
-
 ### apt-get
 update是更新软件列表，upgrade是更新软件。
 apt = apt-get、apt-cache 和 apt-config 中最常用命令选项的集合。
@@ -53,6 +57,9 @@ apt 命令由于有交互式功能(进度条，Y/N确认等等)，所以只适�
 sudo apt search fcitx		# 搜索仓库
 sudo apt show fcitx		    # 显示包详细信息
 dpkg -l | grep -i fcitx		# 显示已安装包
+
+sudo apt-get -y install package     # install without confirm
+sudo apt install ./<file>.deb		# 安装本地.deb包
 
 ### pacman
 pacman --help

@@ -2,7 +2,7 @@
 
 #basefolder=${0%/*}
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-SHELL_PROMPT=shell_prompt.bashrc
+SHELL_PROMPT=shell_prompt.sh
 
 unameOut="$(uname -s)"
 case $unameOut in
@@ -60,13 +60,6 @@ EOF
 fi
 echo done.
 
-# shell prompt
-# as file "~/ted.bashrc" will be copied everytime, no need to check file content here.
-cat $BASE_DIR/common_conf/$SHELL_PROMPT >> ~/ted.bashrc
-# another apporach is to copy this file and source it in ~/ted.bashrc
-#\cp $BASE_DIR/common_conf/$SHELL_PROMPT ~/
-#echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
-
 echo setting up ssh conf
 # ssh keep alive
 if [ -f ~/.ssh/config ] && grep -Eq "TCPKeepAlive" ~/.ssh/config || grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
@@ -77,6 +70,14 @@ else
     fi
     cat $BASE_DIR/common_conf/ssh_client_config >> ~/.ssh/config
 fi
+
+# shell prompt
+# as file "~/ted.bashrc" will be copied everytime, no need to check file content here.
+source $BASE_DIR/common_conf/$SHELL_PROMPT
+echo $(generateShellPromptWithGit) >> ~/ted.bashrc
+# another apporach is to copy this file and source it in ~/ted.bashrc
+#\cp $BASE_DIR/common_conf/$SHELL_PROMPT ~/
+#echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
 
 echo setting up git conf
 # git config
@@ -113,7 +114,7 @@ fi
 # TBD
 
 # add m2.sh(a very simple bookmark for shell) to ~/ted.bashrc
-echo '#--------a short bookmark function start--------' >> ~/ted.bashrc
+echo -n '#--------a short bookmark function start--------' >> ~/ted.bashrc
 if [ -f $BASE_DIR/common_conf/m2.sh ];then
     cat $BASE_DIR/common_conf/m2.sh >> ~/ted.bashrc
 fi

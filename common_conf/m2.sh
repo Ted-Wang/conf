@@ -76,4 +76,3 @@ elif [ -n "$ZSH_VERSION" ]; then
     }
     compctl -K _cdmark_complete m
 fi
-

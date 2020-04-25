@@ -1,0 +1,28 @@
+
+### youtube-dl
+官网: https://yt-dl.org/
+Github: https://github.com/ytdl-org/youtube-dl
+
+#### 使用
+youtube-dl -U
+youtube-dl --proxy 127.0.0.1:2080 -U
+youtube-dl --version
+
+youtube-dl url
+youtube-dl --proxy 127.0.0.1:2080 -F <url>      # list all formats
+youtube-dl -f 137+140 url                       # 下载指定格式，【视频+音频】
+youtube-dl url -o "path\%(title)s.%(ext)s"      # 指定下载文件路径
+
+#### Linux 安装
+To install it right away for all UNIX users (Linux, OS X, etc.), type:
+	sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+	sudo chmod a+rx /usr/local/bin/youtube-dl
+
+If you do not have curl, you can alternatively use a recent wget:
+	sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+	sudo chmod a+rx /usr/local/bin/youtube-dl
+
+#### windows安装
+下载，安装 python，FFmpeg，youtube-dl.exe，并都加入path
+python --version，ffmpeg -version，youtube-dl --help 分别检查安装
+

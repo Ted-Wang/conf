@@ -1,6 +1,22 @@
 
 # Ted Wang's .bashrc, v0.01, 2019-01-19
 
+# DO NOT change this file since it will be overrided everytime while calling init script env_init.sh.
+# If you want to do some custimization to your shell, please update ~/.bashrc or related files.
+
+currentEnv()
+{
+    unameOut="$(uname -s)"
+    case $unameOut in
+        Linux*) runningIn=Linux;;
+        MINGW*) runningIn=git-bash;;
+        Darwin*) runningIn=Mac;;
+    esac
+    echo $runningIn
+    return 0
+}
+
+#export -f currentEnv
 
 # Linux bash 中的 alias 命令，可以存在参数，但是参数必须放在最后，这极大的限制了 alias 的使用。这里有个包装参数到中间的方式，参考自 StackOverlow 的答案：
 # https://stackoverflow.com/questions/7131670/make-a-bash-alias-that-takes-a-parameter/42466441#42466441
@@ -31,31 +47,26 @@
 alias sudo='sudo '
 
 # LinuxMint 使用了 termbin.com，发现挺不错的。
-alias tb="nc termbin.com 9999"
+NETCAT=nc
+if [ $(currentEnv) == "git-bash" ];then
+    NETCAT=ncat
+fi
+alias tb="$NETCAT termbin.com 9999"
+unset NETCAT
 # 生成一个paste：echo text | tb；获取内容可以使用：curl http://termbin.com/xftf
 
-function setzoom() { gsettings set org.gnome.desktop.interface text-scaling-factor "$@"; }
-
-currentEnv()
-{
-    unameOut="$(uname -s)"
-    case $unameOut in
-        Linux*) runningIn=Linux;;
-        MINGW*) runningIn=git-bash;;
-        Darwin*) runningIn=Mac;;
-    esac
-    echo $runningIn
-    unset unameOut
-    unset runningIn
-    return 0
+function setzoom() {
+    if [ "$1" == "" ];then
+        gsettings get org.gnome.desktop.interface text-scaling-factor;
+    else
+        gsettings set org.gnome.desktop.interface text-scaling-factor "$@";
+    fi
 }
-
-#export -f currentEnv
 
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 
-
+# add alias for Manjaro
 pacman --help > /dev/null 2>&1
 if [ $? == 0 ] && [ -f /usr/share/git/completion/git-prompt.sh ]; then
     alias ll='ls -alF'
