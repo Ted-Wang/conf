@@ -4,7 +4,7 @@
 # use bash wol.sh "" 192.168.1.255 to specify the broadcast address without changing MAC by default.
 
 broadcast=${2:-255.255.255.255}
-#broadcast=172.17.1.255
+#broadcast=${2:-172.17.1.255}
 port=7
 
 unameOut="$(uname -s)"
@@ -14,10 +14,10 @@ case $unameOut in
     Darwin*) runIn=Mac;;
 esac
 if [ "$runIn" == "Win/git-bash" ]; then
-    NC=ncat                     # ncat on windows is provided by nmap.org, it can send to broadcast address without specifying any argument.
-    broadcast=172.17.1.255      # but ncat can send only to broadcast addr like 192.168.1.255, not able to send to 255.255.255.255.
+    NC=ncat                         # ncat on windows is provided by nmap.org, it can send to broadcast address without specifying any argument.
+    broadcast=${2:-172.17.1.255}     # but ncat can send only to broadcast addr like 192.168.1.255, not able to send to 255.255.255.255.
 else
-    NC=nc -b		# -b broadcast, without this argument, nc may not send UDP broadcast.
+    NC=nc -b		                # -b broadcast, without this argument, nc may not send UDP broadcast.
 fi
 
 mac=${1:-B8-97-5A-85-DD-A2}     # D-Server
