@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # after setup git repo, you can use any user with sudo right to init a repo like:
-#   sudo -u git mkdir new_repo.git
-#   cd new_repo.git 
-#   sudo -u git git init --bare
+#   sudo -u git git init --bare new_repo.git 
 
 GIT_SHELL=$(which git-shell)
 GIT_USER=git
