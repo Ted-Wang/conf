@@ -84,6 +84,7 @@ git stash pop
 
 git remote -v
 git remote set-url origin <url>
+git remote set-url --add origin <2nd_url>       ----给 origin 添加多个 url，这样就可以同时 push 到多个仓库
 git remote add <name> <url>
 git remote rm <name>
 git remote rename <old-name> <new-name>
