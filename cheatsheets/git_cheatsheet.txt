@@ -89,8 +89,9 @@ git remote add <name> <url>
 git remote rm <name>
 git remote rename <old-name> <new-name>
 
-git fetch       ----从远程获取最新版本到本地，但不会自动merge。
-git pull        ----可以认为是git fetch和git merge两个步骤的结合。
+git fetch               ----从远程获取最新版本到本地，但不会自动merge。
+git fetch --dry-run -v  ----查看有多少更新
+git pull                ----可以认为是git fetch和git merge两个步骤的结合。
 git fetch <远程主机名> <分支名>
 	git fetch origin master	    ----如果是裸仓库，没有origin，可以先 git remote add origin <url>
 git pull <远程主机名> <远程分支名>:<本地分支名>
@@ -98,7 +99,7 @@ git pull <远程主机名> <远程分支名>:<本地分支名>
 * 如果 git pull 发生冲突(conflicts)，解决冲突之后要 git add conflict_file，然后 commit
 
 git push <远程主机名> <本地分支名>:<远程分支名>
-	git push
+	git push --dry-run          ----查看结果，不做真实推送。
 	git push origin master
 	git push origin --tags		----git默认不会push tags
 
