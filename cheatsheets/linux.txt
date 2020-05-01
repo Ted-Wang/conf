@@ -1,4 +1,3 @@
-
 ### 源 source
 * SJTUG 上海交大软件源镜像服务 https://mirrors.sjtug.sjtu.edu.cn/#/
     * raspberrypi，/etc/apt/sources.list.d/raspi.list
@@ -18,8 +17,7 @@
 * USTC Mirror 中科大源 https://mirrors.ustc.edu.cn/help/manjaro.html
 
 ### 自动启动
-这个对 Ubuntu 和 Manjaro 都适用
-sudo cp /usr/share/applications/guake.desktop /etc/xdg/autostart
+sudo cp /usr/share/applications/guake.desktop /etc/xdg/autostart    # 这个对 Ubuntu 和 Manjaro 都适用
 
 ### editor, gvim
 #- 卸载默认vim，然后安装gvim(vim-gtk)
@@ -43,6 +41,14 @@ fc-cache -fv
 ctrl+alt+F1~F6, switch to other tty, then kill the XOrg tty to restart Desktop.
 ps -t tty7
 kill PID
+
+systemctl start/stop lightdm/gdm/kdm/mdm                                # 启动 停止 GUI/Xorg
+systemctl get-default/set-default multi-user.target/graphical.target    # 默认启动到 CLI/GUI
+
+### hostname 解析问题
+/etc/hosts, /etc/hostname
+
+sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf       # 解决 hostname 不能解析，只能 ping hostname.local 问题。改成这个 symlink 之后，查看 /etc/resolv.con 内容，地址应该是路由器，而不是本机了。
 
 ### 黑屏问题
 Lubuntu安装完后启动黑屏，是登录界面启动太早，在其他tty登录，然后 sudo vi /etc/lightdm/lightdm.conf
