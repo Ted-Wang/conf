@@ -31,18 +31,18 @@ server_poweroff() {
 }
 
 if [ $(hostname) == "$SERVER_NAME" ]; then
-    mode=ServerMode
+    mode=ServerSide
 else
-    mode=ClientMode
+    mode=ClientSide
 fi
 
 #echo $(hostname)
 #echo $mode
 
-if [ $mode == "ServerMode" ]; then
+if [ $mode == "ServerSide" ]; then
     # check all monitored clients offlined, then do self poweroff
-    echo "$(date) [INFO] server power checking start in Server mode." >> $LOG_FILE 2>&1
-    #echo "$(date) [INFO] server power checking start in Server mode."
+    echo "$(date) [INFO] server power checking start in Server side." >> $LOG_FILE 2>&1
+    #echo "$(date) [INFO] server power checking start in Server side."
     all_client_offline=1
     for client in $CLIENT_LIST; do
         #echo checking host: $client
@@ -59,10 +59,10 @@ if [ $mode == "ServerMode" ]; then
     fi
 fi
 
-if [ $mode == "ClientMode" ]; then
+if [ $mode == "ClientSide" ]; then
     # check if server is offlined, if yes, then check clients, if any clients online, poweron server.
-    echo "$(date) [INFO] server power checking start in Client mode." >> $LOG_FILE 2>&1
-    #echo "$(date) [INFO] server power checking start in Client mode."
+    echo "$(date) [INFO] server power checking start in Client side." >> $LOG_FILE 2>&1
+    #echo "$(date) [INFO] server power checking start in Client side."
     if [ ! $(machine_is_online $SERVER_NAME) ]; then
         for client in $CLIENT_LIST; do
             #echo checking host: $client
