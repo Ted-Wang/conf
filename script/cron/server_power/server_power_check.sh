@@ -4,7 +4,7 @@ BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SERVER_NAME=d-mint
 SERVER_MAC=""           # leave empyt to use default in wol.sh, or explicity specify it here.
 CLIENT_LIST="aw17"      # space separated host list
-LOG_FILE=$BASE_DIR/server_power_control.log
+LOG_FILE=$BASE_DIR/server_power_check.log
 
 if [ -f ~/prj/conf/script/wol.sh ]; then
     WoL_script=~/prj/conf/script/wol.sh
