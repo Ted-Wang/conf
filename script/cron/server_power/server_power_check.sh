@@ -55,7 +55,7 @@ if [ $mode == "ServerMode" ]; then
     if [ $all_client_offline -eq 1 ]; then
         echo "$(date) [INFO] all clients[$CLIENT_LIST] are offline, shutdown server now." >> $LOG_FILE 2>&1
         #echo "$(date) [INFO] all clients[$CLIENT_LIST] are offline, shutdown server now."
-        #server_poweroff
+        server_poweroff
     fi
 fi
 
@@ -69,8 +69,8 @@ if [ $mode == "ClientMode" ]; then
             if [ $(machine_is_online $client) ]; then
                 echo "$(date) [INFO] find client[$client] is online, wake up server now." >> $LOG_FILE 2>&1
                 #echo "$(date) [INFO] find client[$client] is online, wake up server now."
-                #bash $WoL_script
-                break;
+                poweron_server
+                break
             fi
         done
     fi
