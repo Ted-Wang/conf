@@ -46,6 +46,9 @@ currentEnv()
 # add this alias for running an alias with sudo. see more info: https://coderwall.com/p/9cviza/use-your-aliases-with-sudo
 alias sudo='sudo '
 
+alias du0='du -h --max-depth=0'
+alias du1='du -h --max-depth=1'
+
 # LinuxMint 使用了 termbin.com，发现挺不错的。
 NETCAT=nc
 if [ $(currentEnv) == "git-bash" ];then
