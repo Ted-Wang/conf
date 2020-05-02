@@ -42,12 +42,12 @@ else
     echo cron job \"cputemp\" is already exist.
 fi
 
-if ! sudo grep -Eq "home_server_check.sh" $CRON_FILE; then
+if ! sudo grep -Eq "server_power_check.sh" $CRON_FILE; then
     echo setting up \"server_power_check\" job.
     sudo bash -c "cat << 'EOF' >> $CRON_FILE
 
 # check server power on/off
-*/10 * * * * ~/cron/server_power/home_server_check.sh 2> >( while read line; do echo \"\$(date): \${line}\"; done  >> ~/cron/server_power/server_power_control.log ) 1>&2
+*/10 * * * * ~/cron/server_power/server_power_check.sh 2> >( while read line; do echo \"\$(date): \${line}\"; done  >> ~/cron/server_power/server_power_check.log ) 1>&2
 EOF"
 else
     echo cron job \"server_power_check\" is already exist.
