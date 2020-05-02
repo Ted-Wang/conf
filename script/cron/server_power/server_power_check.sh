@@ -23,11 +23,11 @@ machine_is_online(){
 }
 
 poweron_server() {
-    bash $WoL_script $SERVER_MAC
+    bash $WoL_script $SERVER_MAC > >( while read line; do echo "$(date) [INFO] $line"; done >> $LOG_FILE) 2>&1
 }
 
 server_poweroff() {
-    sudo poweroff
+    sudo poweroff > >( while read line; do echo "$(date) [INFO] $line"; done >> $LOG_FILE) 2>&1
 }
 
 if [ $(hostname) == "$SERVER_NAME" ]; then
