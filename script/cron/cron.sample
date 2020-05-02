@@ -1,0 +1,8 @@
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+*/1 * * * * ~/cputemp/cpu_monitor.sh 2> >( while read line; do echo "$(date): ${line}"; done  >> ~/cputemp/cpu_monitor.log ) 1>&2
+#*/1 * * * * ~/cputemp/cpu_test.sh 2> >( while read line; do echo "$(date): ${line}"; done >> ~/cputemp/cpu_test.log ) 1>&2
+# house keeping at 1:30 on every first day of month
+30 1 1 * * ~/cputemp/cpu_mon_housekeeping.sh >> ~/cputemp/cpu_monitor.log 2>&1
