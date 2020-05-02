@@ -65,6 +65,11 @@ function setzoom() {
 
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
+# Ubuntu and Raspi does not read EDITOR variable by default, force to use it.
+apt-get --help 2>&1 >/dev/null
+if [ $? == 0 ]; then
+    alias visudo="EDITOR=$EDITOR visudo"
+fi
 
 # add alias for Manjaro
 pacman --help > /dev/null 2>&1
