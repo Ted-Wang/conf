@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-SERVER_NAME=d-mint
+SERVER_NAME=D-Mint
 SERVER_MAC=""           # leave empyt to use default in wol.sh, or explicity specify it here.
 CLIENT_LIST="aw17"      # space separated host list
 LOG_FILE=$BASE_DIR/server_power_check.log
@@ -36,6 +36,9 @@ else
     mode=ClientMode
 fi
 
+#echo $(hostname)
+#echo $mode
+
 if [ $mode == "ServerMode" ]; then
     # check all monitored clients offlined, then do self poweroff
     echo "$(date) [INFO] server power checking start in Server mode." >> $LOG_FILE 2>&1
@@ -48,7 +51,8 @@ if [ $mode == "ServerMode" ]; then
             break
         fi
     done
-    if all_client_offline; then
+    #echo $all_client_offline
+    if [ $all_client_offline -eq 1 ]; then
         echo "$(date) [INFO] all clients[$CLIENT_LIST] are offline, shutdown server now." >> $LOG_FILE 2>&1
         #echo "$(date) [INFO] all clients[$CLIENT_LIST] are offline, shutdown server now."
         #server_poweroff
