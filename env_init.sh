@@ -3,6 +3,7 @@
 #basefolder=${0%/*}
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SHELL_PROMPT=shell_prompt.sh
+SSH_CONFIG=~/.ssh/config
 
 unameOut="$(uname -s)"
 case $unameOut in
@@ -62,13 +63,14 @@ echo done.
 
 echo setting up ssh conf
 # ssh keep alive
-if [ -f ~/.ssh/config ] && grep -Eq "TCPKeepAlive" ~/.ssh/config || grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
+if [ -f $SSH_CONFIG ] && grep -Eq "TCPKeepAlive" $SSH_CONFIG || grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
     : # do nothing
 else
     if [ ! -d ~/.ssh ]; then
         mkdir ~/.ssh
     fi
-    cat $BASE_DIR/common_conf/ssh_client_config >> ~/.ssh/config
+    cat $BASE_DIR/common_conf/ssh_client_config >> $SSH_CONFIG
+    #$SUDO chmod 644 $SSH_CONFIG
 fi
 
 # shell prompt
