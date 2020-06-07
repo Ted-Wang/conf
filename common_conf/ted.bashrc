@@ -45,6 +45,7 @@ currentEnv()
 # 在 Bash 命令中，默认只有 first word 会 check alias。但是，如果一个 alias 的 value 的最后一个字符是空白字符(space or tab)，那么 next word 也会 check alias。
 # add this alias for running an alias with sudo. see more info: https://coderwall.com/p/9cviza/use-your-aliases-with-sudo
 alias sudo='sudo '
+alias ll='ls -alF --color=auto'
 
 alias du0='du -h --max-depth=0'
 alias du1='du -h --max-depth=1'
@@ -77,7 +78,6 @@ fi
 # add alias for Manjaro
 pacman --help > /dev/null 2>&1
 if [ $? == 0 ] && [ -f /usr/share/git/completion/git-prompt.sh ]; then
-    alias ll='ls -alF'
     alias sudo='sudo -E'
 fi
 
