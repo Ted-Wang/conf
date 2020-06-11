@@ -63,13 +63,13 @@ echo done.
 
 echo setting up ssh conf
 # ssh keep alive
-if [ -f $SSH_CONFIG ] && grep -Eq "TCPKeepAlive" $SSH_CONFIG || grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
+if [ -f "$SSH_CONFIG" ] && grep -Eq "TCPKeepAlive" "$SSH_CONFIG" || grep -Eq "TCPKeepAlive" /etc/ssh/ssh_config; then
     : # do nothing
 else
     if [ ! -d ~/.ssh ]; then
         mkdir ~/.ssh
     fi
-    cat $BASE_DIR/common_conf/ssh_client_config >> $SSH_CONFIG
+    cat $BASE_DIR/common_conf/ssh_client_config >> "$SSH_CONFIG"
     #$SUDO chmod 644 $SSH_CONFIG
 fi
 
