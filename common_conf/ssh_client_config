@@ -1,2 +1,40 @@
 TCPKeepAlive=yes
 ServerAliveInterval 60
+
+Host raspi
+    HostName raspi
+    User pi
+
+Host pi
+    HostName raspi
+    User pi
+
+Host mint
+    HostName d-mint
+    User ted
+
+Host mint
+    HostName 172.17.1.111
+    User ted
+
+#Host dev1
+#   	HostName dev1.domain.com
+
+#Host dev2
+#	HostName dev2.domain.com
+
+#Host dev*
+#	User dev
+#	Port 22
+#	IdentityFile ~/.ssh/id_rsa
+#	ServerAliveInterval 60
+#	TCPKeepAlive=yes
+
+#Host test
+#	HostName test.domain.com
+#	User test
+
+#Host *
+#	Port 22
+
+# ( vim: set ft=sshconfig: )
