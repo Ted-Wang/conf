@@ -12,6 +12,8 @@ set clipboard=unnamed
 syntax on
 set nowrap
 set hidden                          " Allow buffer switching without saving
+set splitbelow                      " Let new horizontal split window(sp, new) below current window
+set splitright                      " Let new vertical split window(vs, vne) right of current window
 set virtualedit=onemore             " Allow for cursor beyond last character
 set nospell                         " Spell checking off, because it's impact Chinese characters a lot
 set history=1000                    " default is 50 or 200 or etc...
