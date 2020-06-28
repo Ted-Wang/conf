@@ -1,0 +1,150 @@
+
+IntelliJ-IDEA-Tutorial/keymap-introduce.md     ----a pretty good project ^_^
+https://github.com/judasn/IntelliJ-IDEA-Tutorial/blob/master/keymap-introduce.md
+https://github.com/judasn/IntelliJ-IDEA-Tutorial
+- GitBook 在线阅读地址：https://youmeek.gitbooks.io/intellij-idea-tutorial/content/
+
+Ctrl+J					insert a live template
+Ctrl+Alt+J				surround with a live template
+Ctrl+Alt+T				Surround with… (if..else, try..catch, for,  synchronized, etc.)
+Alt+up/down				move between methods
+Alt+Enter  -> item 2, Copy String concatenation text to the clipboard
+Ctrl + Delete			Delete to word end
+Ctrl + Backspace		Delete to word start
+
+---------debug--------
+https://github.com/judasn/IntelliJ-IDEA-Tutorial/blob/master/debug-introduce.md
+
+---------Bookmark/Navigate operation---------
+Ctrl+1..9				Go to Bookmark
+Ctrl+Shift+1..9			Toggle Bookmark
+F11						Toggle Bookmark
+Ctrl+F11				Toggle Bookmark with Mnemonic
+Shift+F11				Show Bookmark Dialog
+
+Alt+Up/Down				Previous/Next Function （在XML，HTML文件中，非常好用）
+
+
+Ctrl+F12				File Structure (Ctrl+O in eclipse)
+Ctrl+Alt+F12			File Path
+---------------------------------------------------
+
+Ctrl+F/R				find, find & replace (Ctrl+F, find/replace)
+Ctrl+N					Navigate to class
+Ctrl+Shift+N			Navigate to file     **【Can open .xml files locate inside a jar, good!  add "/" as suffix can open folder!】**
+Ctrl+Alt+S				Open settings
+Ctrl+Alt+Shift+S		Open Project Structure
+*Ctrl+E					recent files (support filter)
+Ctrl+Shift+E			opened files
+*Ctrl+Shif+I			Quick definition (try to use this function)
+*Shift*2				find everything
+*Ctrl+Shift+A			find action     (ctrl+3 in eclipse 4 or upper version)
+*Ctrl+F9				Make Project
+*Ctrl+Q					popup documentation
+*Ctrl+Alt+B				navigate the impl of an abstract method
+Ctrl+shift+F			search     (ctrl+H)
+Ctrl+Alt+L				Reformat code (ctrl+shift+F)
+Ctrl+Alt+O				Optimize imports (Ctrl+Shift+O)
+Shift+F6				Rename     (alt+shift+R)
+Ctrl+Shift+Alt+T		Refactor this (alt+shift+T, show refactor quick menu)
+Ctrl+G					goto line (ctrl+L in eclipse)
+Ctrl+B					(F3 in eclipse)
+Ctrl+F12				file structure (Ctrl+O in eclipse)
+*Alt+Shift+Up/Down		(Alt+Up/Down)
+Ctrl+Y					(Ctrl+D)
+*Alt+Enter				quick fix (Ctrl+1)
+Ctrl+H					(Ctrl+T)
+Ctrl+Shift+Backspace	Last edit location (Ctrl+Q)
+Ctrl+/					comments/uncomments lines (Ctrl+Shift+C)
+Ctrl/+Shift+/			block/unblock comments
+Ctrl/+Shift+W			Select word at caret (alt+shift+up/down, Structured selection)
+F3						find next(Ctrl+J)
+Ctrl+Alt+Left/Right		back/forward (alt+Left/Right in eclipse)
+Alt+Left/Right			select left/right tab
+*Alt+F1					Select in (Alt+Shift+W, show in. Eclipse can use this key shortcut to open explorer)
+Alt+Insert				generate code. (Alt+Shift+S, source action)  1)In IDEA, this short key also apply package, used to create class, files, etc.
+																	 2)In eclipse, this short key open a menu with more items.
+Ctrl+D					(Ctrl+Alt+Up/Down, duplicate a line)
+*Alt+F7					(Ctrl+Shift+G) Find usage, Ctrl+alt+F7 Show usage, ctrl+Shift+alt+F7 Find usage settings, Hilight usage in file Ctrl+F7
+
+Alt+1/3/6/8/F12		    switch tool bar, hide/unhide them
+
+*F4/Ctrl+Enter			Edit Source/View Source
+
+Basic/Smart/Statement completion     Ctrl+Space/Ctrl+Shift+Space/Ctrl+Shift+Enter
+
+Ctrl+Shift+U			toggle case (Ctrl+Shift+X/Y, to upper/lower case)
+Ctrl+Shift+F7			Highlight usages in file (Ctrl+Shift+U, occurrences in file)
+Ctrl+Alt+T				surround with (Alt+Shift+Z)
+Ctrl+Alt+J				Surround with live template
+Ctrl+Shift+F12			Maximize view or editor (Ctrl+M)
+Ctrl+Alt+I				auto-indent lines (Ctrl+I)
+Ctrl+Shift+BS			Back to last edit place(Ctrl+Q)
+*ctrl+P					parameter info
+Ctrl+num+/num-			folder
+
+eclipse 有个Strl+Shift+M，说明是add imports， 猜测只会添加imports， 而不会像Ctrl+Shift+O那样删除其他未引用的
+----已测试，确实如此
+
+google idea multiple projects
+IntelliJ: Working on multiple projects http://stackoverflow.com/questions/8774024/intellij-working-on-multiple-projects
+
+general guidelines https://www.jetbrains.com/help/idea/2016.1/general-guidelines.html
+
+Question:
+what's the difference between Ctrl+Alt+Left/Right and Alt+Left/Right
+Alt+Right     select next tab, it is MUCH better than (Ctrl+F6) in eclipse
+
+.ifn     postfix templates
+
+IntelliJ IDEA and Eclipse Shortcuts
+https://www.catalysts.cc/en/wissenswertes/intellij-idea-and-eclipse-shortcuts/
+
+IDEA									Eclipse							Comments
+“semi” set in window-> preferences 	    ctrl + shift + enter 			if I want to add the semi-colon at the end of a statement
+ctrl + 1 or ctrl + shift + l			ctrl + alt + v					introduce local variable
+
+ctrl + alt + h							ctrl + alt + h					(same!) show call hierarchy
+none ? 									ctrl + alt + f7				    to jump to one of the callers of a method
+ctrl + shift + i						alt + f8						evaluate expression (in debugger)
+
+
+Compilation
+The way IntelliJ IDEA compiles projects is different from Eclipse in a number of ways.
+
+Auto-compilation
+By default, IntelliJ IDEA doesn't automatically compile projects on saving because normally we don't invoke the save action explicitly in IntelliJ IDEA.
+
+If you want to mimic the Eclipse behavior, you can invoke the Make Project action (Ctrl+F9) - it will save the changed files and compile them. For your convenience, you can even reassign the Ctrl+S shortcut to the Make Project action.
+
+
+Template 							Eclipse 		IntelliJ IDEA
+Define a main method 				main 			psvm
+Iterate over an array 				for 			itar
+Iterate over a collection 			for 			itco
+Iterate over a list 				for 			itli
+Iterate over an iterable			foreach 		iter
+	using foreach syntax 			
+Print to System.out 				sysout 			sout
+Print to System.err 				syserr 			serr
+Define a static field 				static_final 	psf
+
+
+Debug
+Eclipse  							IntelliJ IDEA 
+Step into F5 						Step into F7
+- - 								Smart step into Shift+F7
+Step over F6 						Step over F8
+Step out F7 						Step out Shift+F8
+Resume F8 							Resume F9
+Toggle breakpoint Ctrl+Shift+B 	    Toggle breakpoint Ctrl+F8
+- - 								Evaluate expression Alt+F8
+
+
+Refactorings. The following table maps the shortcuts for the most common refactorings in Eclipse with those in IntelliJ IDEA:
+Eclipse  								IntelliJ IDEA 
+Extract local variable Ctrl+Alt+L 	    Extract variable Ctrl+Alt+V
+Assign to field Ctrl+2 				    Extract field Ctrl+Alt+F
+Show refactor quick menu Ctrl+Alt+T 	Rafactor this Ctrl+Shift+Alt+T
+Rename Ctrl+Alt+R 						Rename Shift+F6
+

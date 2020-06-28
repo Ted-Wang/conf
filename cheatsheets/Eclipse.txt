@@ -48,3 +48,16 @@ alt+shift+R  重命名变量
     F4 ：打开类型层次结构
     以前是我主要用到的一些，大家如果有什么心得话欢迎交流~ 重构方面的快捷键个人用到的比较少。在这就没写了    ------------------------------------------------------------------
 
+The fastest ways to navigate views in Eclipse using the keyboard http://www.eclipseonetips.com/2010/02/15/the-fastest-ways-to-navigate-views-in-eclipse-using-the-keyboard/
+	Alt+Shift+Q, P	Package Explorer
+	Alt+Shift+Q, C	Console
+	Alt+Shift+Q, O	Outline View
+	Alt+Shift+Q, X	Problems View
+	Alt+Shift+Q, S	Search View
+	Alt+Shift+Q, T	Type Hierarchy
+	Alt+Shift+Q, Y	Synchronise View
+The next fastest way to navigate views is to press 【Alt+Shift+Q, Q】. This pops up a dialog with a list of all views Eclipse knows about.
+Navigate views using Quick Access (Ctrl+3)
+Cycle views (Ctrl+F7)
+* To activate the editor from any view, press F12. This means that you don’t have to reach for the mouse to start editing.
+
