@@ -100,7 +100,7 @@ Alt+Right     select next tab, it is MUCH better than (Ctrl+F6) in eclipse
 IntelliJ IDEA and Eclipse Shortcuts
 https://www.catalysts.cc/en/wissenswertes/intellij-idea-and-eclipse-shortcuts/
 
-IDEA									Eclipse							Comments
+Eclipse									IDEA							Comments
 “semi” set in window-> preferences 	    ctrl + shift + enter 			if I want to add the semi-colon at the end of a statement
 ctrl + 1 or ctrl + shift + l			ctrl + alt + v					introduce local variable
 
