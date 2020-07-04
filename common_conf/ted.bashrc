@@ -46,6 +46,10 @@ currentEnv()
 # add this alias for running an alias with sudo. see more info: https://coderwall.com/p/9cviza/use-your-aliases-with-sudo
 alias sudo='sudo '
 alias ll='ls -alF --color=auto'
+alias la='ls -A'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --colro=auto'
 
 alias du0='du -h --max-depth=0'
 alias du1='du -h --max-depth=1'
