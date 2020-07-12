@@ -11,6 +11,7 @@ currentEnv()
         Linux*) runningIn=Linux;;
         MINGW*) runningIn=git-bash;;
         Darwin*) runningIn=Mac;;
+        CYGWIN*) runningIn=Cygwin;;
     esac
     echo $runningIn
     return 0
