@@ -27,6 +27,10 @@ git show <tag>
 	rm -rf .git
 	cd .. && rm -rf projectDir
 
+git fetch --all --tags --prune  ----fetch all tags
+git tag -l '*11.1.6.2590'       ----list tag with wildcard match
+git checkout tags/<tag> -b sit  ----checkout tag to new brach
+
 git mv <old_name> <new_name>    ----rename，重命名，不同于直接 mv，这是能在 git status 里追踪到的
 git rm <file_name>              ----从 stage 区域删除文件（同时删除工作区中的文件）。
                                     ----如果是用 rm 删除了文件，可以选择：1）执行 git rm 或者 git add <file>，把删除操作推送到stage区，然后再commit。2）git commit -am "message"

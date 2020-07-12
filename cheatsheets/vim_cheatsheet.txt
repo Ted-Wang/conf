@@ -49,6 +49,7 @@ Vim 有什么奇技淫巧？https://www.zhihu.com/question/27478597/answer/13676
 
 
 ### Regex 正则
+/\(string1\|string2\)   # search multiple words in vi editor
 
 \d: 表示十进制数
 \s: 表示空格

@@ -42,6 +42,10 @@ find * -maxdepth 0 -type f          # same as upper one
 du -h --max-depth=0 ~/myfolder      # show size of myfolder
 du -h --max-depth=0 --exclude=.git ~/ws     # show size of repo 'conf', without meta data.
 
+tar -cvf test.tar.gz file1 file2 folder/*
+
+scp user@server:/path/to/remotefile.zip /Local/Target/Destination
+
 grep -irn "regex" ~/folder  # search all files in ~/folder for "regex". i, ignore case; r, recursive; n, line number & content.
 grep -irl "regex" ~/folder ~/other/file # l, show file names with matches content; L, show file name without matches. 
 grep -irl --include=ted.*rc "font" ~/   # search all my personal rc files, with font related conf, only show file name.
