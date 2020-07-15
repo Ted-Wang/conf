@@ -8,12 +8,12 @@ currentEnv()
 {
     unameOut="$(uname -s)"
     case $unameOut in
-        Linux*) runningIn=Linux;;
-        MINGW*) runningIn=git-bash;;
-        Darwin*) runningIn=Mac;;
-        CYGWIN*) runningIn=Cygwin;;
+        Linux*) runIn=Linux;;
+        MINGW*) runIn=Win/git-bash;;
+        Darwin*) runIn=Mac;;
+        CYGWIN*) runIn=Win/Cygwin;;
     esac
-    echo $runningIn
+    echo $runIn
     return 0
 }
 
@@ -55,9 +55,13 @@ alias fgrep='fgrep --colro=auto'
 alias du0='du -h --max-depth=0'
 alias du1='du -h --max-depth=1'
 
+if [ $runIn == "Win/git-bash" ]; then
+    alias ping='/bin/winpty ping'
+fi
+
 # LinuxMint 使用了 termbin.com，发现挺不错的。
 NETCAT=nc
-if [ $(currentEnv) == "git-bash" ];then
+if [ $(currentEnv) == "Win/git-bash" ];then
     NETCAT=ncat
 fi
 alias tb="$NETCAT termbin.com 9999"
