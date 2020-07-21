@@ -19,6 +19,7 @@ set virtualedit=onemore             " Allow for cursor beyond last character
 set nospell                         " Spell checking off, because it's impact Chinese characters a lot
 set history=1000                    " default is 50 or 200 or etc...
 set whichwrap=b,s,<,>,[,]           " 默认值是b,s 在行首按←或者在行尾按→是不能将光标移动至上一行或下一行的。
+set modeline
 
 set viewoptions=folds,options,cursor,unix,slash   " Better Unix / Windows compatibility	----这行到底做了什么，得找机会试试
 
