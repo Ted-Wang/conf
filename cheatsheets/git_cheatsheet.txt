@@ -9,27 +9,22 @@ git init --bare prjDir.git      ----创建一个初始仓库（中心仓库）�
 git status
 git add *                       ----不包括删除的文件，也不包括.开头的文件
 git add .                       ----当前目录及其子目录的所有文件，包括.开头的文件，也包括删除的文件。
-git add -A                      ----当前库的所有文件，如果pwd在子目录，parents 目录的修改也包括，也包括删除的文件。
+git add -A                      ----当前库的所有文件，如果pwd在子目录，parents 目录的修改也包括，也包括新增、删除的文件。
 git commit -m "message"
 git commit -am "message"        ----以上2步合成一步，但是注意，这样只提交“修改过的文件，包括删除的”，新添加的文件，没有被tracked，必须用 git add
 git commit -a                   ----使用-a可以查看有哪些文件会被提交，不填message即可取消提交，相当于dry run
 git commit --amend							----合并修改，并且弹出 message 编辑器，可以修改上次的 message
 git commit --amend -m "Fixes bug #43"		----合并修改，并且添加 message
 git commit --amend --no-edit				----合并修改，但是不修改 message
-并修改最后一个commit，相当于把index区域的内容和最后一个commit合并，并修改message。
+合并修改最后一个commit，相当于把index区域的内容和最后一个commit合并，并修改message。
 注意：要先 git add *，否则工作区的内容是不会被提交的。
-git checkout <tag_name>
-git checkout master             ----从 tag 回到 mainline 最新的 commit
-git checkout -- <filename>      ----回滚一个文件
+git checkout <tag_name>/<branch>
+git checkout tags/<tag> -b sit  ----checkout tag to new brach
 git show                        ----show diff of last commit。show 可以指定各种对象，显示内容大不相同。
 git show <tag>
 删库：1）删除.git目录，2）删除整个 project 目录(就是包含.git目录的那个目录)
 	rm -rf .git
 	cd .. && rm -rf projectDir
-
-git fetch --all --tags --prune  ----fetch all tags
-git tag -l '*11.1.6.2590'       ----list tag with wildcard match
-git checkout tags/<tag> -b sit  ----checkout tag to new brach
 
 git mv <old_name> <new_name>    ----rename，重命名，不同于直接 mv，这是能在 git status 里追踪到的
 git rm <file_name>              ----从 stage 区域删除文件（同时删除工作区中的文件）。
@@ -43,6 +38,7 @@ git reset HEAD -- <file>        ----从版本库获取文件，覆盖 index 区�
 git reset HEAD~1                ----undo 最后一次 commit
 git reset HEAD                  ----undo git add *，相当于 git reset？
 git reset HEAD --hard           ----undo，并且同时修改当前工作区
+git checkout -- <filename>      ----回滚一个文件
 
 git reflog                      ----显示 HEAD 的变化历史，可以找到上一次 HEAD 指向的 commit，再次使用 reset 命令恢复
 
@@ -55,6 +51,11 @@ git log --author="<pattern>"    ----搜索指定作者的commit. <pattern>可以
 git log -S"Hello, World!"       ----display commits by content
 git log -- <file1 file2>        ----只显示指定文件的 commits.
 git shortlog -n                 ----按 author name 分组统计显示每个 user 的 commits。 默认按 author name 排序，-n 是按 commits 数量排序
+git log --no-merges             ----过滤掉所有 merge log。
+git log --merges                ----#This returns all commits that have at least two parents.
+git log --author="\(Adam\)\|\(Jon\)"
+git log --author="username" --pretty=format:"%h - %an, %ar : %s"
+git log --author='^(?!Adam|Jon).*$' --perl-regexp
 
 git log --oneline --graph --decorate --all  ----show graphical commit history
 gitk                            ----pop up a window showing commit graph. The command needs to be installed separately.
@@ -65,16 +66,20 @@ git tag -l 'v1.4.2.*'
 git tag -a v1.4 -m 'my version 1.4'
 git show v1.4
 git tag `date "+%Y-%m-%d_%H-%M-%S"`
-git tag -d <tagname>      ----删除一个tag
+git tag -d <tagname>            ----删除一个tag
+git fetch --all --tags --prune  ----fetch all tags
+git tag -l '*11.1.6.2590'       ----list tag with wildcard match
+git checkout tags/build-tags/ci/build-2019.3.6.90 -b sit    ----checkout a tag to a new local branch
 
 git branch
-git branch -v
 git branch -vv            ----查看当前分支以及上游分支
 git branch dev            ----创建分支
 git checkout -b dev       ----创建并切换到dev分支
 git checkout master
 git switch -c dev         ----新版本的Git提供了新的git switch命令来切换分支
 git merge dev
+git merge origin/master
+git merge --squash <branch>
 git branch -d dev test    ----删除本地分支dev、test（没有merged的分支无法删除）
 git branch -d -r origin/todo origin/html origin/man       ----删除远程分支todo、html、man
 git branch -D dev         ----强行删除分支（包括没有merged的分支），Shortcut for --delete --force.
@@ -83,8 +88,7 @@ git fetch origin master
 git log --oneline origin/master
 git log -p master..origin/master
 git stash
-git merge origin/master
-git stash pop
+git stash pop/apply/list
 
 git remote -v
 git remote set-url origin <url>
@@ -106,6 +110,8 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 	git push --dry-run          ----查看结果，不做真实推送。
 	git push origin master
 	git push origin --tags		----git默认不会push tags
+git push --set-upstream <remote-name> <local-branch-name>
+git push -u origin your_branch
 
 git config --global/system/local -l
 git config --global -e
@@ -113,6 +119,9 @@ git config --global core.editor <editor>
 git config --global core.editor "vim"
 git config --global user.name <name>
 git config --global user.email <email>
+
+git update-index --skip-worktree <file-list>        ----ignore some files locally
+git update-index --no-skip-worktree <file-list>     ----Reverse locally ignore
 
 system config file: <git-root>/mingw64/etc/gitconfig
 	$(prefix)/etc/gitconfig	----Linux
@@ -136,7 +145,9 @@ git stash clear	            ----删除所有存储的进度。
 git diff                    ----此命令比较的是工作目录(Working tree)和暂存区域快照(index)之间的差异，也就是修改之后还没有 staging 起来的变化内容。
 git diff --cached   	    ----比较索引和最后一次 commit 之间的变化; 查看已经 add ，但没有 commit 的改动。
 git diff HEAD       	    ----自上次提交以来工作树中的更改；包括工作区和已经staged的修改。如果运行“git commit -a”，查看将会提交什么(不填message会取消提交)。
+git show <commit>
 git diff HEAD^ HEAD^^       ----比较上次提交和上上次提交
+git diff 15dc8^!            ----比较 commit 和其 parent commit
 git diff --stat             ----显示两个版本差异的统计信息
 git config --global diff.tool winmerge/vimdiff		    # 配置 diff.tool，保证 winmerge/diff 的可执行文件在path中。主要的几种diff工具，git会自动配置。“mingw64\libexec\git-core\mergetools”
 git config --global difftool.prompt false				# 取消 difftool 的确认提示
