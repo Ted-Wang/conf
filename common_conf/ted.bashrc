@@ -55,7 +55,7 @@ alias fgrep='fgrep --colro=auto'
 alias du0='du -h --max-depth=0'
 alias du1='du -h --max-depth=1'
 
-if [ "$runIn" == "Win/git-bash" ]; then
+if [ $(currentEnv) == "Win/git-bash" ]; then
     alias ping='/bin/winpty ping'
 fi
 
