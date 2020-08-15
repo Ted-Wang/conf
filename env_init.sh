@@ -130,21 +130,76 @@ function conf_lanuage_CN(){
     : # do nothting right now.
 }
 
-function conf_m2_script(){
-    # add m2.sh(a very simple bookmark for shell) to ~/ted.bashrc
-    echo -n '#--------a short bookmark function start--------' >> ~/ted.bashrc
-    if [ -f $BASE_DIR/common_conf/m2.sh ];then
-        cat $BASE_DIR/common_conf/m2.sh >> ~/ted.bashrc
+SCRIPT_FOLDER=~/my_script
+function _check_my_script_folder() {
+    if [ ! -d $SCRIPT_FOLDER ]; then
+        mkdir -p $SCRIPT_FOLDER
+        echo create folder: $SCRIPT_FOLDER
     fi
-    # another approach is to copy m2.sh and source it in ~/ted.bashrc
+}
+
+function copy_script_to_my_script_folder() {
+    _check_my_script_folder
+    for arg in $@; do 
+        if [ -f $arg ]; then
+            \cp $arg $SCRIPT_FOLDER/
+        fi
+    done
+}
+
+function copy_script_and_make_symlink() {
+    _check_my_script_folder
+    for arg in $@; do 
+        if [ -f $arg ]; then
+            \cp $arg $SCRIPT_FOLDER/
+            script_name=$SCRIPT_FOLDER/${arg##*/}
+            echo copy file: $arg to $script_name
+            link_name=${arg##*/}
+            link_name=${link_name:0:-3}
+            link_name=~/.local/bin/$link_name
+            sudo ln -sf $script_name $link_name
+            echo create symlink $link_name
+        fi
+    done
+}
+
+function copy_script_and_source_it() {
+    for arg in $@; do 
+        if [ -f $arg ]; then
+            \cp $arg $SCRIPT_FOLDER/
+            script_name=$SCRIPT_FOLDER/${arg##*/}
+            echo copy file: $arg to $script_name
+            cat << EOF >> ~/ted.bashrc
+if [ -f $script_name ]; then
+    source $script_name
+fi
+EOF
+        fi
+    done
+}
+
+function conf_my_script() {
+    copy_script_and_source_it $BASE_DIR/common_conf/m2.sh
+
+    #copy_script_to_my_script_folder $BASE_DIR/script/dockertags.sh
+    #copy_script_and_make_symlink $BASE_DIR/script/dockertags.sh
+    docker info >/dev/null 2>&1
+    if [ $? == 0 ]; then
+        copy_script_and_source_it $BASE_DIR/script/dockertags.sh
+    fi
+}
+
+function conf_m2_script(){
+    # 1. add m2.sh(a very simple bookmark for shell) to ~/ted.bashrc
+    #echo -n '#--------a short bookmark function start--------' >> ~/ted.bashrc
     #if [ -f $BASE_DIR/common_conf/m2.sh ];then
-    #    \cp $BASE_DIR/common_conf/m2.sh ~/
-    #    cat << EOF >> ~/ted.bashrc
-    #if [ -f ~/m2.sh ]; then
-    #    source ~/m2.sh
+        #cat $BASE_DIR/common_conf/m2.sh >> ~/ted.bashrc
     #fi
-    #EOF
-    echo '#--------a short bookmark function end--------' >> ~/ted.bashrc
+    #echo '#--------a short bookmark function end--------' >> ~/ted.bashrc
+
+    # 2. another approach is to copy m2.sh and source it in ~/ted.bashrc
+    # move to upper function
+    : # do nonthing
 }
 
 conf_vimrc
@@ -153,7 +208,8 @@ conf_ssh
 #conf_lanuage_CN
 conf_shell_prompt_inc_git
 conf_git
-conf_m2_script
+#conf_m2_script
+conf_my_script
 
 source ~/ted.bashrc
 

@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # 代码设计思路来自【韦易笑】的文章：[十行代码实现路径书签功能](https://zhuanlan.zhihu.com/p/57659856)
 # 原文的实现思路是通过 symblol link 来实现，但是 symbol link 在 win/git-bash 下无法工作。ln命令会直接 copy 整个目录。
