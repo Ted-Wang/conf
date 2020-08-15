@@ -4,6 +4,7 @@
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SHELL_PROMPT=shell_prompt.sh
 SSH_CONFIG=~/.ssh/config
+MY_SCRIPT_FOLDER=~/my_script
 
 unameOut="$(uname -s)"
 case $unameOut in
@@ -63,7 +64,17 @@ if [ -f ~/ted.bashrc ]; then
 fi
 EOF
     fi
+    # plan to move these aliases to a scirpt file and exposed as functions
+    #echo appending ted_extra.bashrc to ted.bashrc
+    #__conf_extra_bashrc
     echo done.
+}
+
+function __conf_extra_bashrc(){
+    local extra_bashrc=$BASE_DIR/common_conf/ted_extra.bashrc
+    if [ -f $extra_bashrc ]; then
+        cat $extra_bashrc >> ~/ted.bashrc
+    fi
 }
 
 function conf_ssh(){
@@ -130,11 +141,10 @@ function conf_lanuage_CN(){
     : # do nothting right now.
 }
 
-SCRIPT_FOLDER=~/my_script
 function __check_my_script_folder() {
-    if [ ! -d "$SCRIPT_FOLDER" ]; then
-        mkdir -p "$SCRIPT_FOLDER"
-        echo create folder: $SCRIPT_FOLDER
+    if [ ! -d "$MY_SCRIPT_FOLDER" ]; then
+        mkdir -p "$MY_SCRIPT_FOLDER"
+        echo create folder: $MY_SCRIPT_FOLDER
     fi
 }
 
@@ -142,7 +152,7 @@ function copy_script_to_my_script_folder() {
     __check_my_script_folder
     local arg; for arg in $@; do 
         if [ -f $arg ]; then
-            \cp $arg $SCRIPT_FOLDER/
+            \cp $arg $MY_SCRIPT_FOLDER/
         fi
     done
 }
@@ -151,8 +161,8 @@ function copy_script_and_make_symlink() {
     __check_my_script_folder
     local arg; for arg in $@; do 
         if [ -f $arg ]; then
-            \cp $arg $SCRIPT_FOLDER/
-            script_name=$SCRIPT_FOLDER/${arg##*/}
+            \cp $arg $MY_SCRIPT_FOLDER/
+            script_name=$MY_SCRIPT_FOLDER/${arg##*/}
             echo copy file: $arg to $script_name
             link_name=${arg##*/}
             link_name=${link_name:0:-3}
@@ -167,8 +177,8 @@ function copy_script_and_source_it() {
     __check_my_script_folder
     local arg; for arg in $@; do 
         if [ -f $arg ]; then
-            \cp $arg $SCRIPT_FOLDER/
-            script_name=$SCRIPT_FOLDER/${arg##*/}
+            \cp $arg $MY_SCRIPT_FOLDER/
+            script_name=$MY_SCRIPT_FOLDER/${arg##*/}
             echo copy file: $arg to $script_name
             cat << EOF >> ~/ted.bashrc
 if [ -f $script_name ]; then
@@ -185,6 +195,8 @@ function conf_my_script() {
     #copy_script_to_my_script_folder $BASE_DIR/script/dockertags.sh
     #copy_script_and_make_symlink $BASE_DIR/script/dockertags.sh
     copy_script_and_source_it $BASE_DIR/script/dockertags.sh
+
+    copy_script_and_source_it $BASE_DIR/common_conf/vps_fast.sh
 }
 
 function conf_m2_script(){
