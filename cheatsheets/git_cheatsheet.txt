@@ -56,6 +56,7 @@ git log --merges                ----#This returns all commits that have at least
 git log --author="\(Adam\)\|\(Jon\)"
 git log --author="username" --pretty=format:"%h - %an, %ar : %s"
 git log --author='^(?!Adam|Jon).*$' --perl-regexp
+git log --author="ted" | grep BUG-1916 -C5
 
 git log --oneline --graph --decorate --all  ----show graphical commit history
 gitk                            ----pop up a window showing commit graph. The command needs to be installed separately.
@@ -80,6 +81,9 @@ git switch -c dev         ----新版本的Git提供了新的git switch命令来�
 git merge dev
 git merge origin/master
 git merge --squash <branch>
+git merge --abort/--continue
+git cherry-pick <commit>
+git cherry-pick --abort/--continue
 git branch -d dev test    ----删除本地分支dev、test（没有merged的分支无法删除）
 git branch -d -r origin/todo origin/html origin/man       ----删除远程分支todo、html、man
 git branch -D dev         ----强行删除分支（包括没有merged的分支），Shortcut for --delete --force.
@@ -88,9 +92,10 @@ git fetch origin master
 git log --oneline origin/master
 git log -p master..origin/master
 git stash
-git stash pop/apply/list
+git stash pop/apply/list/clear
+git stash pop/apply/drop stash@{1} 
 
-git remote -v
+git remote -v/-vv
 git remote set-url origin <url>
 git remote set-url --add origin <2nd_url>       ----给 origin 添加多个 url，这样就可以同时 push 到多个仓库
 git remote add <name> <url>
@@ -132,15 +137,6 @@ git config命令		--system，--global，--local(默认写入)和--file <filename
 https://www.yiibai.com/git/git_config.html
 读取时，默认情况下从系统，全局和存储库本地配置文件读取这些值，而选项--system，--global，--local和--file <filename>可用于告知命令从只有那个位置设置和读取。
 写入时，默认情况下将新值写入存储库本地配置文件，并且可以使用选项--system，--global，--file <filename>来告诉命令写入该位置(可以指定为 --local，但这是默认值)。
-
-git stash
-git stash list
-git stash pop               ----恢复最新的进度到工作区。git默认会把工作区和暂存区的改动都恢复到工作区。
-git stash pop --index       ----恢复最新的进度到工作区和暂存区。（尝试将原来暂存区的改动还恢复到暂存区）
-git stash pop stash@{1}     ----恢复指定的进度到工作区。stash_id是通过git stash list命令得到的
-git stash apply [–index] [stash_id]	----除了不删除恢复的进度之外，其余和git stash pop 命令一样。
-git stash drop [stash_id]	----删除一个存储的进度。如果不指定stash_id，则默认删除最新的存储进度。
-git stash clear	            ----删除所有存储的进度。
 
 git diff                    ----此命令比较的是工作目录(Working tree)和暂存区域快照(index)之间的差异，也就是修改之后还没有 staging 起来的变化内容。
 git diff --cached   	    ----比较索引和最后一次 commit 之间的变化; 查看已经 add ，但没有 commit 的改动。
