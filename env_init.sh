@@ -131,16 +131,16 @@ function conf_lanuage_CN(){
 }
 
 SCRIPT_FOLDER=~/my_script
-function _check_my_script_folder() {
-    if [ ! -d $SCRIPT_FOLDER ]; then
-        mkdir -p $SCRIPT_FOLDER
+function __check_my_script_folder() {
+    if [ ! -d "$SCRIPT_FOLDER" ]; then
+        mkdir -p "$SCRIPT_FOLDER"
         echo create folder: $SCRIPT_FOLDER
     fi
 }
 
 function copy_script_to_my_script_folder() {
-    _check_my_script_folder
-    for arg in $@; do 
+    __check_my_script_folder
+    local arg; for arg in $@; do 
         if [ -f $arg ]; then
             \cp $arg $SCRIPT_FOLDER/
         fi
@@ -148,8 +148,8 @@ function copy_script_to_my_script_folder() {
 }
 
 function copy_script_and_make_symlink() {
-    _check_my_script_folder
-    for arg in $@; do 
+    __check_my_script_folder
+    local arg; for arg in $@; do 
         if [ -f $arg ]; then
             \cp $arg $SCRIPT_FOLDER/
             script_name=$SCRIPT_FOLDER/${arg##*/}
@@ -164,7 +164,8 @@ function copy_script_and_make_symlink() {
 }
 
 function copy_script_and_source_it() {
-    for arg in $@; do 
+    __check_my_script_folder
+    local arg; for arg in $@; do 
         if [ -f $arg ]; then
             \cp $arg $SCRIPT_FOLDER/
             script_name=$SCRIPT_FOLDER/${arg##*/}
