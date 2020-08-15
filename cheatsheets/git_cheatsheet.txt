@@ -105,6 +105,7 @@ git remote rename <old-name> <new-name>
 git fetch               ----从远程获取最新版本到本地，但不会自动merge。
 git fetch --dry-run -v  ----查看有多少更新
 git pull                ----可以认为是git fetch和git merge两个步骤的结合。
+git pull --rebase       ----这样做的 commit history 更好看，而且，还可以避免一个 merge commit
 git fetch <远程主机名> <分支名>
 	git fetch origin master	    ----如果是裸仓库，没有origin，可以先 git remote add origin <url>
 git pull <远程主机名> <远程分支名>:<本地分支名>
@@ -148,6 +149,11 @@ git diff --stat             ----显示两个版本差异的统计信息
 git config --global diff.tool winmerge/vimdiff		    # 配置 diff.tool，保证 winmerge/diff 的可执行文件在path中。主要的几种diff工具，git会自动配置。“mingw64\libexec\git-core\mergetools”
 git config --global difftool.prompt false				# 取消 difftool 的确认提示
 配置好之后，使用 git difftool 命令代替 git diff 即可
+
+# proxy
+git config --global http.proxy http://proxyuser:proxypwd@proxy.server.com:8080
+git config --local http.proxy socks5://server.com:1080
+git config --local https.proxy socks5://127.0.0.1:2080
 
 一文告诉你如何导出 Git 变更文件 https://zhuanlan.zhihu.com/p/74796130
 方法1，使用 git 自带命令 git archive, 语法如下。
