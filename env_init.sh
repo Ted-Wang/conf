@@ -184,10 +184,7 @@ function conf_my_script() {
 
     #copy_script_to_my_script_folder $BASE_DIR/script/dockertags.sh
     #copy_script_and_make_symlink $BASE_DIR/script/dockertags.sh
-    docker info >/dev/null 2>&1
-    if [ $? == 0 ]; then
-        copy_script_and_source_it $BASE_DIR/script/dockertags.sh
-    fi
+    copy_script_and_source_it $BASE_DIR/script/dockertags.sh
 }
 
 function conf_m2_script(){
