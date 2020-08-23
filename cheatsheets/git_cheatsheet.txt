@@ -74,8 +74,12 @@ git checkout tags/build-tags/ci/build-2019.3.6.90 -b sit    ----checkout a tag t
 
 git branch
 git branch -vv            ----查看当前分支以及上游分支
+git branch -r	          ----show all remote branch
+git branch -r --list '*19*'	    ----show remote branch with matched pattern(s).
+git branch --list '*19*'        ----show local branch with matched pattern(s).
 git branch dev            ----创建分支
 git checkout -b dev       ----创建并切换到dev分支
+git checkout -b dev origin/dev  ----创建并同步远程分支到本地
 git checkout master
 git switch -c dev         ----新版本的Git提供了新的git switch命令来切换分支
 git merge dev
@@ -92,7 +96,7 @@ git fetch origin master
 git log --oneline origin/master
 git log -p master..origin/master
 git stash
-git stash pop/apply/list/clear
+git stash pop/apply/drop/list/clear
 git stash pop/apply/drop stash@{1} 
 
 git remote -v/-vv
