@@ -23,7 +23,7 @@ sudo chown $GIT_USER:$GIT_USER $GIT_REPO/.ssh $GIT_REPO/.ssh/authorized_keys
 if ! grep -Eq "Match Group $GIT_USER" /etc/ssh/sshd_config; then
     echo patching /etc/ssh/sshd_config
     sudo sh -c "cat << 'EOF' >> /etc/ssh/sshd_config
-Match Group $GIT_USER
+Match User $GIT_USER
     AllowTCPForwarding no
     X11Forwarding no
     PermitTTY no
