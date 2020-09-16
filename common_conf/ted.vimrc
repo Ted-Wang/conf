@@ -77,6 +77,10 @@ else
         set t_Co=256                " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
     endif
     "set term=builtin_ansi          " Make arrow and other keys work
+
+    " 下面这个配置是为了让 git-bash 在 Conemu 里正常工作，具体原因见：https://conemu.github.io/en/VimXterm.html#Vim-scrolling-using-mouse-Wheel
+    " 最好想办法检测当前是否运行在 Conemu 中
+    set term=xterm
 endif
 
 set ruler                                           " Show the ruler
