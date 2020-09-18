@@ -79,7 +79,7 @@ if has('gui_running')
 elseif MINGW()                      " for vim in git-bash
     set lines=50 columns=120 
     set cursorline                  " Highlight current line
-    colorscheme desert              " git-bash 里也使用 sesert
+    colorscheme default             " git-bash 里也使用 default，使用 git-bash 自带的 flat-ui 主题的效果更好
 elseif LINUX()
     colorscheme default
      " do nonthing                  " Linux/Shell 里还是留空使用 terminal 的 theme 。
