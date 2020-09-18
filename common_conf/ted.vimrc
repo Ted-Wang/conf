@@ -40,18 +40,6 @@ silent function! WINDOWS()
     return  (has('win32') || has('win64'))
 endfunction
 
-if has('gui_running')
-    set lines=50 columns=120 
-    set cursorline                  " Highlight current line
-    colorscheme desert              " 使用经典的 desert 配色，综合来看，在 win/gvim，Linux/gvim，git-bash 里，效果都还不错。
-elseif MINGW()                      " for vim in git-bash
-    set lines=50 columns=120 
-    set cursorline                  " Highlight current line
-    colorscheme desert              " git-bash 里也使用 sesert
-elseif LINUX()
-     " do nonthing                  " Linux/Shell 里还是留空使用 terminal 的 theme 。
-endif
-
 " the following piece if copied from spf13/.vimrc
 if has('clipboard')
     if has('unnamedplus')           " When possible use + register for copy-paste
@@ -81,6 +69,20 @@ else
     " 下面这个配置是为了让 git-bash 在 Conemu 里正常工作，具体原因见：https://conemu.github.io/en/VimXterm.html#Vim-scrolling-using-mouse-Wheel
     " 最好想办法检测当前是否运行在 Conemu 中
     set term=xterm
+endif
+
+" colorscheme and cursor settings
+if has('gui_running')
+    set lines=50 columns=120 
+    set cursorline                  " Highlight current line
+    colorscheme desert              " 使用经典的 desert 配色，综合来看，在 win/gvim，Linux/gvim，git-bash 里，效果都还不错。
+elseif MINGW()                      " for vim in git-bash
+    set lines=50 columns=120 
+    set cursorline                  " Highlight current line
+    colorscheme desert              " git-bash 里也使用 sesert
+elseif LINUX()
+    colorscheme default
+     " do nonthing                  " Linux/Shell 里还是留空使用 terminal 的 theme 。
 endif
 
 set ruler                                           " Show the ruler
