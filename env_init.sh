@@ -3,8 +3,8 @@
 #basefolder=${0%/*}
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SHELL_PROMPT=shell_prompt.sh
-SSH_CONFIG=~/.ssh/config
-MY_SCRIPT_FOLDER=~/my_script
+SSH_CONFIG="$HOME/.ssh/config"
+MY_SCRIPT_FOLDER="$HOME/my_script"
 
 unameOut="$(uname -s)"
 case $unameOut in
@@ -177,12 +177,12 @@ function copy_script_and_source_it() {
     __check_my_script_folder
     local arg; for arg in $@; do 
         if [ -f $arg ]; then
-            \cp $arg $MY_SCRIPT_FOLDER/
+            \cp $arg "$MY_SCRIPT_FOLDER"/
             script_name=$MY_SCRIPT_FOLDER/${arg##*/}
             echo copy file: $arg to $script_name
             cat << EOF >> ~/ted.bashrc
-if [ -f $script_name ]; then
-    source $script_name
+if [ -f "$script_name" ]; then
+    source "$script_name"
 fi
 EOF
         fi
