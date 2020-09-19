@@ -15,10 +15,24 @@ echo {10..20..2}        # generate a number list
 #- combine several commands' output together
 { echo "I found all these PNGs:"; find . -iname "*.png"; echo "Within this bunch of files:"; ls; } > PNGs.txt
 
+#- redirect script's output to a file combined with a timestamp. useful in crontab job.
+myscript.sh 2> >( while read line; do echo "$(date): ${line}"; done > error.log ) 1>&2
+
+alias wol='bash /d/ws/sync/conf/script/wol.sh'
+alias wol='bash ~/prj/conf/script/wol.sh'
+
+nohup command > executing.log 2>&1 &
+
+alias frps='nohup ~/frp/frp_0.33.0_linux_amd64/frps -c ~/frp/frp_0.33.0_linux_amd64/frps.ini >> ~/frp/frp_0.33.0_lin    ux_amd64/frps.log 2>&1 &'
+alias frpc='nohup ~/frp/frp_0.33.0_linux_arm/frpc -c ~/frp/frp_0.33.0_linux_arm/frpc.ini >> ~/frp/frp_0.33.0_linux_arm/frpc.log 2>&1 &'
+alias frprestart='bash -i ~/frp/frp_0.33.0_linux_arm/frprestart.sh'
+
 alt+.       # means the last argument of previous command, repeat to get other one before previous
 !^/!*       # both stand for all arguments of previous command
 
 ls | grep -v file.txt | xargs rm    # rm other files except file.txt in current folder
+
+scp user@server:/path/to/remotefile.zip /Local/Target/Destination
 
 echo `date +%H:%M:%S`,`my_script.sh` >> ~/cputemp/`date +%Y-%m-%d`.csv
 sudo blkid | column -t
@@ -42,9 +56,13 @@ find * -maxdepth 0 -type f          # same as upper one
 du -h --max-depth=0 ~/myfolder      # show size of myfolder
 du -h --max-depth=0 --exclude=.git ~/ws     # show size of repo 'conf', without meta data.
 
-tar -cvf test.tar.gz file1 file2 folder/*
-
-scp user@server:/path/to/remotefile.zip /Local/Target/Destination
+### compress, decopress/uncompress
+	tar -xvf jdk-8u5-linux-x64.tar.gz
+	tar -cvf test.tar.gz file1 file2 folder/*
+	tar -I zstd -xvf archive.tar.zst
+	tar --zstd xvf archive.tar.zst
+	unzip package.zip -d dest_folder		# must use -d specify the dest folder
+	unzip -l file.zip						# list files
 
 grep -irn "regex" ~/folder  # search all files in ~/folder for "regex". i, ignore case; r, recursive; n, line number & content.
 grep -irl "regex" ~/folder ~/other/file # l, show file names with matches content; L, show file name without matches. 
@@ -56,11 +74,7 @@ find ~/ -iname 'ted'        # find file whose name is exactly 'ted', but match t
 find ~/ -name 'ted' -type f # do not display directories, sockets, or other non-regular file types. 
 find ~/ -name 'ws' --maxdepth 3 -type d # find directories named ws, limit subdirectory traversal to 2 levels beneath the specified directory.
 find ~/ -group dev          # list files in ~/ whose owning group is 'dev'
-
-#- redirect script's output to a file combined with a timestamp. useful in crontab job.
-myscript.sh 2> >( while read line; do echo "$(date): ${line}"; done > error.log ) 1>&2
-
-nohup command > executing.log 2>&1 &
+find . -name \*log\* -cmin -30 -exec grep -nH 'OrderSattus in StateMachine is not correct' {} ';'
 
 ### CLI tips
 #- move

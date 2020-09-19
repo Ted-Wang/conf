@@ -8,8 +8,9 @@ git init --bare prjDir.git      ----创建一个初始仓库（中心仓库）�
 
 git status
 git add *                       ----不包括删除的文件，也不包括.开头的文件
-git add .                       ----当前目录及其子目录的所有文件，包括.开头的文件，也包括删除的文件。
-git add -A                      ----当前库的所有文件，如果pwd在子目录，parents 目录的修改也包括，也包括新增、删除的文件。
+git add -u	                    ----stage the modified and deleted files (exclude untracked/new files)
+git add .                       ----stages new files and modifications, without deletions
+git add -A                      ----states all changes。如果pwd在子目录，则 parents 目录的修改也包括在内，并且也包括所有新增、删除的文件。
 git commit -m "message"
 git commit -am "message"        ----以上2步合成一步，但是注意，这样只提交“修改过的文件，包括删除的”，新添加的文件，没有被tracked，必须用 git add
 git commit -a                   ----使用-a可以查看有哪些文件会被提交，不填message即可取消提交，相当于dry run
@@ -42,6 +43,10 @@ git checkout -- <filename>      ----回滚一个文件
 
 git reflog                      ----显示 HEAD 的变化历史，可以找到上一次 HEAD 指向的 commit，再次使用 reset 命令恢复
 
+git blame myClass.java          ---- https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-blame
+
+git log --oneline origin/master
+git log -p master..origin/master
 git log -3
 git log origin/master           ----git fetch 以后，可以看到 master 和 origin/master 之间差了多少个 commits。
 git log --oneline --decorate    ----#oneline 只显示 hash 和 message，decorate 会同时显示所有 references (e.g., branches, tags, etc)
@@ -92,12 +97,12 @@ git branch -d dev test    ----删除本地分支dev、test（没有merged的分�
 git branch -d -r origin/todo origin/html origin/man       ----删除远程分支todo、html、man
 git branch -D dev         ----强行删除分支（包括没有merged的分支），Shortcut for --delete --force.
 
-git fetch origin master
-git log --oneline origin/master
-git log -p master..origin/master
 git stash
 git stash pop/apply/drop/list/clear
 git stash pop/apply/drop stash@{1} 
+git stash -u	        ----including untracked files(new files)
+git stash -a	        ----stash all files, including "ignored files"
+git stash show -p stash@{0}     ----diff against a stash
 
 git remote -v/-vv
 git remote set-url origin <url>
@@ -106,6 +111,7 @@ git remote add <name> <url>
 git remote rm <name>
 git remote rename <old-name> <new-name>
 
+git fetch origin master
 git fetch               ----从远程获取最新版本到本地，但不会自动merge。
 git fetch --dry-run -v  ----查看有多少更新
 git pull                ----可以认为是git fetch和git merge两个步骤的结合。
@@ -115,6 +121,14 @@ git fetch <远程主机名> <分支名>
 git pull <远程主机名> <远程分支名>:<本地分支名>
 	git pull origin master		----通常本都是省略本地分支名，表示合并同名分支
 * 如果 git pull 发生冲突(conflicts)，解决冲突之后要 git add conflict_file，然后 commit
+
+如果本地有修改但是没有 commit，则 git pull 会退化成 git fetch，并提示让用户 merge，相当于执行了
+	git fetch origin master
+这时候，可以具体查看一下修改，然后先 stash 本地修改，在 git pull 一次，或者直接 merge origin/master 到本地的 master
+	git log -p master..origin/master
+	git stash
+	git merge origin/master
+	git stash pop
 
 git push <远程主机名> <本地分支名>:<远程分支名>
 	git push --dry-run          ----查看结果，不做真实推送。
