@@ -55,13 +55,16 @@ alias tb="$NETCAT termbin.com 9999"
 unset NETCAT
 # 生成一个paste：echo text | tb；获取内容可以使用：curl http://termbin.com/xftf
 
-function setzoom() {
-    if [ "$1" == "" ];then
-        gsettings get org.gnome.desktop.interface text-scaling-factor;
-    else
-        gsettings set org.gnome.desktop.interface text-scaling-factor "$@";
-    fi
-}
+gsettings --version >/dev/null 2>&1
+if [ $? == 0 ]; then
+    function setzoom() {
+        if [ "$1" == "" ];then
+            gsettings get org.gnome.desktop.interface text-scaling-factor;
+        else
+            gsettings set org.gnome.desktop.interface text-scaling-factor "$@";
+        fi
+    }
+fi
 
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
