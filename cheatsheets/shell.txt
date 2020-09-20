@@ -23,10 +23,6 @@ alias wol='bash ~/prj/conf/script/wol.sh'
 
 nohup command > executing.log 2>&1 &
 
-alias frps='nohup ~/frp/frp_0.33.0_linux_amd64/frps -c ~/frp/frp_0.33.0_linux_amd64/frps.ini >> ~/frp/frp_0.33.0_lin    ux_amd64/frps.log 2>&1 &'
-alias frpc='nohup ~/frp/frp_0.33.0_linux_arm/frpc -c ~/frp/frp_0.33.0_linux_arm/frpc.ini >> ~/frp/frp_0.33.0_linux_arm/frpc.log 2>&1 &'
-alias frprestart='bash -i ~/frp/frp_0.33.0_linux_arm/frprestart.sh'
-
 alt+.       # means the last argument of previous command, repeat to get other one before previous
 !^/!*       # both stand for all arguments of previous command
 
