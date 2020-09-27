@@ -190,6 +190,9 @@ EOF
 }
 
 function conf_my_script() {
+    if [ -d "$MY_SCRIPT_FOLDER" ]; then
+        \rm $MY_SCRIPT_FOLDER/*
+    fi
     copy_script_and_source_it $BASE_DIR/common_conf/m2.sh
 
     #copy_script_to_my_script_folder $BASE_DIR/script/dockertags.sh

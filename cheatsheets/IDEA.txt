@@ -44,6 +44,7 @@ Alt+ESC
 Alt+1，切换到 project 窗口， ESC可以使 focus 回到编辑器，在用 Alt+ESC， 可以影藏刚才打开的窗口
 
 Ctrl+[/]/m	移动到括号的 开始/结束/切换
+Ctrl+shift+m	在括号的开始/结束之间切换
 
 Ctrl+Shift+Alt+T	打开 Refactor 菜单
 Ctrl+Alt+T	打开 Surrounding with 菜单
