@@ -6,6 +6,12 @@ function generateShellPromptWithGit() {
         echo source /usr/share/git/completion/git-prompt.sh
     fi
 
+    # import __git_ps1() function for CentOS, RHEL, Redhat
+    yum --help > /dev/null 2>&1
+    if [ $? == 0 ] && [ -f /usr/share/git/completion/git-prompt.sh ]; then
+        echo source /usr/share/git-core/contrib/completion/git-prompt.sh
+    fi
+
     unameOut="$(uname -s)"
     case $unameOut in
         Linux*) runIn=Linux-shell;;
