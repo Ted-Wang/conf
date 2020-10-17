@@ -23,6 +23,11 @@ alias wol='bash ~/prj/conf/script/wol.sh'
 
 nohup command > executing.log 2>&1 &
 
+curl -x 172.17.1.110:10809 google.com
+curl -x socks5://172.17.1.110:10808 google.com
+curl -LO url
+curl -L -o fileName url
+
 alt+.       # means the last argument of previous command, repeat to get other one before previous
 !^/!*       # both stand for all arguments of previous command
 
