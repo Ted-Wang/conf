@@ -191,7 +191,7 @@ tab跳转：
 	Ctrl+Alt+PageUp/Ctrl+Alt+PageDown	go to previous/next tab
 
 
-### Move
+### Move 跳转
 
 h j k l		//一般h和l很少用，使用 w b e 代替。
 w e b		//要注意的是e b w会把标点也当做单词分隔符，如对don't连续使用dw，会把这当做三个单word (don,',t) 分3次来删除，而大写的E B W则不会，一次删光。
@@ -207,9 +207,10 @@ H/M/L		//移动光标到 顶行/中间行/底行
 zt/zz/zb	//移动屏幕，将当前行至于 顶部/中间/底部
 
 ``			last location，上次编辑的位置
-`.			last edit location，上次修改的位置
+`.			last edit location，上次修改的位置. '. 上次修改的行
 `"			上次离开的位置
 `0			open last file
+Ctrl+o/i    Retrace your movements in file in backwards/forwards. 最多保存100条跳转记录
 C+o/C+i		跟其他编辑器的 alt+left/right 类似。详见  :help jump-motions
 ctrl+^		在最近两个缓冲区(buffer)间切换。
 
