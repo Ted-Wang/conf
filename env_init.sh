@@ -71,6 +71,16 @@ EOF
     echo done.
 }
 
+function conf_shell_theme_for_win(){
+    if [[ "$runIn" == "Win/git-bash" ]] || [[ "$runIn" == "Win/msys2" ]]; then
+        echo setting up shell theme for win/git-bash MSYS2
+        \cp $BASE_DIR/common_conf/ted-conf /usr/share/mintty/themes/ 
+        if ! grep -Eq "^ThemeFile.*$" ~/.minttyrc; then 
+            echo "ThemeFile=ted-conf" >> ~/.minttyrc
+        fi
+    fi
+}
+
 function __conf_extra_bashrc(){
     local extra_bashrc=$BASE_DIR/common_conf/ted_extra.bashrc
     if [ -f $extra_bashrc ]; then
@@ -224,6 +234,7 @@ conf_shell_prompt_inc_git
 conf_git
 #conf_m2_script
 conf_my_script
+conf_shell_theme_for_win
 
 source ~/ted.bashrc
 
