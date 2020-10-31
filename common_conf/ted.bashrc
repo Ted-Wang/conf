@@ -42,13 +42,13 @@ alias fgrep='fgrep --colro=auto'
 alias du0='du -h --max-depth=0'
 alias du1='du -h --max-depth=1'
 
-if [ $(currentEnv) == "Win/git-bash" ]; then
+if [[ $(currentEnv) == "Win/git-bash" ]]; then
     alias ping='/bin/winpty ping'
 fi
 
 # LinuxMint 使用了 termbin.com，发现挺不错的。
 NETCAT=nc
-if [ $(currentEnv) == "Win/git-bash" ];then
+if [[ $(currentEnv) == "Win/git-bash" ]];then
     NETCAT=ncat
 fi
 alias tb="$NETCAT termbin.com 9999"
@@ -56,9 +56,9 @@ unset NETCAT
 # 生成一个paste：echo text | tb；获取内容可以使用：curl http://termbin.com/xftf
 
 gsettings --version >/dev/null 2>&1
-if [ $? == 0 ]; then
+if [[ $? == 0 ]]; then
     function setzoom() {
-        if [ "$1" == "" ];then
+        if [[ "$1" == "" ]];then
             gsettings get org.gnome.desktop.interface text-scaling-factor;
         else
             gsettings set org.gnome.desktop.interface text-scaling-factor "$@";
@@ -70,13 +70,13 @@ export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 # Ubuntu and Raspi does not read EDITOR variable by default, force to use it.
 apt-get --help >/dev/null 2>&1
-if [ $? == 0 ]; then
+if [[ $? == 0 ]]; then
     alias visudo="EDITOR=$EDITOR visudo"
 fi
 
 # add alias for Manjaro
 pacman --help > /dev/null 2>&1
-if [ $? == 0 ] && [ -f /usr/share/git/completion/git-prompt.sh ]; then
+if [[ $? == 0 ]] && [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
     alias sudo='sudo -E'
 fi
 

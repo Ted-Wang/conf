@@ -10,10 +10,11 @@ unameOut="$(uname -s)"
 case $unameOut in
     Linux*) runIn=Linux-shell;;
     MINGW*) runIn=Win/git-bash;;
+    MSYS*) runIn=Win/msys2;;
     Darwin*) runIn=Mac;;
     CYGWIN*) runIn=Win/Cygwin;;
 esac
-if [ "$runIn" == "Win/git-bash" ] || [ "$runIn" == "Win/Cygwin" ]; then
+if [ "$runIn" == "Win/git-bash" ] || [ "$runIn" == "Win/Cygwin" ] || [ "$runIn" == "Win/msys2" ]; then
     SUDO=""
 elif [ "$runIn" == "Linux-shell" ]; then
     if [ "$(whoami)" == "root" ]; then
