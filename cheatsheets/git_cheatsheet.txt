@@ -62,6 +62,7 @@ git log --author="\(Adam\)\|\(Jon\)"
 git log --author="username" --pretty=format:"%h - %an, %ar : %s"
 git log --author='^(?!Adam|Jon).*$' --perl-regexp
 git log --author="ted" | grep BUG-1916 -C5
+git log | grep LYKC-11519 -B5/-C5/-A5   ----# print NUM of lines (B)fore/(A)fter/both context. 显示匹配行的 前/后/前后 5 行.
 
 git log --oneline --graph --decorate --all  ----show graphical commit history
 gitk                            ----pop up a window showing commit graph. The command needs to be installed separately.

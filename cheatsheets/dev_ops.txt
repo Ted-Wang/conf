@@ -1,0 +1,35 @@
+
+### Maven
+mvn clean install -DskipTests -Dskip.npm -Dskip.yarn -Dassembly.skipAssembly=true –Pproduction
+other argumets:
+-Dbuild.environment=dev/tedwang.local
+-T 4/-T 1.5C		# T 4, build with 4 thread; 1.5C, build with 1.5 thread per cpu core(count in hyper-threading)
+-pl com.trafigura.lykos.inttest:lykos-inttest
+-f app/path/pom.xml
+mvn -f app/lykos-inttest/pom.xml clean test -pl com.trafigura.lykos.inttest:lykos-inttest
+
+Start spring-boot with Debug mode
+	mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+
+
+### Java & IDE
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8888 -jar webapp/target/lykos-web-1.0.0-SNAPSHOT.war -config=dev/tedwang.local
+
+Config Eclipse remote debug:
+Run -> Debug Configurations -> Remote Java Application -> New -> 
+	Project: lykos-framework
+	Host: localhsot
+	Port: 8888
+In "Source" tab: select all projects in workspace
+
+
+### ssh related
+ssh tunnel command sample:
+ssh -L <local_port>:<target_server_name_or_IP>:<target_server_port> user@<jump_server> -i <cert_file_name>
+ssh -L 6260:server.name.amazonaws.com.cn:1521 ec2-dev@54.223.215.155 -i id_rsa
+
+scp user@server:/path/to/remotefile.zip /Local/Target/Destination
+scp vbox:~/prj/conf.prj /c/dev/prj/temp/
+
+rsync -avzo --progress myserver:/opt/projectDep/my-project-webapp.war ./    # both direction is OK, like scp, up/download
+

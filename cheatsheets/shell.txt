@@ -22,6 +22,7 @@ alias wol='bash /d/ws/sync/conf/script/wol.sh'
 alias wol='bash ~/prj/conf/script/wol.sh'
 
 nohup command > executing.log 2>&1 &
+alias simu='java -jar system-monitor.jar | tee -a sys-mon.log >/dev/null 2>&1 &'    # tee -a means append
 
 curl -x 172.17.1.110:10809 google.com
 curl -x socks5://172.17.1.110:10808 google.com
@@ -31,7 +32,10 @@ curl -L -o fileName url
 alt+.       # means the last argument of previous command, repeat to get other one before previous
 !^/!*       # both stand for all arguments of previous command
 
-ls | grep -v file.txt | xargs rm    # rm other files except file.txt in current folder
+ls | grep -v file.txt | xargs rm        # rm other files except file.txt in current folder
+
+curl -X GET "http://192.168.50.101:10000/?pf=zn&contract=2012&value=8000"
+curl -LO <url>
 
 scp user@server:/path/to/remotefile.zip /Local/Target/Destination
 
