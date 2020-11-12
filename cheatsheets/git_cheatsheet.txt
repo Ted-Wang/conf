@@ -104,6 +104,8 @@ git stash pop/apply/drop stash@{1}
 git stash -u	        ----including untracked files(new files)
 git stash -a	        ----stash all files, including "ignored files"
 git stash show -p stash@{0}     ----diff against a stash
+git stash push -m "message" path/to/file.ext
+git stash push src/		# stash changes in the src/ directory
 
 git remote -v/-vv
 git remote set-url origin <url>
