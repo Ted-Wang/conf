@@ -1,2 +1,0 @@
-sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf		    # 修改默认 DNS 服务模式
-sudo cp /usr/share/applications/guake.desktop /etc/xdg/autostart/		# guake 自动启动

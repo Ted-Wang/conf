@@ -17,7 +17,7 @@
 * USTC Mirror 中科大源 https://mirrors.ustc.edu.cn/help/manjaro.html
 
 ### 自动启动
-sudo cp /usr/share/applications/guake.desktop /etc/xdg/autostart    # 这个对 Ubuntu 和 Manjaro 都适用
+sudo cp /usr/share/applications/guake.desktop /etc/xdg/autostart        # 程序自动启动，这个对 Ubuntu 和 Manjaro 都适用
 
 ### editor, gvim
 #- 卸载默认vim，然后安装gvim(vim-gtk)
@@ -48,7 +48,7 @@ systemctl get-default/set-default multi-user.target/graphical.target    # 默认
 ### hostname 解析问题
 /etc/hosts, /etc/hostname
 
-sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf       # 解决 hostname 不能解析，只能 ping hostname.local 问题。改成这个 symlink 之后，查看 /etc/resolv.con 内容，地址应该是路由器，而不是本机了。
+sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf           # 解决 hostname 不能解析，只能 ping hostname.local 问题。改成这个 symlink 之后，查看 /etc/resolv.con 内容，地址应该是路由器，而不是本机了。
 
 ### 黑屏问题
 Lubuntu安装完后启动黑屏，是登录界面启动太早，在其他tty登录，然后 sudo vi /etc/lightdm/lightdm.conf
