@@ -24,6 +24,8 @@ alias wol='bash ~/prj/conf/script/wol.sh'
 nohup command > executing.log 2>&1 &
 alias simu='java -jar system-monitor.jar | tee -a sys-mon.log >/dev/null 2>&1 &'    # tee -a means append
 
+echo "abc" | tee f1 f2      # 将前一个命令的输出，（在输出到 stdout 的）同时输出到 f1 和 f2 中。
+
 curl -x 172.17.1.110:10809 google.com
 curl -x socks5://172.17.1.110:10808 google.com
 curl -LO url
