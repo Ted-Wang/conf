@@ -73,11 +73,21 @@ endif
 
 " colorscheme and cursor settings
 if has('gui_running')
-    set lines=50 columns=120 
+    if(&lines < 50)
+        set lines=50
+    endif
+    if(&columns < 120)
+        set columns=120
+    endif
     set cursorline                  " Highlight current line
     colorscheme desert              " 使用经典的 desert 配色，综合来看，在 win/gvim，Linux/gvim，git-bash 里，效果都还不错。
 elseif MINGW()                      " for vim in git-bash
-    set lines=50 columns=120 
+    if(&lines < 50)
+        set lines=50
+    endif
+    if(&columns < 120)
+        set columns=120
+    endif
     set cursorline                  " Highlight current line
     colorscheme default             " git-bash 里也使用 default，使用 git-bash 自带的 flat-ui 主题的效果更好
 elseif LINUX()
