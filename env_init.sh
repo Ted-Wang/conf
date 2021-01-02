@@ -82,9 +82,13 @@ function patch_extra_bashrc(){
 function conf_shell_theme_for_win(){
     if [[ "$runIn" == "Win/git-bash" ]] || [[ "$runIn" == "Win/msys2" ]]; then
         echo setting up shell theme for win/git-bash MSYS2
-        \cp $BASE_DIR/common_conf/ted-conf /usr/share/mintty/themes/ 
+        myThemeFile=flat-ui
+        if [ -f $BASE_DIR/common_conf/ted-conf ]; then
+            \cp $BASE_DIR/common_conf/ted-conf /usr/share/mintty/themes/ 
+            myThemeFile=ted-conf
+        fi
         if ! grep -Eq "^ThemeFile.*$" ~/.minttyrc; then 
-            echo "ThemeFile=ted-conf" >> ~/.minttyrc
+            echo "ThemeFile=$myThemeFile" >> ~/.minttyrc
         fi
     fi
 }
