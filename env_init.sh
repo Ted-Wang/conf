@@ -66,9 +66,17 @@ fi
 EOF
     fi
     # plan to move these aliases to a scirpt file and exposed as functions
-    #echo appending ted_extra.bashrc to ted.bashrc
-    #__conf_extra_bashrc
+    #echo appending vps_extra.bashrc to ted.bashrc
+    #patch_extra_bashrc $BASE_DIR/common_conf/vps_extra.bashrc
     echo done.
+}
+
+function patch_extra_bashrc(){
+    local arg; for arg in $@; do
+        if [ -f $arg ]; then
+            cat $arg >> ~/ted.bashrc
+        fi
+    done
 }
 
 function conf_shell_theme_for_win(){
@@ -78,13 +86,6 @@ function conf_shell_theme_for_win(){
         if ! grep -Eq "^ThemeFile.*$" ~/.minttyrc; then 
             echo "ThemeFile=ted-conf" >> ~/.minttyrc
         fi
-    fi
-}
-
-function __conf_extra_bashrc(){
-    local extra_bashrc=$BASE_DIR/common_conf/ted_extra.bashrc
-    if [ -f $extra_bashrc ]; then
-        cat $extra_bashrc >> ~/ted.bashrc
     fi
 }
 
@@ -211,6 +212,10 @@ function conf_my_script() {
     copy_script_and_source_it $BASE_DIR/script/dockertags.sh
 
     copy_script_and_source_it $BASE_DIR/common_conf/vps_fast.sh
+
+    echo patching ted_extra.bashrc to ted.bashrc
+    copy_script_to_my_script_folder $BASE_DIR/script/wol.sh
+    patch_extra_bashrc $BASE_DIR/common_conf/ted_extra.bashrc
 }
 
 function conf_m2_script(){
