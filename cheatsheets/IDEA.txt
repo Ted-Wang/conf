@@ -1,3 +1,11 @@
+### IDEA custmization
+#### 快捷键配置
+ctrl+alt+s, open settings, then open keymap
+    * on search input box, you can search by action
+    * or click "find Actions by Shortcut" on top right corner.
+- search "ctrl+space", then add keyboard shortcut "alt+shift+enter"
+- search "delete line", set the shortcut to "shift+D"
+
 
 ### 整理一个 IDEA 快捷键列表，分级
 * L1, survival, 各种 open，search，iter/itar/psvm，

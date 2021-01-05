@@ -4,13 +4,12 @@ https://github.com/judasn/IntelliJ-IDEA-Tutorial/blob/master/keymap-introduce.md
 https://github.com/judasn/IntelliJ-IDEA-Tutorial
 - GitBook 在线阅读地址：https://youmeek.gitbooks.io/intellij-idea-tutorial/content/
 
-Ctrl+J					insert a live template
-Ctrl+Alt+J				surround with a live template
-Ctrl+Alt+T				Surround with… (if..else, try..catch, for,  synchronized, etc.)
-Alt+up/down				move between methods
+*Alt+up/down			move between methods (ctrl+shift+up/down)
 Alt+Enter  -> item 2, Copy String concatenation text to the clipboard
-Ctrl + Delete			Delete to word end
-Ctrl + Backspace		Delete to word start
+Ctrl+Delete			Delete to word end
+Ctrl+Backspace		Delete to word start
+shift+delete        delete a line
+*ESC/F12		        jump between last tool window and editor window
 
 ---------debug--------
 https://github.com/judasn/IntelliJ-IDEA-Tutorial/blob/master/debug-introduce.md
@@ -22,7 +21,7 @@ F11						Toggle Bookmark
 Ctrl+F11				Toggle Bookmark with Mnemonic
 Shift+F11				Show Bookmark Dialog
 
-Alt+Up/Down				Previous/Next Function （在XML，HTML文件中，非常好用）
+*Alt+Up/Down				Previous/Next Function （在XML，HTML文件中，非常好用）
 
 
 Ctrl+F12				File Structure (Ctrl+O in eclipse)
@@ -41,47 +40,55 @@ Ctrl+Shift+E			opened files
 *Ctrl+Shift+A			find action     (ctrl+3 in eclipse 4 or upper version)
 *Ctrl+F9				Make Project
 *Ctrl+Q					popup documentation
-*Ctrl+Alt+B				navigate the impl of an abstract method
+*Ctrl+Alt+B				go to implementation of a method. ctrl+alt+mouse_left_click has the same effect.
+    ctrl+U                  go to super method
 Ctrl+shift+F			search     (ctrl+H)
 Ctrl+Alt+L				Reformat code (ctrl+shift+F)
+    Ctrl+Alt+I				auto-indent lines (Ctrl+I)
 Ctrl+Alt+O				Optimize imports (Ctrl+Shift+O)
-Shift+F6				Rename     (alt+shift+R)
-Ctrl+Shift+Alt+T		Refactor this (alt+shift+T, show refactor quick menu)
 Ctrl+G					goto line (ctrl+L in eclipse)
 Ctrl+B					(F3 in eclipse)
 Ctrl+F12				file structure (Ctrl+O in eclipse)
 *Alt+Shift+Up/Down		(Alt+Up/Down)
 Ctrl+Y					(Ctrl+D)
 *Alt+Enter				quick fix (Ctrl+1)
-Ctrl+H					(Ctrl+T)
+Ctrl+H					(Ctrl+T) open type hierachy
+ctrl+alt+H              (ctrl+alt+H) open call hierachy. list callers.
 Ctrl+Shift+Backspace	Last edit location (Ctrl+Q)
 Ctrl+/					comments/uncomments lines (Ctrl+Shift+C)
 Ctrl/+Shift+/			block/unblock comments
 Ctrl/+Shift+W			Select word at caret (alt+shift+up/down, Structured selection)
-F3						find next(Ctrl+J)
+F3/ctrl+L				find next(Ctrl+K)
 Ctrl+Alt+Left/Right		back/forward (alt+Left/Right in eclipse)
 Alt+Left/Right			select left/right tab
+ctrl+alt+up/down	    在 call/type hierachy 上下移动（recursively）
 *Alt+F1					Select in (Alt+Shift+W, show in. Eclipse can use this key shortcut to open explorer)
 Alt+Insert				generate code. (Alt+Shift+S, source action)  1)In IDEA, this short key also apply package, used to create class, files, etc.
 																	 2)In eclipse, this short key open a menu with more items.
 Ctrl+D					(Ctrl+Alt+Up/Down, duplicate a line)
-*Alt+F7					(Ctrl+Shift+G) Find usage, Ctrl+alt+F7 Show usage, ctrl+Shift+alt+F7 Find usage settings, Hilight usage in file Ctrl+F7
+*(ctrl+)Alt+F7			(Ctrl+Shift+G) Find usage, Ctrl+alt+F7 Show usage in a popup window, ctrl+Shift+alt+F7 Find usage settings 
+    Ctrl+F7                 Find usage in file 
+    Ctrl+Shift+F7			Highlight usages in file (Ctrl+Shift+U, occurrences in file)
 
 Alt+1/3/6/8/F12		    switch tool bar, hide/unhide them
 
-*F4/Ctrl+Enter			Edit Source/View Source
+*F4                     Edit Source/View Source
+*F4                     jump to definition, same as ctrl+mouse_left_click
 
 Basic/Smart/Statement completion     Ctrl+Space/Ctrl+Shift+Space/Ctrl+Shift+Enter
 
-Ctrl+Shift+U			toggle case (Ctrl+Shift+X/Y, to upper/lower case)
-Ctrl+Shift+F7			Highlight usages in file (Ctrl+Shift+U, occurrences in file)
-Ctrl+Alt+T				surround with (Alt+Shift+Z)
-Ctrl+Alt+J				Surround with live template
+Shift+F6				Rename     (alt+shift+R)
+Ctrl+Shift+Alt+T		Refactor this (alt+shift+T, show refactor quick menu)
+Ctrl+J					insert a live template
+ctrl+o	                insert a @Override method
+Ctrl+Alt+J				surround with a live template
+Ctrl+Alt+T				Surround with… (Alt+Shift+Z, if..else, try..catch, for,  synchronized, etc.)
 Ctrl+Shift+F12			Maximize view or editor (Ctrl+M)
-Ctrl+Alt+I				auto-indent lines (Ctrl+I)
 Ctrl+Shift+BS			Back to last edit place(Ctrl+Q)
-*ctrl+P					parameter info
-Ctrl+num+/num-			folder
+*ctrl+P					parameter info (in a popup window)
+*ctrl+shift+I           method definition (in a popup window)
+Ctrl+num+/num-			folding/unfold
+Ctrl+Shift+U			toggle case (Ctrl+Shift+X/Y, to upper/lower case)
 
 eclipse 有个Strl+Shift+M，说明是add imports， 猜测只会添加imports， 而不会像Ctrl+Shift+O那样删除其他未引用的
 ----已测试，确实如此
@@ -100,13 +107,11 @@ Alt+Right     select next tab, it is MUCH better than (Ctrl+F6) in eclipse
 IntelliJ IDEA and Eclipse Shortcuts
 https://www.catalysts.cc/en/wissenswertes/intellij-idea-and-eclipse-shortcuts/
 
-Eclipse									IDEA							Comments
-“semi” set in window-> preferences 	    ctrl + shift + enter 			if I want to add the semi-colon at the end of a statement
-ctrl + 1 or ctrl + shift + l			ctrl + alt + v					introduce local variable
-
-ctrl + alt + h							ctrl + alt + h					(same!) show call hierarchy
-none ? 									ctrl + alt + f7				    to jump to one of the callers of a method
-ctrl + shift + i						alt + f8						evaluate expression (in debugger)
+Eclipse									IDEA						Comments
+“semi” set in window-> preferences 	    ctrl+shift+enter 			if I want to add the semi-colon at the end of a statement
+ctrl+1 or ctrl+shift+l			        ctrl+alt+v					introduce local variable
+ctrl+alt+h							    ctrl+alt+h					(same!) show call hierarchy
+ctrl+shift+i						    alt+f8						evaluate expression (in debugger)
 
 
 Compilation
