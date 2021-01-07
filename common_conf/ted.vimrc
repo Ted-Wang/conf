@@ -20,6 +20,7 @@ set nospell                         " Spell checking off, because it's impact Ch
 set history=1000                    " default is 50 or 200 or etc...
 set whichwrap=b,s,<,>,[,]           " 默认值是b,s 在行首按←或者在行尾按→是不能将光标移动至上一行或下一行的。
 set modeline
+set backspace=indent,eol,start      " 解决有些时候，backspace 键不能删除的问题。see :help 'backspace' for more description.
 
 set viewoptions=folds,options,cursor,unix,slash   " Better Unix / Windows compatibility	----这行到底做了什么，得找机会试试
 
