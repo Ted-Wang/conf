@@ -14,6 +14,21 @@ shift+delete        delete a line
 ---------debug--------
 https://github.com/judasn/IntelliJ-IDEA-Tutorial/blob/master/debug-introduce.md
 
+alt+shift+F9/F10        open debug/run popup window, to select/edit debug/run configurations
+
+Debug
+Eclipse  							IntelliJ IDEA 
+Step into F5 						Step into F7
+- - 								Smart step into Shift+F7
+Step over F6 						Step over F8
+Step out F7 						Step out Shift+F8
+Resume F8 							Resume F9
+Toggle breakpoint Ctrl+Shift+B 	    Toggle breakpoint Ctrl+F8
+- - 								Evaluate expression Alt+F8
+
+alt+F8                  (ctrl+shift+I) evaluate expression
+ctrl+alt+F8             或者 alt+Mouse_left_click，quick evaluate expression
+
 ---------Bookmark/Navigate operation---------
 Ctrl+1..9				Go to Bookmark
 Ctrl+Shift+1..9			Toggle Bookmark
@@ -63,8 +78,6 @@ Ctrl+Alt+Left/Right		back/forward (alt+Left/Right in eclipse)
 Alt+Left/Right			select left/right tab
 ctrl+alt+up/down	    在 call/type hierachy 上下移动（recursively）
 *Alt+F1					Select in (Alt+Shift+W, show in. Eclipse can use this key shortcut to open explorer)
-Alt+Insert				generate code. (Alt+Shift+S, source action)  1)In IDEA, this short key also apply package, used to create class, files, etc.
-																	 2)In eclipse, this short key open a menu with more items.
 Ctrl+D					(Ctrl+Alt+Up/Down, duplicate a line)
 *(ctrl+)Alt+F7			(Ctrl+Shift+G) Find usage, Ctrl+alt+F7 Show usage in a popup window, ctrl+Shift+alt+F7 Find usage settings 
     Ctrl+F7                 Find usage in file 
@@ -77,6 +90,9 @@ Alt+1/3/6/8/F12		    switch tool bar, hide/unhide them
 
 Basic/Smart/Statement completion     Ctrl+Space/Ctrl+Shift+Space/Ctrl+Shift+Enter
 
+Alt+Insert				insert/generate code(getter/setter, equals/hashCode...). (Alt+Shift+S, source action)
+                            1. In IDEA, this short key also apply package, used to create class, files, etc.
+							2. In eclipse, this short key open a menu with more items.
 Shift+F6				Rename     (alt+shift+R)
 Ctrl+Shift+Alt+T		Refactor this (alt+shift+T, show refactor quick menu)
 Ctrl+J					insert a live template
@@ -133,17 +149,6 @@ Iterate over an iterable			foreach 		iter
 Print to System.out 				sysout 			sout
 Print to System.err 				syserr 			serr
 Define a static field 				static_final 	psf
-
-
-Debug
-Eclipse  							IntelliJ IDEA 
-Step into F5 						Step into F7
-- - 								Smart step into Shift+F7
-Step over F6 						Step over F8
-Step out F7 						Step out Shift+F8
-Resume F8 							Resume F9
-Toggle breakpoint Ctrl+Shift+B 	    Toggle breakpoint Ctrl+F8
-- - 								Evaluate expression Alt+F8
 
 
 Refactorings. The following table maps the shortcuts for the most common refactorings in Eclipse with those in IntelliJ IDEA:
