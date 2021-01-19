@@ -335,7 +335,7 @@ global命令可以接"s"命令，例如：
 	t 拷贝
 	s 替换
 
-### marks 标记、书签
+### bookmarks 标记、书签
 * mark a-z
 	ma，set a mark
 	'a，move to the beginning of line containing the 'a' mark
