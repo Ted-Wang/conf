@@ -28,6 +28,8 @@ Toggle breakpoint Ctrl+Shift+B 	    Toggle breakpoint Ctrl+F8
 
 alt+F8                  (ctrl+shift+I) evaluate expression
 ctrl+alt+F8             或者 alt+Mouse_left_click，quick evaluate expression
+ctrl+shift+F8           View all breakpoionts
+alt+F9                  Run to Cursor
 
 ---------Bookmark/Navigate operation---------
 Ctrl+1..9				Go to Bookmark
