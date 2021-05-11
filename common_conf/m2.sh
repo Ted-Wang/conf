@@ -25,13 +25,13 @@ function m() {
     case "$1" in
         +*)            # m +foo  - add new bookmark for $PWD
             if grep -Eq "^${1:1}=" "$MARKFILE"; then
-                sed -iE "s@${1:1}=.*\$@${1:1}=$(pwd)@" "$MARKFILE"
+                sed -Ei "s@${1:1}=.*\$@${1:1}=$(pwd)@" "$MARKFILE"
             else
                 echo "${1:1}=$(pwd)" >> "$MARKFILE"
             fi
             ;;
         -*)            # m -foo  - delete a bookmark named "foo"
-            sed -iE "/^${1:1}=/d" "$MARKFILE"
+            sed -Ei "/^${1:1}=/d" "$MARKFILE"
             ;;
         /*)            # m /bar  - search bookmarks matching "bar"
             grep -E "^.*?${1:1}.*?=" "$MARKFILE" | sed "s/=/\ ->\ /g"
