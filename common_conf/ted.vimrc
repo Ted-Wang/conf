@@ -10,11 +10,11 @@ set ts=4 sts=4 sw=4 et
 set shiftwidth=4
 set clipboard=unnamed
 syntax on
-set nowrap
+"set nowrap
 set hidden                          " Allow buffer switching without saving
 set splitbelow                      " Let new horizontal split window(sp, new) below current window
 set splitright                      " Let new vertical split window(vs, vne) right of current window
-set mouse=a                         " Enable switching between windows by mouse clicking.
+"set mouse=a                         " Enable switching between windows by mouse clicking.
 set virtualedit=onemore             " Allow for cursor beyond last character
 set nospell                         " Spell checking off, because it's impact Chinese characters a lot
 set history=1000                    " default is 50 or 200 or etc...
