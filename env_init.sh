@@ -215,11 +215,14 @@ function conf_my_script() {
     #copy_script_and_make_symlink $BASE_DIR/script/dockertags.sh
     copy_script_and_source_it $BASE_DIR/script/dockertags.sh
 
-    copy_script_and_source_it $BASE_DIR/common_conf/vps_fast.sh
+    
+    if [[ "${1:-'all'}" != "work" ]]; then
+        copy_script_and_source_it $BASE_DIR/common_conf/vps_fast.sh
 
-    echo patching ted_extra.bashrc to ted.bashrc
-    copy_script_to_my_script_folder $BASE_DIR/script/wol.sh
-    patch_extra_bashrc $BASE_DIR/common_conf/ted_extra.bashrc
+        echo patching ted_extra.bashrc to ted.bashrc
+        copy_script_to_my_script_folder $BASE_DIR/script/wol.sh
+        patch_extra_bashrc $BASE_DIR/common_conf/ted_extra.bashrc
+    fi
 }
 
 function conf_m2_script(){
@@ -235,15 +238,37 @@ function conf_m2_script(){
     : # do nonthing
 }
 
-conf_vimrc
-conf_bashrc
-conf_ssh
-#conf_lanuage_CN
-conf_shell_prompt_inc_git
-conf_git
-#conf_m2_script
-conf_my_script
-conf_shell_theme_for_win
 
+function apply_conf_all() {
+    conf_vimrc
+    conf_bashrc
+    conf_ssh
+    #conf_lanuage_CN
+    conf_shell_prompt_inc_git
+    conf_git
+    #conf_m2_script
+    conf_my_script
+    conf_shell_theme_for_win
+}
+
+function apply_conf_work() {
+    conf_vimrc
+    conf_bashrc
+    conf_my_script $1
+    conf_shell_theme_for_win
+}
+
+function apply_conf() {
+    ENV=${1:-"home"}
+    if [[ "${ENV}" == "work" ]]; then
+        apply_conf_work ${ENV}
+        echo "applying conf for work done."
+    else 
+        apply_conf_all ${ENV}
+        echo "applying conf for all done."
+    fi
+}
+
+apply_conf $1
 source ~/ted.bashrc
 
