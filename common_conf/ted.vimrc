@@ -69,7 +69,9 @@ else
 
     " 下面这个配置是为了让 git-bash 在 Conemu 里正常工作，具体原因见：https://conemu.github.io/en/VimXterm.html#Vim-scrolling-using-mouse-Wheel
     " 最好想办法检测当前是否运行在 Conemu 中
-    set term=xterm
+    if !WINDOWS()
+        set term=xterm
+    endif
 endif
 
 " colorscheme and cursor settings
@@ -94,6 +96,15 @@ elseif MINGW()                      " for vim in git-bash
 elseif LINUX()
     colorscheme default
      " do nonthing                  " Linux/Shell 里还是留空使用 terminal 的 theme 。
+elseif WINDOWS()
+    if(&lines < 50)
+        set lines=50
+    endif
+    if(&columns < 120)
+        set columns=120
+    endif
+    set cursorline                  " Highlight current line
+    colorscheme desert              " windows cmd 使用 desert，感觉和 default 差不多
 endif
 
 set ruler                                           " Show the ruler
