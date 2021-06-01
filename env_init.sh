@@ -254,6 +254,7 @@ function apply_conf_all() {
 function apply_conf_work() {
     conf_vimrc
     conf_bashrc
+    conf_shell_prompt_inc_git
     conf_my_script $1
     conf_shell_theme_for_win
 }
