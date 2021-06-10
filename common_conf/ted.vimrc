@@ -104,7 +104,7 @@ elseif WINDOWS()
         set columns=120
     endif
     set cursorline                  " Highlight current line
-    colorscheme desert              " windows cmd 使用 desert，感觉和 default 差不多
+    colorscheme default             " windows cmd 使用 default，desert 在 powershell 下面高亮有问题，某些字符看不清。
 endif
 
 set ruler                                           " Show the ruler
