@@ -72,6 +72,7 @@ git tag
 git tag -l 'v1.4.2.*'
 git tag -a v1.4 -m 'my version 1.4'
 git show v1.4
+git show <commit> --name-only --pretty=""   ----显示改动的文件列表，--pretty="" 表示 empty format，效果是去除了 commitId，comments 等内容，只显示被修改的文件列表
 git tag `date "+%Y-%m-%d_%H-%M-%S"`
 git tag -d <tagname>            ----删除一个tag
 git fetch --all --tags --prune  ----fetch all tags
