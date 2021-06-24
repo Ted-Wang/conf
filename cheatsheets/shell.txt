@@ -85,6 +85,10 @@ find ~/ -name 'ws' --maxdepth 3 -type d # find directories named ws, limit subdi
 find ~/ -group dev          # list files in ~/ whose owning group is 'dev'
 find . -name \*log\* -cmin -30 -exec grep -nH 'OrderSattus in StateMachine is not correct' {} ';'
 
+find ./ -name "*.log" -type f -mmin -30 -delete	# use -delete, delete files modified in 30 days
+find /path/to/files* -mtime +30 -exec rm {} \;	# Delete files older than 30 days
+find /tmp -mindepth 1 -mtime +14 | xargs rm     # us xargs
+
 ### CLI tips
 #- move
 - alt+f/b move foward/backward a word
