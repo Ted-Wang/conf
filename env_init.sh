@@ -5,6 +5,10 @@ BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SHELL_PROMPT=shell_prompt.sh
 SSH_CONFIG="$HOME/.ssh/config"
 MY_SCRIPT_FOLDER="$HOME/my_script"
+TED_BASH_RC=.ted.bashrc
+TED_VIM_RC=.ted.vimrc
+TED_BASH_RC_OLD=ted.bashrc
+TED_VIM_RC_OLD=ted.vimrc
 
 unameOut="$(uname -s)"
 case $unameOut in
@@ -26,21 +30,32 @@ else
     SUDO=sudo
 fi
 
+function clear_old_rc_file(){
+    if grep -Eq "^\s*so(urce){0,1}\s+~/${TED_VIM_RC_OLD}$" ~/.vimrc; then
+        sed -i 's/ted\.vimrc/\.ted\.vimrc/g' ~/.vimrc
+        \rm ~/${TED_VIM_RC_OLD}
+    fi
+    if grep -Eq "^\s*source\s+~/${TED_BASH_RC_OLD}$" ~/.bashrc; then
+        sed -i 's/ted\.bashrc/\.ted\.bashrc/g' ~/.bashrc
+        \rm ~/${TED_BASH_RC_OLD}
+    fi
+    echo clear old ted.***rc file done
+}
+
 function conf_vimrc(){
     echo setting up vimrc
-    \cp $BASE_DIR/common_conf/ted.vimrc ~/
-    $SUDO chmod 644 ~/ted.vimrc
+    \cp $BASE_DIR/common_conf/${TED_VIM_RC} ~/
+    $SUDO chmod 644 ~/${TED_VIM_RC}
     if [ ! -f ~/.vimrc ]; then
         touch ~/.vimrc
         $SUDO chmod 644 ~/.vimrc
     fi
-    if grep -Eq "^\s*so(urce){0,1}\s+~/ted\.vimrc$" ~/.vimrc
-    then 
+    if grep -Eq "^\s*so(urce){0,1}\s+~/\.ted\.vimrc$" ~/.vimrc; then 
         : # do nothing
     else
         cat << EOF >> ~/.vimrc
-if(filereadable(expand("~/ted.vimrc")))
-    so ~/ted.vimrc
+if(filereadable(expand("~/${TED_VIM_RC}")))
+    so ~/${TED_VIM_RC}
 endif
 EOF
     fi
@@ -49,24 +64,23 @@ EOF
 
 function conf_bashrc(){
     echo setting up bashrc
-    \cp $BASE_DIR/common_conf/ted.bashrc ~/
-    $SUDO chmod 644 ~/ted.bashrc
+    \cp $BASE_DIR/common_conf/${TED_BASH_RC} ~/
+    $SUDO chmod 644 ~/${TED_BASH_RC}
     if [ ! -f ~/.bashrc ]; then
         touch ~/.bashrc
         $SUDO chmod 644 ~/.bashrc
     fi
-    if grep -Eq "^\s*source\s+~/ted.bashrc$" ~/.bashrc
-    then
+    if grep -Eq "^\s*source\s+~/${TED_BASH_RC}$" ~/.bashrc; then
         : # do nothing
     else 
         cat << EOF >> ~/.bashrc
-if [ -f ~/ted.bashrc ]; then
-    source ~/ted.bashrc
+if [ -f ~/${TED_BASH_RC} ]; then
+    source ~/${TED_BASH_RC}
 fi
 EOF
     fi
     # plan to move these aliases to a scirpt file and exposed as functions
-    #echo appending vps_extra.bashrc to ted.bashrc
+    #echo appending vps_extra.bashrc to .ted.bashrc
     #patch_extra_bashrc $BASE_DIR/common_conf/vps_extra.bashrc
     echo done.
 }
@@ -74,7 +88,7 @@ EOF
 function patch_extra_bashrc(){
     local arg; for arg in $@; do
         if [ -f $arg ]; then
-            cat $arg >> ~/ted.bashrc
+            cat $arg >> ~/${TED_BASH_RC}
         fi
     done
 }
@@ -109,13 +123,13 @@ function conf_ssh(){
 
 function conf_shell_prompt_inc_git(){
     # shell prompt
-    # as file "~/ted.bashrc" will be copied everytime, no need to check file content here.
+    # as file "~/.ted.bashrc" will be copied everytime, no need to check file content here.
     source $BASE_DIR/common_conf/$SHELL_PROMPT
-    echo $(generateShellPromptWithGit) >> ~/ted.bashrc
-    echo "" >> ~/ted.bashrc
-    # another apporach is to copy this file and source it in ~/ted.bashrc
+    echo $(generateShellPromptWithGit) >> ~/${TED_BASH_RC}
+    echo "" >> ~/${TED_BASH_RC}
+    # another apporach is to copy this file and source it in ~/.ted.bashrc
     #\cp $BASE_DIR/common_conf/$SHELL_PROMPT ~/
-    #echo "source ~/$SHELL_PROMPT" >> ~/ted.bashrc
+    #echo "source ~/$SHELL_PROMPT" >> ~/${TED_BASH_RC}
 }
 
 function conf_git(){
@@ -196,7 +210,7 @@ function copy_script_and_source_it() {
             \cp $arg "$MY_SCRIPT_FOLDER"/
             script_name=$MY_SCRIPT_FOLDER/${arg##*/}
             echo copy file: $arg to $script_name
-            cat << EOF >> ~/ted.bashrc
+            cat << EOF >> ~/${TED_BASH_RC}
 if [ -f "$script_name" ]; then
     source "$script_name"
 fi
@@ -219,27 +233,28 @@ function conf_my_script() {
     if [[ "${1:-'all'}" != "work" ]]; then
         copy_script_and_source_it $BASE_DIR/common_conf/vps_fast.sh
 
-        echo patching ted_extra.bashrc to ted.bashrc
+        echo patching ted_extra.bashrc to ${TED_BASH_RC}
         copy_script_to_my_script_folder $BASE_DIR/script/wol.sh
         patch_extra_bashrc $BASE_DIR/common_conf/ted_extra.bashrc
     fi
 }
 
 function conf_m2_script(){
-    # 1. add m2.sh(a very simple bookmark for shell) to ~/ted.bashrc
-    #echo -n '#--------a short bookmark function start--------' >> ~/ted.bashrc
+    # 1. add m2.sh(a very simple bookmark for shell) to ~/.ted.bashrc
+    #echo -n '#--------a short bookmark function start--------' >> ~/${TED_BASH_RC}
     #if [ -f $BASE_DIR/common_conf/m2.sh ];then
-        #cat $BASE_DIR/common_conf/m2.sh >> ~/ted.bashrc
+        #cat $BASE_DIR/common_conf/m2.sh >> ~/${TED_BASH_RC}
     #fi
-    #echo '#--------a short bookmark function end--------' >> ~/ted.bashrc
+    #echo '#--------a short bookmark function end--------' >> ~/${TED_BASH_RC}
 
-    # 2. another approach is to copy m2.sh and source it in ~/ted.bashrc
+    # 2. another approach is to copy m2.sh and source it in ~/.ted.bashrc
     # move to upper function
     : # do nonthing
 }
 
 
 function apply_conf_all() {
+    clear_old_rc_file
     conf_vimrc
     conf_bashrc
     conf_ssh
@@ -252,6 +267,7 @@ function apply_conf_all() {
 }
 
 function apply_conf_work() {
+    clear_old_rc_file
     conf_vimrc
     conf_bashrc
     conf_shell_prompt_inc_git
@@ -271,5 +287,5 @@ function apply_conf() {
 }
 
 apply_conf $1
-source ~/ted.bashrc
+source ~/${TED_BASH_RC}
 
