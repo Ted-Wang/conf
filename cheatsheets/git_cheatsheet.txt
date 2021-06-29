@@ -127,20 +127,29 @@ git pull <远程主机名> <远程分支名>:<本地分支名>
 	git pull origin master		    # 通常本都是省略本地分支名，表示合并同名分支
 * 如果 git pull 发生冲突(conflicts)，解决冲突之后要 git add conflict_file，然后 commit
 
-如果本地有修改但是没有 commit，则 git pull 会退化成 git fetch，并提示让用户 merge，相当于执行了
+### 如果本地有修改但是没有 commit，则 git pull 会退化成 git fetch，并提示让用户 merge，相当于执行了
 	git fetch origin master
-这时候，可以具体查看一下修改，然后先 stash 本地修改，在 git pull 一次，或者直接 merge origin/master 到本地的 master
-	git log -p master..origin/master
-	git stash
-	git merge origin/master
-	git stash pop
+### 这时候，可以具体查看一下修改，然后先 stash 本地修改，在 git pull 一次，或者直接 merge origin/master 到本地的 master
+    git log -p master..origin/master
+    git stash
+    git merge origin/master
+    git stash pop
 
 git push <远程主机名> <本地分支名>:<远程分支名>
-	git push --dry-run              # 查看结果，不做真实推送。
-	git push origin master
-	git push origin --tags		    # git默认不会push tags
+    git push --dry-run                          # 查看结果，不做真实推送。
+    git push origin master
+    git push origin --tags                      # git默认不会push tags
 git push --set-upstream <remote-name> <local-branch-name>
 git push -u origin your_branch
+
+### git 多个远程仓库操作
+git remote add/rm <name> <url>                  # 添加/删除一个远程仓库
+git log mint/master                             # 查看指定仓库历史
+git remote set-url origin <url>                 # 更新远程仓库地址
+git remote set-url --add origin <2nd_url>       # 给 origin 添加多个 url，这样就可以同时 push 到多个仓库
+git remote rename <old-name> <new-name>         # 修改远程仓库名字
+git pull mint master                            # 从指定远程分支拉取
+git push mint                                   # push 到指定远程分支
 
 git config --global/system/local -l
 git config --global -e
