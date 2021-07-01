@@ -3,61 +3,61 @@
 # From the docs of git diff, --staged is a synonym of --cached
 
 git init
-git init prjDir                 # 指定初始仓库的名字，并创建对应目录
-git init --bare prjDir.git      # 创建一个初始仓库（中心仓库），这个仓储不会有工作目录，通常用于在服务器上创建一个裸仓库。
+git init prjDir                             # 指定初始仓库的名字，并创建对应目录
+git init --bare prjDir.git                  # 创建一个初始仓库（中心仓库），这个仓储不会有工作目录，通常用于在服务器上创建一个裸仓库。
 
 git status
-git add *                       # 不包括删除的文件，也不包括.开头的文件
-git add -u	                    # stage the modified and deleted files (exclude untracked/new files)
-git add .                       # stages new files and modifications, without deletions
-git add -A                      # states all changes。如果pwd在子目录，则 parents 目录的修改也包括在内，并且也包括所有新增、删除的文件。
+git add *                                   # 不包括删除的文件，也不包括.开头的文件
+git add -u	                                # stage the modified and deleted files (exclude untracked/new files)
+git add .                                   # stages new files and modifications, without deletions
+git add -A                                  # states all changes。如果pwd在子目录，则 parents 目录的修改也包括在内，并且也包括所有新增、删除的文件。
 git commit -m "message"
-git commit -am "message"        # 以上2步合成一步，但是注意，这样只提交“修改过的文件，包括删除的”，新添加的文件，没有被tracked，必须用 git add
-git commit -a                   # 使用-a可以查看有哪些文件会被提交，不填message即可取消提交，相当于dry run
+git commit -am "message"                    # 以上2步合成一步，但是注意，这样只提交“修改过的文件，包括删除的”，新添加的文件，没有被tracked，必须用 git add
+git commit -a                               # 使用-a可以查看有哪些文件会被提交，不填message即可取消提交，相当于dry run
 git commit --amend							# 合并修改，并且弹出 message 编辑器，可以修改上次的 message
 git commit --amend -m "Fixes bug #43"		# 合并修改，并且添加 message
 git commit --amend --no-edit				# 合并修改，但是不修改 message
 合并修改最后一个commit，相当于把index区域的内容和最后一个commit合并，并修改message。
 注意：要先 git add *，否则工作区的内容是不会被提交的。
 git checkout <tag_name>/<branch>
-git checkout tags/<tag> -b sit  # checkout tag to new brach
-git show                        # show diff of last commit。show 可以指定各种对象，显示内容大不相同。
+git checkout tags/<tag> -b sit              # checkout tag to new brach
+git show                                    # show diff of last commit。show 可以指定各种对象，显示内容大不相同。
 git show <tag>
 删库：1）删除.git目录，2）删除整个 project 目录(就是包含.git目录的那个目录)
 	rm -rf .git
 	cd .. && rm -rf projectDir
 
-git mv <old_name> <new_name>    # rename，重命名，不同于直接 mv，这是能在 git status 里追踪到的
-git rm <file_name>              # 从 stage 区域删除文件（同时删除工作区中的文件）。
-                                    # 如果是用 rm 删除了文件，可以选择：1）执行 git rm 或者 git add <file>，把删除操作推送到stage区，然后再commit。2）git commit -am "message"
-git rm -r mydir                 # 删除目录
-git rm -r --cached mydir        # 仅仅从 stage area 删除文件（工作区保留）
+git mv <old_name> <new_name>                # rename，重命名，不同于直接 mv，这是能在 git status 里追踪到的
+git rm <file_name>                          # 从 stage 区域删除文件（同时删除工作区中的文件）。
+                                                # 如果是用 rm 删除了文件，可以选择：1）执行 git rm 或者 git add <file>，把删除操作推送到stage区，然后再commit。2）git commit -am "message"
+git rm -r mydir                             # 删除目录
+git rm -r --cached mydir                    # 仅仅从 stage area 删除文件（工作区保留）
 
-git restore --staged <file>     # 撤销 git rm 的删除
-git checkout -- <file>          # 撤销 rm 删除的文件(刷先从工作获取文件，没有则从版本库更新文件，会丢失没有提交的修改)
-git reset HEAD -- <file>        # 从版本库获取文件，覆盖 index 区，工作区保留。--hard，同时覆盖工作区。
-git reset HEAD~1                # undo 最后一次 commit
-git reset HEAD                  # undo git add *，相当于 git reset？
-git reset HEAD --hard           # undo，并且同时修改当前工作区
-git checkout -- <filename>      # 回滚一个文件
+git restore --staged <file>                 # 撤销 git rm 的删除
+git checkout -- <file>                      # 撤销 rm 删除的文件(刷先从工作获取文件，没有则从版本库更新文件，会丢失没有提交的修改)
+git reset HEAD -- <file>                    # 从版本库获取文件，覆盖 index 区，工作区保留。--hard，同时覆盖工作区。
+git reset HEAD~1                            # undo 最后一次 commit
+git reset HEAD                              # undo git add *，相当于 git reset？
+git reset HEAD --hard                       # undo，并且同时修改当前工作区
+git checkout -- <filename>                  # 回滚一个文件
 
-git reflog                      # 显示 HEAD 的变化历史，可以找到上一次 HEAD 指向的 commit，再次使用 reset 命令恢复
+git reflog                                  # 显示 HEAD 的变化历史，可以找到上一次 HEAD 指向的 commit，再次使用 reset 命令恢复
 
-git blame myClass.java          #  https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-blame
+git blame myClass.java                      #  https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-blame
 
 git log --oneline origin/master
 git log -p master..origin/master
 git log -3
-git log origin/master           # git fetch 以后，可以看到 master 和 origin/master 之间差了多少个 commits。
-git log --oneline --decorate    # #oneline 只显示 hash 和 message，decorate 会同时显示所有 references (e.g., branches, tags, etc)
-git log --stat                  # 显示每个 commit 增加了多少行，删除了多少行(修改一行会被显示 增加1行+删除1行)
-git log -p                      # 显示每个 commit 具体的修改内容
-git log --author="<pattern>"    # 搜索指定作者的commit. <pattern>可以是正则表达式.
-git log -S"Hello, World!"       # display commits by content
-git log -- <file1 file2>        # 只显示指定文件的 commits.
-git shortlog -n                 # 按 author name 分组统计显示每个 user 的 commits。 默认按 author name 排序，-n 是按 commits 数量排序
-git log --no-merges             # 过滤掉所有 merge log。
-git log --merges                # #This returns all commits that have at least two parents.
+git log origin/master                       # git fetch 以后，可以看到 master 和 origin/master 之间差了多少个 commits。
+git log --oneline --decorate                # #oneline 只显示 hash 和 message，decorate 会同时显示所有 references (e.g., branches, tags, etc)
+git log --stat                              # 显示每个 commit 增加了多少行，删除了多少行(修改一行会被显示 增加1行+删除1行)
+git log -p                                  # 显示每个 commit 具体的修改内容
+git log --author="<pattern>"                # 搜索指定作者的commit. <pattern>可以是正则表达式.
+git log -S"Hello, World!"                   # display commits by content
+git log -- <file1 file2>                    # 只显示指定文件的 commits.
+git shortlog -n                             # 按 author name 分组统计显示每个 user 的 commits。 默认按 author name 排序，-n 是按 commits 数量排序
+git log --no-merges                         # 过滤掉所有 merge log。
+git log --merges                            # #This returns all commits that have at least two parents.
 git log --author="\(Adam\)\|\(Jon\)"
 git log --author="username" --pretty=format:"%h - %an, %ar : %s"
 git log --author='^(?!Adam|Jon).*$' --perl-regexp
@@ -80,51 +80,51 @@ git tag -l '*11.1.6.2590'                   # list tag with wildcard match
 git checkout tags/build-tags/ci/build-2019.3.6.90 -b sit    # checkout a tag to a new local branch
 
 git branch
-git branch -vv                      # 查看当前分支以及上游分支
-git branch -r	                    # show all remote branch
-git branch -r --list '*19*'	        # show remote branch with matched pattern(s).
-git branch --list '*19*'            # show local branch with matched pattern(s).
-git branch dev                      # 创建分支
-git checkout -b dev                 # 创建并切换到dev分支
-git checkout -b dev origin/dev      # 创建并同步远程分支到本地
+git branch -vv                              # 查看当前分支以及上游分支
+git branch -r	                            # show all remote branch
+git branch -r --list '*19*'	                # show remote branch with matched pattern(s).
+git branch --list '*19*'                    # show local branch with matched pattern(s).
+git branch dev                              # 创建分支
+git checkout -b dev                         # 创建并切换到dev分支
+git checkout -b dev origin/dev              # 创建并同步远程分支到本地
 git checkout master
-git switch -c dev                   # 新版本的Git提供了新的git switch命令来切换分支
+git switch -c dev                           # 新版本的Git提供了新的git switch命令来切换分支
 git merge dev
 git merge origin/master
 git merge --squash <branch>
 git merge --abort/--continue
 git cherry-pick <commit>
 git cherry-pick --abort/--continue
-git branch -d dev test              # 删除本地分支dev、test（没有merged的分支无法删除）
-git branch -d -r origin/todo origin/html origin/man       # 删除远程分支todo、html、man
-git branch -D dev                   # 强行删除分支（包括没有merged的分支），Shortcut for --delete --force.
-git push -d origin <branch_name>    # 删除远程仓库中的分支. TODO 这个命令只删除了远程仓库的，别忘了在删除本地分支
+git branch -d dev test                      # 删除本地分支dev、test（没有merged的分支无法删除）
+git branch -d -r origin/todo origin/html origin/man     # 删除远程分支todo、html、man
+git branch -D dev                           # 强行删除分支（包括没有merged的分支），Shortcut for --delete --force.
+git push -d origin <branch_name>            # 删除远程仓库中的分支. TODO 这个命令只删除了远程仓库的，别忘了在删除本地分支
 
 git stash
 git stash pop/apply/drop/list/clear
 git stash pop/apply/drop 1
-git stash -u	                    # including untracked files(new files)
-git stash -a	                    # stash all files, including "ignored files"
-git stash show -p 0                 # diff against a stash
+git stash -u	                            # including untracked files(new files)
+git stash -a	                            # stash all files, including "ignored files"
+git stash show -p 0                         # diff against a stash
 git stash push -m "message" path/to/file.ext
-git stash push src/		            # stash changes in the src/ directory
+git stash push src/		                    # stash changes in the src/ directory
 
 git remote -v/-vv
 git remote set-url origin <url>
-git remote set-url --add origin <2nd_url>       # 给 origin 添加多个 url，这样就可以同时 push 到多个仓库
+git remote set-url --add origin <2nd_url>   # 给 origin 添加多个 url，这样就可以同时 push 到多个仓库
 git remote add <name> <url>
 git remote rm <name>
 git remote rename <old-name> <new-name>
 
 git fetch origin master
-git fetch                           # 从远程获取最新版本到本地，但不会自动merge。
-git fetch --dry-run                 # 查看有多少更新
-git pull                            # 可以认为是git fetch和git merge两个步骤的结合。
-git pull --rebase                   # 这样做的 commit history 更好看，而且，还可以避免一个 merge commit
+git fetch                                   # 从远程获取最新版本到本地，但不会自动merge。
+git fetch --dry-run                         # 查看有多少更新
+git pull                                    # 可以认为是git fetch和git merge两个步骤的结合。
+git pull --rebase                           # 这样做的 commit history 更好看，而且，还可以避免一个 merge commit
 git fetch <远程主机名> <分支名>
-	git fetch origin master	        # 如果是裸仓库，没有origin，可以先 git remote add origin <url>
+	git fetch origin master	                # 如果是裸仓库，没有origin，可以先 git remote add origin <url>
 git pull <远程主机名> <远程分支名>:<本地分支名>
-	git pull origin master		    # 通常本都是省略本地分支名，表示合并同名分支
+	git pull origin master		            # 通常本都是省略本地分支名，表示合并同名分支
 * 如果 git pull 发生冲突(conflicts)，解决冲突之后要 git add conflict_file，然后 commit
 
 ### 如果本地有修改但是没有 commit，则 git pull 会退化成 git fetch，并提示让用户 merge，相当于执行了
@@ -136,20 +136,20 @@ git pull <远程主机名> <远程分支名>:<本地分支名>
     git stash pop
 
 git push <远程主机名> <本地分支名>:<远程分支名>
-    git push --dry-run                          # 查看结果，不做真实推送。
+    git push --dry-run                      # 查看结果，不做真实推送。
     git push origin master
-    git push origin --tags                      # git默认不会push tags
+    git push origin --tags                  # git默认不会push tags
 git push --set-upstream <remote-name> <local-branch-name>
 git push -u origin your_branch
 
 ### git 多个远程仓库操作
-git remote add/rm <name> <url>                  # 添加/删除一个远程仓库
-git log mint/master                             # 查看指定仓库历史
-git remote set-url origin <url>                 # 更新远程仓库地址
-git remote set-url --add origin <2nd_url>       # 给 origin 添加多个 url，这样就可以同时 push 到多个仓库
-git remote rename <old-name> <new-name>         # 修改远程仓库名字
-git pull mint master                            # 从指定远程分支拉取
-git push mint                                   # push 到指定远程分支
+git remote add/rm <name> <url>              # 添加/删除一个远程仓库
+git log mint/master                         # 查看指定仓库历史
+git remote set-url origin <url>             # 更新远程仓库地址
+git remote set-url --add origin <2nd_url>   # 给 origin 添加多个 url，这样就可以同时 push 到多个仓库
+git remote rename <old-name> <new-name>     # 修改远程仓库名字
+git pull mint master                        # 从指定远程分支拉取
+git push mint                               # push 到指定远程分支
 
 git config --global/system/local -l
 git config --global -e
@@ -162,11 +162,11 @@ git config --global http.proxy http://proxyuser:proxypwd@proxy.server.com:8080  
 git config --local http.proxy socks5://server.com:1080
 git config --local https.proxy socks5://127.0.0.1:2080                          # socks5 proxy for HTTPS
 
-git update-index --skip-worktree <file-list>            # ignore some files locally
-git update-index --no-skip-worktree <file-list>         # Reverse locally ignore
+git update-index --skip-worktree <file-list>                                    # ignore some files locally
+git update-index --no-skip-worktree <file-list>                                 # Reverse locally ignore
 
 system config file: <git-root>/mingw64/etc/gitconfig
-	$(prefix)/etc/gitconfig	# Linux
+	$(prefix)/etc/gitconfig	    # Linux
 global config file: %homepath%/.gitconfig
 local config file: <repo>/.git/config
 
