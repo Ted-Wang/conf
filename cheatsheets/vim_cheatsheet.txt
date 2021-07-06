@@ -318,7 +318,7 @@ s命令和g命令，有类似之处，区别在于：
 global命令可以接"s"命令，例如：
 	:g/.*/s/pattern/replacement
 
-* substitude 命令
+* substitute 命令
 * global,vglobal的意思是：在1）指定范围内的(没有指定则默认整个文档)，2）所有(匹配/非匹配)行上，3）执行命令(Ex command)
 	:[range]global/{pattern}/{command}，例如:
 	:,/^$/g/foo/d	----从当前行(,)，到下一个空行(/^$/正则匹配)，查找包含foo(g/foo)的行，执行删除命令(/d)
@@ -329,7 +329,13 @@ global命令可以接"s"命令，例如：
 * global的“{command}”，可以是一个substitute命令
 	比如，g/.*/s/pattern/replacement
 
-常用的 Ex command ：
+substitute 命令中的 Arguments：
+g	Replace all occurrences in the line. Without this, Vim replaces only the first occurrences in each line.
+i	Ignore case for the search pattern.
+I	Don't ignore case.
+c	Confirm each substitution.
+
+global 中常用的 Ex command ：
 	d 删除
 	m 移动
 	t 拷贝
