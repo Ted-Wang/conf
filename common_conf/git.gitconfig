@@ -4,9 +4,9 @@
 [core]
 	autocrlf = false
 [https]
-    #proxy = socks5://127.0.0.1:2080
+    #proxy = socks5://raspi:10808
 [http]
-    #proxy = socks5://127.0.0.1:2080
+    #proxy = socks5://raspi:10808
 [credential]
     helper = manager
 [diff]
