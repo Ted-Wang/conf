@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Description:   Ref: https://github.com/bentasker/Wake-On-Lan-Python
 

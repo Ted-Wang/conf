@@ -121,6 +121,7 @@ git fetch                                   # 从远程获取最新版本到本�
 git fetch --dry-run                         # 查看有多少更新
 git pull                                    # 可以认为是git fetch和git merge两个步骤的结合。
 git pull --rebase                           # 这样做的 commit history 更好看，而且，还可以避免一个 merge commit
+git pull --no-rebase                        # 新版本 git 默认 rebase，这个命令可以强制 merge
 git fetch <远程主机名> <分支名>
 	git fetch origin master	                # 如果是裸仓库，没有origin，可以先 git remote add origin <url>
 git pull <远程主机名> <远程分支名>:<本地分支名>
