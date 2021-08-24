@@ -20,9 +20,10 @@ else
     NC='nc -b'		                # -b broadcast, without this argument, nc may not send UDP broadcast.
 fi
 
-mac=${1:-B8-97-5A-85-DD-A2}     # D-Server
-#mac=${1:-00-17-A4-DE-F6-C4}     # NX6325
-#mac=${1:-08:00:27:f5:90:07}     # VM-Mint
+#mac=${1:-B8-97-5A-85-DD-A2}     # D-Mint
+mac=${1:-58-41-20-28-33-BC}     # D-Mint-2.5G
+#mac=${1:-00-17-A4-DE-F6-C4}    # NX6325
+#mac=${1:-08:00:27:f5:90:07}    # VM-Mint
 mac_address=$(echo $mac | sed 's/://g; s/-//g')		# Strip colons from the MAC address
 
 magic_packet=$(
