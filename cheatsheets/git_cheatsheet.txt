@@ -78,6 +78,7 @@ git tag -d <tagname>                        # 删除一个tag
 git fetch --all --tags --prune              # fetch all tags
 git tag -l '*11.1.6.2590'                   # list tag with wildcard match
 git checkout tags/build-tags/ci/build-2019.3.6.90 -b sit    # checkout a tag to a new local branch
+git fetch origin tag 2.3.18 --no-tags       # fetch specific tag
 
 git branch
 git branch -vv                              # 查看当前分支以及上游分支
