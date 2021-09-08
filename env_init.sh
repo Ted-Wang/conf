@@ -270,7 +270,11 @@ function apply_conf_work() {
     clear_old_rc_file
     conf_vimrc
     conf_bashrc
+    #conf_ssh
+    #conf_lanuage_CN
     conf_shell_prompt_inc_git
+    #conf_git
+    #conf_m2_script
     conf_my_script $1
     conf_shell_theme_for_win
 }
