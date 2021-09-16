@@ -31,107 +31,107 @@ https://my.oschina.net/dyyweb/blog/494504
 【这篇常用的的确常用，但是不全】
 
 IDEA notes:
-Alt+Up/Down   Previous/Next Function （在XML，HTML文件中，非常好用）
+Alt+Up/Down         Previous/Next Function （在XML，HTML文件中，非常好用）
 
 用Ctrl+W，选中需要的块，然后用左右方向键，快速定位到首/尾位置
-Ctrl + Shift + [	选中从光标所在位置到它的顶部中括号位置 （必备）
-Ctrl + Shift + ]	选中从光标所在位置到它的底部中括号位置 （必备）
-Ctrl + Shift + 左方向键	在代码文件上，光标跳转到当前单词 / 中文句的左侧开头位置，同时选中该单词 / 中文句 （必备）
-Ctrl + Shift + 右方向键	在代码文件上，光标跳转到当前单词 / 中文句的右侧开头位置，同时选中该单词 / 中文句 （必备）
+Ctrl+Shift+[        选中从光标所在位置到它的顶部中括号位置 （必备）
+Ctrl+Shift+]        选中从光标所在位置到它的底部中括号位置 （必备）
+Ctrl+Shift+Left     在代码文件上，光标跳转到当前单词 / 中文句的左侧开头位置，同时选中该单词 / 中文句 （必备）
+Ctrl+Shift+Right    在代码文件上，光标跳转到当前单词 / 中文句的右侧开头位置，同时选中该单词 / 中文句 （必备）
 
-Ctrl + Shift + F7	高亮显示所有该选中文本，按Esc高亮消失 （必备）
+Ctrl+Shift+F7       高亮显示所有该选中文本，按Esc高亮消失 （必备）
 
-Ctrl + Shift + 前方向键	光标放在方法名上，将方法移动到上一个方法前面，调整方法排序 （必备）
-Ctrl + Shift + 后方向键	光标放在方法名上，将方法移动到下一个方法前面，调整方法排序 （必备）
+Ctrl+Shift+Left     光标放在方法名上，将方法移动到上一个方法前面，调整方法排序 （必备）
+Ctrl+Shift+Right    光标放在方法名上，将方法移动到下一个方法前面，调整方法排序 （必备）
 -----------------------------------------------------------------------------------------------------
 
-Shift+左键单击		关闭当前打开的文件
-Shift+滚轮		在当前文件横向滚动
+Shift+左键单击      关闭当前打开的文件
+Shift+滚轮          在当前文件横向滚动
 
 Alt+ESC
 Alt+1，切换到 project 窗口， ESC可以使 focus 回到编辑器，在用 Alt+ESC， 可以影藏刚才打开的窗口
 
-Ctrl+[/]/m	移动到括号的 开始/结束/切换
-Ctrl+shift+m	在括号的开始/结束之间切换
+Ctrl+[/]/m          移动到括号的 开始/结束/切换
+Ctrl+shift+m        在括号的开始/结束之间切换
 
 Ctrl+Shift+Alt+T	打开 Refactor 菜单
-Ctrl+Alt+T	打开 Surrounding with 菜单
-Ctrl+P		查看方法参数
+Ctrl+Alt+T          打开 Surrounding with 菜单
+Ctrl+P              查看方法参数
 
-Alt+·		显示版本控制常用操作菜单弹出层【必备】
-Alt +Q		快捷显示当前行在哪个方法里(如果方法体太长，一屏显示不下这个很有用）.
+Alt+·               显示版本控制常用操作菜单弹出层【必备】
+Alt +Q              快捷显示当前行在哪个方法里(如果方法体太长，一屏显示不下这个很有用）.
 
 不选中，直接 Ctrl+C 复制当前行
-Ctrl+Shift+V	高级粘贴
+Ctrl+Shift+V        高级粘贴
 
-ALT+F7		搜索所有引用到当前选中 Symbol 的地方
-CTRL+ALT+F7	浮窗打开 搜索所有引用到当前选中 Symbol 的地方
+ALT+F7              搜索所有引用到当前选中 Symbol 的地方
+CTRL+ALT+F7         浮窗打开 搜索所有引用到当前选中 Symbol 的地方
 
-ALT+7/Ctrl+F12	靠左窗口/浮动 显示当前文件的结构 
-
-
-ALT+SHIFT+C	查找最近修改过的文件
-F4			跳转到变量定义
+ALT+7/Ctrl+F12      靠左窗口/浮动 显示当前文件的结构 
 
 
-F2/Shift+F2	高亮错误或警告快速定位
-
-Ctrl+B		跳转到 Class/Interface
-CTRL+ALT+B	跳转到实现类
-CTRL+SHIFT+B	跳过变量定义，直接打开实现类
+ALT+SHIFT+C         查找最近修改过的文件
+F4                  跳转到变量定义
 
 
+F2/Shift+F2         高亮错误或警告快速定位
 
-Ctrl+Alt+V	提取变量 
+Ctrl+B              跳转到 Class/Interface
+CTRL+ALT+B          跳转到实现类
+CTRL+SHIFT+B        跳过变量定义，直接打开实现类
+
+
+
+Ctrl+Alt+V          提取变量 
 ----------------------------------------------------------------------------------------------------------
 
-Ctrl+Alt+Y	同步/刷新，是做什么用的？？
-Ctrl+Alt+V	提取变量？尝试使用
-Alt+F3		尝试使用，这个跟 Ctrl+F3 不一样，这个会直接高亮所有，但是需要先选中
+Ctrl+Alt+Y          同步/刷新，是做什么用的？？
+Ctrl+Alt+V          提取变量？尝试使用
+Alt+F3              尝试使用，这个跟 Ctrl+F3 不一样，这个会直接高亮所有，但是需要先选中
 
-Ctrl+H		open class hierarchy
-Ctrl+Alt+H	open method call hierarchy (focus on a method, apply, see how many calls to this method)
-Ctrl+Shift+H	open method impl hierarchy (focus on a method, apply, see how many implementations)
+Ctrl+H              open class hierarchy
+Ctrl+Alt+H          open method call hierarchy (focus on a method, apply, see how many calls to this method)
+Ctrl+Shift+H        open method impl hierarchy (focus on a method, apply, see how many implementations)
 
-Ctrl+Alt+up		在查找模式下，跳到上个查找的文件
-Ctrl+Alt+down	在查找模式下，跳到下个查找的文件
+Ctrl+Alt+up         在查找模式下，跳到上个查找的文件
+Ctrl+Alt+down       在查找模式下，跳到下个查找的文件
 
 fori/sout/psvm/iter/itar, 用Ctrl+J查看所有模板
-Ctrl+`		切换 color theme/Keymap/Look and Feel
+Ctrl+`              切换 color theme/Keymap/Look and Feel
 
-Alt+Shift+Insert	切换列编辑模式，切换以后，可以 shift 选择列编辑
+Alt+Shift+Insert    切换列编辑模式，切换以后，可以 shift 选择列编辑
 
-Alt+Insert	Focus在editor上的时候，是插入getter/setter等等，focus在Navigator上的时候，是 new file
+Alt+Insert          Focus在editor上的时候，是插入getter/setter等等，focus在Navigator上的时候，是 new file
 
-Ctrl+Alt+Insert	new file...
+Ctrl+Alt+Insert     create new file, in current directory
 Ctrl+Shift+Insert/Ctrl+Shift+V	paste from history
 
 
 另外，Intellij IDEA 13中加入了后缀自动补全功能(Postfix Completion)，比模板生成更加灵活和强大。例如要输入for(User user : users)只需输入user.for+Tab。再比如，要输入Date birthday = user.getBirthday();只需输入user.getBirthday().var+Tab即可。
 
-Alt+F7	find usages，查找【类/方法】在哪里被使用， list result in bottom window
-Ctrl+F7	find usages in current file
-Ctrl+Shift+F7	highlight usages in current file
-Ctrl+Alt+F7	find usages， show result in popup
-Ctrl+Alt+Shift+F7	find usages settings
+Alt+F7              find usages，查找【类/方法】在哪里被使用， list result in bottom window
+Ctrl+F7             find usages in current file
+Ctrl+Shift+F7       highlight usages in current file
+Ctrl+Alt+F7         find usages， show result in popup
+Ctrl+Alt+Shift+F7   find usages settings
 
-Ctrl+E/Ctrl+Shift+E	打开最近【打开过/编辑过】的文件
+Ctrl+E/Ctrl+Shift+E 打开最近【打开过/编辑过】的文件
 
 【需要研究一下】
-运行：		Alt+Shift+F10运行程序，Shift+F9启动调试，Ctrl+F2停止。 
-Shift+F10		run/debug
-Ctrl+Shift+F10	run Ant target，run script
-Alt+Shift+10		会弹出选择 Main 函数的context
+运行：              Alt+Shift+F10运行程序，Shift+F9启动调试，Ctrl+F2停止。 
+Shift+F10           run/debug
+Ctrl+Shift+F10      run Ant target，run script
+Alt+Shift+10        会弹出选择 Main 函数的context
 
 ------------------不太常用的-------------------
-Alt+Home		定位到当前文件的 Navigation Bar
-Ctrl+Alt+Home	弹出跟当前文件有关的文件弹出层，【相当强大，Ctroller上用，能找到Spring配置文件，jsp上用，能找到一坨js，css文件】
-Alt+Left/Right	这个的真正用途是，在debug等窗口中切换子视图
+Alt+Home            定位到当前文件的 Navigation Bar
+Ctrl+Alt+Home       弹出跟当前文件有关的文件弹出层，【相当强大，Ctroller上用，能找到Spring配置文件，jsp上用，能找到一坨js，css文件】
+Alt+Left/Right      这个的真正用途是，在debug等窗口中切换子视图
 
-Shift+F4			对当前打开的文件，使用新Windows窗口打开，旧窗口保留
+Shift+F4            对当前打开的文件，使用新Windows窗口打开，旧窗口保留
 
-Shift + F9		等效于点击工具栏的 Debug 按钮
-Shift + F10	等效于点击工具栏的 Run 按钮
+Shift + F9          等效于点击工具栏的 Debug 按钮
+Shift + F10         等效于点击工具栏的 Run 按钮
 
 
 
