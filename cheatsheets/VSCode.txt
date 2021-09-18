@@ -10,3 +10,11 @@ ctrl+tab，ctrl+shift+tab
 alt+1/2/3...
 shfit + mouse wheel
 
+
+Emmet
+table>thead>th{head}*2^tbody>tr*10>td{row}*2
+table>thead>th*2^tbody>tr*10>td*2
+
+VSCode Multi-cursor edit
+Alt+left click
+Alt+shift+up/down/left/right
