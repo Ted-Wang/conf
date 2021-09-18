@@ -1,0 +1,12 @@
+Ctrl + M    Toggle Use of Tab Key for Setting Focus 
+
+Please note that in order to switch to a tab that is in a different editor group, you must first switch to the desired editor group.
+----什么是 edit group？
+
+ctrl+shift+[/]   fold/unfold
+
+switch between tabs
+ctrl+tab，ctrl+shift+tab
+alt+1/2/3...
+shfit + mouse wheel
+
