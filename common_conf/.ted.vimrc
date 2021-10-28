@@ -96,6 +96,9 @@ elseif MINGW()                      " for vim in git-bash
 elseif LINUX()
     colorscheme default
      " do nonthing                  " Linux/Shell 里还是留空使用 terminal 的 theme 。
+elseif OSX()
+    set cursorline                  " Highlight current line
+    colorscheme desert              " 使用经典的 desert 配色，综合来看，在 win/gvim，Linux/gvim，git-bash 里，效果都还不错。
 elseif WINDOWS()
     if(&lines < 50)
         set lines=50
