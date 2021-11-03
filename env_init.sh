@@ -53,10 +53,10 @@ function clear_old_rc_file(){
 function conf_vimrc(){
     echo setting up vimrc
     \cp $BASE_DIR/common_conf/${TED_VIM_RC} ~/
-    $SUDO chmod 644 ~/${TED_VIM_RC}
+    chmod 644 ~/${TED_VIM_RC}
     if [[ ! -f ~/.vimrc ]]; then
         touch ~/.vimrc
-        $SUDO chmod 644 ~/.vimrc
+        chmod 644 ~/.vimrc
     fi
     if grep -Eq "^\s*so(urce){0,1}\s+~/\.ted\.vimrc$" ~/.vimrc; then 
         : # do nothing
@@ -73,10 +73,10 @@ EOF
 function conf_bashrc(){
     echo setting up bashrc
     \cp $BASE_DIR/common_conf/${TED_BASH_RC} ~/
-    $SUDO chmod 644 ~/${TED_BASH_RC}
+    chmod 644 ~/${TED_BASH_RC}
     if [[ ! -f ~/.bashrc ]]; then
         touch ~/.bashrc
-        $SUDO chmod 644 ~/.bashrc
+        chmod 644 ~/.bashrc
     fi
     if grep -Eq "^\s*source\s+~/${TED_BASH_RC}$" ~/.bashrc; then
         : # do nothing
@@ -205,7 +205,7 @@ function copy_script_and_make_symlink() {
             link_name=${arg##*/}
             link_name=${link_name:0:-3}
             link_name=~/.local/bin/$link_name
-            sudo ln -sf $script_name $link_name
+            $SUDO ln -sf $script_name $link_name
             echo create symlink $link_name
         fi
     done
