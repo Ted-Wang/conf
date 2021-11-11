@@ -129,7 +129,15 @@ export http_proxy=http://127.0.0.1:8118
 export https_proxy=http://127.0.0.1:8118
 
 ### SSH
-issh-keygen -t rsa -b 4096 -C "teddddddd@gmail.com" -f ~/.ssh/id_rsa
+https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+----github推荐的方式：
+    ssh-keygen -t ed25519 -C "your_email@example.com"
+    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+这里看更多生成key的方式：https://www.ssh.com/academy/ssh/keygen
+github上传ssh key的页面placeHolder 提示，可以使用这些类型的key加密算法：
+	Begins with 'ssh-rsa', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384', 'ecdsa-sha2-nistp521', 'ssh-ed25519', 'sk-ecdsa-sha2-nistp256@openssh.com', or 'sk-ssh-ed25519@openssh.com'
+
+ssh-keygen -t rsa -b 4096 -C "teddddddd@gmail.com" -f ~/.ssh/id_rsa
 ssh-keygen -l -f ~/.ssh/id_rsa
 ssh-keygen -p [-P old_passphrase] [-N new_passphrase] [-f keyfile]	# 修改 passphrase
 ssh-keygen -p [-f keyfile]		        # 修改 passphrase
