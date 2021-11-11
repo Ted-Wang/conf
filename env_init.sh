@@ -334,9 +334,15 @@ if [[ -f ~/${TED_ZSH_RC} ]]; then
     source ~/${TED_ZSH_RC}
 fi
 EOF
-    
+        fi
+    echo copying m2.sh
     copy_script_and_source_it_for_Mac $BASE_DIR/common_conf/m2.sh
+    echo copying dockertags.sh
     copy_script_and_source_it_for_Mac $BASE_DIR/script/dockertags.sh
+
+    # as syntax of 'sed -i' is different between Unix and Linux, use sed -i '' to replace sed -i in Mac
+    # for more info, see https://stackoverflow.com/questions/16745988/sed-command-with-i-option-in-place-editing-works-fine-on-ubuntu-but-not-mac
+    sed -i "" "s/sed\ -Ei/sed\ -Ei\ ''/g" $MY_SCRIPT_FOLDER/m2.sh
 
 #    if [[ "${1:-'all'}" != "work" ]]; then
 #        copy_script_and_source_it $BASE_DIR/common_conf/vps_fast.sh
@@ -345,7 +351,6 @@ EOF
 #        copy_script_to_my_script_folder $BASE_DIR/script/wol.sh
 #        patch_extra_bashrc $BASE_DIR/common_conf/ted_extra.bashrc
 #    fi
-        fi
     fi
 }
 
