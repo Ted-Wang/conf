@@ -137,7 +137,7 @@ https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/generati
 github上传ssh key的页面placeHolder 提示，可以使用这些类型的key加密算法：
 	Begins with 'ssh-rsa', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384', 'ecdsa-sha2-nistp521', 'ssh-ed25519', 'sk-ecdsa-sha2-nistp256@openssh.com', or 'sk-ssh-ed25519@openssh.com'
 
-ssh-keygen -t rsa -b 4096 -C "teddddddd@gmail.com" -f ~/.ssh/id_rsa
+ssh-keygen -t rsa -b 4096 -C "tedd@gmail.com" -f ~/.ssh/id_rsa
 ssh-keygen -l -f ~/.ssh/id_rsa
 ssh-keygen -p [-P old_passphrase] [-N new_passphrase] [-f keyfile]	# 修改 passphrase
 ssh-keygen -p [-f keyfile]		        # 修改 passphrase

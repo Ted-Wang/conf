@@ -70,9 +70,9 @@ elif [ -n "$ZSH_VERSION" ]; then
         read -Ac words
         curword="$words[$cword]"
         if [[ "$curword" =~ [-+/].* ]]; then
-            reply=($(sed -r "s@^(${curword:1}.*?)=(.*$)@${curword:0:1}\1@" "$MARKFILE" | grep -v "="))
+            reply=($(sed -r "s@^(${curword:1}[^=]*)=(.*$)@${curword:0:1}\1@" "$MARKFILE" | grep -v "="))
         else
-            reply=($(sed -r "s@^(${curword}.*?)=(.*$)@\1@" "$MARKFILE" | grep -v "="))
+            reply=($(sed -r "s@^(${curword}[^=]*)=(.*$)@\1@" "$MARKFILE" | grep -v "="))
         fi
     }
     compctl -K _cdmark_complete m
