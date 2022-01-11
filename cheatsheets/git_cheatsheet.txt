@@ -1,5 +1,9 @@
 [git][git frequently used commands][git/cheatsheet][git cheatsheet]
 
+windows下git使用vim路径中包含空格的解决办法(主要是用户中的空格)：
+https://stackoverflow.com/questions/58017068/how-to-fix-git-commit-on-windows-waiting-to-close-file-vim-exe-c
+git config --global core.editor "'C:/Users/Ted Wang/tools/PortableGit/usr/bin/vim'"
+
 # From the docs of git diff, --staged is a synonym of --cached
 
 git init
