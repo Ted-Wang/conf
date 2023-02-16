@@ -1,6 +1,18 @@
 [vim/cheatsheet][vim][cheatsheet]
 
 ### tips
+* 添加行号，insert line numbers
+https://stackoverflow.com/questions/252766/how-to-add-line-numbers-to-range-of-lines-in-vim
+https://stackoverflow.com/questions/18219857/vim-column-of-increasing-numbers/70209677#70209677
+<C-v>GI0 <ESC>gvg<C-a>
+Explain:
+    <C-v> visual block mode (:help visual-block)
+    G is select to the bottom of the screen (:help G)
+    I starts insert mode on line 1 (:help v_b_I)
+    0  enter a literal zero and a literal space
+    <ESC> go back to normal mode
+    gv reselect the last visual selection (all of column 1) (:help gv)
+    g<C-a> increment sequentially all numbers in the selection (:help v_g_CTRL-A)
 
 * evim 或者 vim -y 可以进入easy模式。但是，怎么退出呢？。。。。ctrl+L 进入命令模式，然后:q
 
