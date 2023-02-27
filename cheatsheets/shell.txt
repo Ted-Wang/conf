@@ -138,7 +138,7 @@ github上传ssh key的页面placeHolder 提示，可以使用这些类型的key�
 	Begins with 'ssh-rsa', 'ecdsa-sha2-nistp256', 'ecdsa-sha2-nistp384', 'ecdsa-sha2-nistp521', 'ssh-ed25519', 'sk-ecdsa-sha2-nistp256@openssh.com', or 'sk-ssh-ed25519@openssh.com'
 
 ssh-keygen -t rsa -b 4096 -C "tedd@gmail.com" -f ~/.ssh/id_rsa
-ssh-keygen -l -f ~/.ssh/id_rsa
+ssh-keygen -lf ~/.ssh/id_ed25519.pub    # 校验key的指纹，Verifying the fingerprint
 ssh-keygen -p [-P old_passphrase] [-N new_passphrase] [-f keyfile]	# 修改 passphrase
 ssh-keygen -p [-f keyfile]		        # 修改 passphrase
 ssh-keygen -y [-f input_keyfile]		# 通过私钥查看公钥
