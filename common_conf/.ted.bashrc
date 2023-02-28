@@ -50,6 +50,11 @@ fi
 alias du0='du -h --max-depth=0'
 alias du1='du -h --max-depth=1'
 
+proxy_url=http://127.0.0.1:7890
+alias poff='unset http_proxy;unset https_proxy'
+alias pon='export http_proxy=$proxy_url; export https_proxy=$proxy_url'
+
+
 if [[ $(currentEnv) == "Win/git-bash" ]]; then
     alias ping='/bin/winpty ping'
 fi

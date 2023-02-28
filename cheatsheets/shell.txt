@@ -127,6 +127,11 @@ str5="${name}Script: ${url}index.html"  # concatenate strings
 ### add proxy for shell
 export http_proxy=http://127.0.0.1:8118
 export https_proxy=http://127.0.0.1:8118
+ALL_PROXY=socks5://127.0.0.1:7890
+
+proxy_url=http://127.0.0.1:7890
+alias poff='unset http_proxy;unset https_proxy'
+alias pon='export http_proxy=$proxy_url; export https_proxy=$proxy_url'
 
 ### SSH
 https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
