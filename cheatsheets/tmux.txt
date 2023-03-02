@@ -23,10 +23,20 @@ prefix %　　    # 水平方向创建窗格
 prefix "        # 垂直方向创建窗格
 prefix Up|Down|Left|Right　　# 根据箭头方向切换窗格
 
+### Resources
 Tmux Cheat Sheet & Quick Reference https://tmuxcheatsheet.com/
 手把手教你使用终端复用神器 Tmux，丢掉鼠标不是梦[视频] https://zhuanlan.zhihu.com/p/43687973
     如果你自己懒得配置，也可以使用别人配置好的 tmux，比如这个oh-my-tmux 配置：https://github.com/gpakosz/.tmux
 和枯燥的终端说再见吧 → 终端复用工具 Tmux https://zhuanlan.zhihu.com/p/58668651
 
+How can I prevent tmux exiting with Ctrl-d? https://superuser.com/questions/479600/how-can-i-prevent-tmux-exiting-with-ctrl-d
+add 'set-environment -g 'IGNOREEOF' 2' to ~/.tmux.conf      # only effect to tmux
+# 注意下面这个方法会在bash里也屏蔽ctrl+d键9次（第10次才退出），还是用上面的。
+Put one of the following in your .bashrc file:
+    IGNOREEOF=10   # Shell only exists after the 10th consecutive Ctrl-d
+    set -o ignoreeof  # Same as setting IGNOREEOF=10
 
+cheatsheet:
+神器tmux中级技巧 https://zhuanlan.zhihu.com/p/166154045
+Tmux Cheat Sheet & Quick Reference https://tmuxcheatsheet.com/
 
