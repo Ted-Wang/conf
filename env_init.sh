@@ -6,6 +6,7 @@ MY_SCRIPT_FOLDER="$HOME/my_script"
 TED_BASH_RC=.ted.bashrc
 TED_ZSH_RC=.ted.zshrc
 TED_VIM_RC=.ted.vimrc
+TED_TMUX_CONF=tmux.conf
 TED_BASH_RC_OLD=ted.bashrc
 TED_VIM_RC_OLD=ted.vimrc
 
@@ -48,6 +49,15 @@ function clear_old_rc_file(){
         \rm ~/${TED_BASH_RC_OLD}
     fi
     echo clear old ted.***rc file done
+}
+
+function conf_tmux_conf(){
+    echo setting up .tmux.conf...
+    if [[ ! -f ~/.tmux.conf ]]; then
+        \cp $BASE_DIR/common_conf/${TED_TMUX_CONF} ~/.${TED_TMUX_CONF}
+    else
+        echo ~/.tmux.conf exist, please update it manuanlly.
+    fi
 }
 
 function conf_vimrc(){
@@ -265,6 +275,7 @@ function apply_conf_all() {
     clear_old_rc_file
     conf_vimrc
     conf_bashrc
+    conf_tmux_conf
     conf_ssh
     #conf_lanuage_CN
     conf_shell_prompt_inc_git
@@ -278,6 +289,7 @@ function apply_conf_work() {
     clear_old_rc_file
     conf_vimrc
     conf_bashrc
+    conf_tmux_conf
     #conf_ssh
     #conf_lanuage_CN
     conf_shell_prompt_inc_git
@@ -317,6 +329,7 @@ EOF
 
 function apply_conf_for_Mac() {
     conf_vimrc
+    # TODO, consider if .tmux.conf need to be setting up here.
 
     if [[ "$runIn" == "Mac" ]]; then
         echo setting up .zshrc for Mac
