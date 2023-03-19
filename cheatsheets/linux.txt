@@ -91,6 +91,13 @@ pacman -Si		# 同上，查询远程包信息。这两个(带i查询)都不支持
 pacman -Syu		# 升级整个系统。【小心】！ 
 pacman -Syy		# -Sy, download fresh package databases from the server (-Syy to force a refresh even if up to date)
 
+### ufw 防火墙
+sudo ufw allow ssh
+sudo ufw deny 8080
+sudo ufw status/disable/enable/reload/reset
+sudo ufw allow from 203.0.113.0/24
+sudo ufw deny from 203.0.113.4
+
 
 [//]: # ( vim: set syntax=markdown: )
 
