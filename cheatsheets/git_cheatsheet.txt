@@ -59,6 +59,7 @@ git log -p                                  # 显示每个 commit 具体的修�
 git log --author="<pattern>"                # 搜索指定作者的commit. <pattern>可以是正则表达式.
 git log -S"Hello, World!"                   # display commits by content
 git log -- <file1 file2>                    # 只显示指定文件的 commits.
+git log -p -- <file>                        # 显示指定文件的 log.
 git shortlog -n                             # 按 author name 分组统计显示每个 user 的 commits。 默认按 author name 排序，-n 是按 commits 数量排序
 git log --no-merges                         # 过滤掉所有 merge log。
 git log --merges                            # #This returns all commits that have at least two parents.
