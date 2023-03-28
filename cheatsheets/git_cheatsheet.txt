@@ -149,7 +149,7 @@ git push <远程主机名> <本地分支名>:<远程分支名>
     git push --dry-run                      # 查看结果，不做真实推送。
     git push origin master
     git push origin --tags                  # git默认不会push tags
-git push --set-upstream <remote-name> <local-branch-name>
+git push --set-upstream <remote-repo-name> <remote-branch-name>
 git push -u origin your_branch
 git push -u origin HEAD                     # push to remote with same local branch name
 
