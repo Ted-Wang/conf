@@ -45,6 +45,9 @@ git reset HEAD                              # undo git add *，相当于 git res
 git reset HEAD --hard                       # undo，并且同时修改当前工作区
 git checkout -- <filename>                  # 回滚一个文件
 
+git clean -fdx                              # clean entire work space
+git clean -n                                # dry run
+
 git reflog                                  # 显示 HEAD 的变化历史，可以找到上一次 HEAD 指向的 commit，再次使用 reset 命令恢复
 
 git blame myClass.java                      #  https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-blame
