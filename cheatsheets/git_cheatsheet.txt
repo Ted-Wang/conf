@@ -165,6 +165,12 @@ git remote rename <old-name> <new-name>     # 修改远程仓库名字
 git pull mint master                        # 从指定远程分支拉取
 git push mint                               # push 到指定远程分支
 
+#### push project to a local directory(as a local remote repo)
+mkdir <local_repo> and cd <local_repo>      # create a folder for local remote repo
+git init --bare                             # init local repo
+git remote add local file:///path/to/<local_repo>   # add local remote repo with name "local"
+git pull/push local master                  # then do git operation normally
+
 git config --global/system/local -l
 git config --global -e
 git config --global core.editor <editor>
