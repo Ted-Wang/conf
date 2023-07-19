@@ -97,5 +97,17 @@ export HISTSIZE=10000
 export HISTFILESIZE=10000
 
 # this is for displaying Chinese character correctly when SSH to Ubuntu Server by a terminal.
+# it seems Ubuntu 20.04+ does not have this problem, occurred on Ubuntu 18.04 and Mac OS X.
 export LANG=en_US.UTF-8
 
+# def a command 'lsport' for list all current listening port
+if [[ $(currentEnv) == "Mac" ]]; then
+    lsport() {
+        if [ $# -eq 0 ]; then
+            sudo lsof -iTCP -sTCP:LISTEN -n -P
+        elif [ $# -eq 1 ]; then
+            sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+        else
+            echo "Usage: lsport [pattern]"
+        fi
+    }

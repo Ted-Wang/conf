@@ -346,6 +346,7 @@ function apply_conf_for_Mac() {
 if [[ -f ~/${TED_ZSH_RC} ]]; then
     source ~/${TED_ZSH_RC}
 fi
+
 EOF
         fi
     echo copying m2.sh
@@ -370,6 +371,8 @@ EOF
 if [[ "$runIn" == "Mac" ]]; then
     apply_conf_for_Mac $1
     source ~/${TED_ZSH_RC}
+    # since there is no simple approach to get current shell name, just default to use zsh here.
+    # https://stackoverflow.com/questions/3327013/how-to-determine-the-current-interactive-shell-that-im-in-command-line
 else
     apply_conf $1
     source ~/${TED_BASH_RC}
