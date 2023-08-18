@@ -20,6 +20,11 @@ export HISTSIZE=10000
 export HISTFILESIZE=10000
 export LANG=en_US.UTF-8
 
+alias sshconf='vim ~/.ssh/config'
+alias bashconf='vim ~/.bashrc'
+alias bashconf1='vim ~/.ted.bashrc'
+alias vimconf='vim ~/.ted.vimrc'
+
 # LinuxMint 使用了 termbin.com，发现挺不错的。
 alias tb="nc termbin.com 9999"
 # usage: 生成一个paste：echo text | tb；获取内容可以使用：curl http://termbin.com/xftf

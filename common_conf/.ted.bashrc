@@ -93,8 +93,14 @@ if [[ $? == 0 ]] && [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
     alias sudo='sudo -E'
 fi
 
+# expand history size for shell
 export HISTSIZE=10000
 export HISTFILESIZE=10000
+
+alias sshconf='vim ~/.ssh/config'
+alias bashconf='vim ~/.bashrc'
+alias bashconf1='vim ~/.ted.bashrc'
+alias vimconf='vim ~/.ted.vimrc'
 
 # this is for displaying Chinese character correctly when SSH to Ubuntu Server by a terminal.
 # it seems Ubuntu 20.04+ does not have this problem, occurred on Ubuntu 18.04 and Mac OS X.
