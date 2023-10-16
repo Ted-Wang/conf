@@ -102,11 +102,17 @@ alias bashconf='vim ~/.bashrc'
 alias bashconf1='vim ~/.ted.bashrc'
 alias vimconf='vim ~/.ted.vimrc'
 
+# Usage:
+#   senc -in msg.txt -out msg.encrypted
+#   sdec -in msg.encrypted -out msg.txt
+alias senc='openssl enc -aes-256-cbc -a -salt -p -pbkdf2 -md sha256 '
+alias sdec='openssl enc -aes-256-cbc -a -pbkdf2 -md sha256 -d '
+
 # this is for displaying Chinese character correctly when SSH to Ubuntu Server by a terminal.
 # it seems Ubuntu 20.04+ does not have this problem, occurred on Ubuntu 18.04 and Mac OS X.
 export LANG=en_US.UTF-8
 
-# def a command 'lsport' for list all current listening port
+# def a command 'lsport' for Mac OS X, to list all current listening port
 if [[ $(currentEnv) == "Mac" ]]; then
     lsport() {
         if [ $# -eq 0 ]; then
@@ -117,3 +123,4 @@ if [[ $(currentEnv) == "Mac" ]]; then
             echo "Usage: lsport [pattern]"
         fi
     }
+

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SHELL_PROMPT=shell_prompt.sh
+VIM_CONF_FOLDER="$HOME/.vim"
 SSH_CONFIG="$HOME/.ssh/config"
 MY_SCRIPT_FOLDER="$HOME/my_script"
 TED_BASH_RC=.ted.bashrc
@@ -38,6 +39,14 @@ else
 fi
 echo $BASE_DIR
 
+function using_zsh(){
+    local zsh_ver=$(echo $ZSH_VERSION)
+    if [[ "" == "$zsh_ver" ]];then
+        echo "yes"
+    else
+        echo "no"
+    fi
+}
 
 function clear_old_rc_file(){
     if grep -Eq "^\s*so(urce){0,1}\s+~/${TED_VIM_RC_OLD}$" ~/.vimrc; then
@@ -61,6 +70,12 @@ function conf_tmux_conf(){
 }
 
 function conf_vimrc(){
+    echo copyping vim colorscheme files...
+    if [[ ! -d ${VIM_CONF_FOLDER} ]]; then
+        mkdir ${VIM_CONF_FOLDER}
+    fi
+    \cp -r $BASE_DIR/common_conf/colors ${VIM_CONF_FOLDER}/
+
     echo setting up vimrc
     \cp $BASE_DIR/common_conf/${TED_VIM_RC} ~/
     chmod 644 ~/${TED_VIM_RC}
@@ -331,7 +346,8 @@ function apply_conf_for_Mac() {
     conf_vimrc
     # TODO, consider if .tmux.conf need to be setting up here.
 
-    if [[ "$runIn" == "Mac" ]]; then
+    if [[ "$runIn" == "Mac" ]] && [[ "yes" == $(using_zsh) ]]; then
+        echo "detected you are using zsh on Mac,apply conf for Mac with .ted.zshrc"
         echo setting up .zshrc for Mac
         cp $BASE_DIR/common_conf/${TED_ZSH_RC} ~/
 #        $SUDO chmod 644 ~/${TED_ZSH_RC}
