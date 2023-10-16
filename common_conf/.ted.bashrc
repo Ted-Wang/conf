@@ -123,4 +123,4 @@ if [[ $(currentEnv) == "Mac" ]]; then
             echo "Usage: lsport [pattern]"
         fi
     }
-
+fi
