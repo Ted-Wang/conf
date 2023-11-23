@@ -137,17 +137,22 @@ zfi{ 折叠成对大括号之间的内容，不包括大括号所在行，一般
 :.w(rite) >> otherfile	//将当前行追加到另一个文件末尾
 
 
-#### 分屏
+#### 分屏，以及比较 diff
 :sp
 :vs
+:enew
+:vnew
 vimdiff f1 f2
-vim -d f1 f2		//这里也可以用 -o -O 参数
-:diffs[plit] fileName
-:vert diffsplit fileName
-[c                  // 跳转到前一个不同点
+vim -d f1 f2		        # 等同于上面的命令，垂直分屏 diff 模式。这里也可以用 -o -O 参数，进入 水平/垂直 分屏的 diff 模式
+:diffs[plit] fileName       # 将当前文件与另一个文件进行比较，进入 水平分屏的 diff 模式
+:vert diffsplit fileName    # 同上，但是垂直分屏
+windo diffthis              # 比较当前窗口种的文件，单独用 diffthis，则需要在每个 buff 上都执行一次
+windo diffoff               # 退出 diff 模式
+:diffoff!                   # 在当前标签页所有窗口种退出 diff 模式，同样，单独用 diffoff 需要在每个buff上都执行一次
+[c                          # 跳转到前一个不同点
 ]c
-vim -o file1 file2:水平分割窗口，同时打开file1和file2
-vim -O file1 file2:垂直分割窗口，同时打开file1和file2
+vim -o file1 file2          # 水平分割窗口，同时打开file1和file2
+vim -O file1 file2          # 垂直分割窗口，同时打开file1和file2
 Ctrl+w  +h/j/k/l/w/p，w next，p last。注意这两个是不同的，并非是互逆的操作。重复
 Ctrl+w  +H/J/K/L 把当前窗口放到左/下/上/右边
 Ctrl+w c/:bd/:q  都能关闭当前窗口
@@ -162,10 +167,10 @@ Ctrl+^/:b#				# Switch between last/current buffer.
 :bn/bp					# Go to next/previous buffer.
 :b(n)或(n)b				# switch to buffer n
 :bf/bl					# Go to first/last buffer.
-:bd(elete) 3/文件名	# 删除当前/第n个缓冲区		----建议用这个关闭 buffer
+:bd(elete) 3/文件名     # 删除当前/第n个缓冲区		----建议用这个关闭 buffer
 :bd 1 2 3				# close buffer 1, 2, 3
 :5,7bd					# close buffer 5, 6, 7
-Ctrl+G/:file/:f		# Show filename
+Ctrl+G/:file/:f         # Show filename
 :ba(ll)					# 把所有的缓冲区在当前页中打开，每个缓冲区占一个窗口。
 :badd file				# 增加一个缓冲区，文件是必须的。		----这个跟 :e file 的区别，感觉就是只是增加，但是不会切换到新的buffer。
 :bunload 				# 卸载缓冲区				----这个跟 bd 有何区别？
