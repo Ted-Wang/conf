@@ -108,6 +108,11 @@ alias vimconf='vim ~/.ted.vimrc'
 alias senc='openssl enc -aes-256-cbc -a -salt -p -pbkdf2 -md sha256 '
 alias sdec='openssl enc -aes-256-cbc -a -pbkdf2 -md sha256 -d '
 
+# this 2 lines canncel the default behavior (suspend) of short cut ctrl+z, and bind to ' fg' (the leading space is to prevent 'fg' from appearing in history)
+# then, you can press ctrl+z suspend in vim and back to shell, and use ctr+z again go back to vim.
+stty susp undef
+bind '"\C-z":" fg\015"'
+
 # this is for displaying Chinese character correctly when SSH to Ubuntu Server by a terminal.
 # it seems Ubuntu 20.04+ does not have this problem, occurred on Ubuntu 18.04 and Mac OS X.
 export LANG=en_US.UTF-8
