@@ -111,7 +111,13 @@ alias sdec='openssl enc -aes-256-cbc -a -pbkdf2 -md sha256 -d '
 # this 2 lines canncel the default behavior (suspend) of short cut ctrl+z, and bind to ' fg' (the leading space is to prevent 'fg' from appearing in history)
 # then, you can press ctrl+z suspend in vim and back to shell, and use ctr+z again go back to vim.
 stty susp undef
-bind '"\C-z":" fg\015"'
+#bind '"\C-z":" fg\015"'
+# check if script running in a non-interactive shell. this is to resolve a warning ("bind: warning: line editing not enabled") when running this script directly instead of source it.
+# see here for more details: https://superuser.com/questions/240223/warning-line-editing-not-enabled
+if [[ $- = *i* ]]
+then
+    bind -x '"\C-z":"fg\015"'
+fi
 
 # this is for displaying Chinese character correctly when SSH to Ubuntu Server by a terminal.
 # it seems Ubuntu 20.04+ does not have this problem, occurred on Ubuntu 18.04 and Mac OS X.
