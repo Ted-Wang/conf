@@ -38,6 +38,8 @@ alt+.       # means the last argument of previous command, repeat to get other o
 
 ls | grep -v file.txt | xargs rm        # rm other files except file.txt in current folder
 
+rsync -avn --exclude=".*" -n conf/* conf2		# -n, --dry-run, list files, excluding all those hiddend files which name start with "."
+
 curl -X GET "http://192.168.50.101:10000/?pf=zn&contract=2012&value=8000"
 curl -LO <url>
 
