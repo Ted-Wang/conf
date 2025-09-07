@@ -59,7 +59,7 @@ if has('gui_running')
     elseif OSX()
         set guifont=Ubuntu\ Mono\ Regular\ 12,Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
     elseif WINDOWS()
-        set guifont=Ubuntu\ Mono Regular\ 12,Consolas:h10,Courier_New:h10,Courier\ New\ Regular\ 10
+        set guifont=Ubuntu\ Mono\ Regular\ 12,Consolas:h10,Courier_New:h10,Courier\ New\ Regular\ 10
     endif
 else
     if &term == 'xterm' || &term == 'screen'
