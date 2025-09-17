@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# if run this script directly like ./env_init.sh, and result in an error: 
+#   bind: warning: line editing not enabled.
+# you need to source this script: source env_init.sh. Cause and solution see here: 
+#   https://superuser.com/questions/240223/warning-line-editing-not-enabled
+# You get "line editing not enabled" when running in a non-interactive shell. The shell becomes non-interactive when started with -c or e.g. when stdin/stderr are not TTYs.
+# ----原因是，因为脚本执行是在一个 non-interactive shell 里，所以才报这个错，可以通过增加判断来解决：
+
+# the cmd 'bind -x' cannot be find in this script, it is used in .ted.bashrc which is sourced by this script.
+
 SHELL_PROMPT=shell_prompt.sh
 VIM_CONF_FOLDER="$HOME/.vim"
 SSH_CONFIG="$HOME/.ssh/config"
