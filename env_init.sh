@@ -13,6 +13,9 @@ SHELL_PROMPT=shell_prompt.sh
 VIM_CONF_FOLDER="$HOME/.vim"
 SSH_CONFIG="$HOME/.ssh/config"
 MY_SCRIPT_FOLDER="$HOME/my_script"
+# MY_SCRIPT_FOLDER_ 这个变量不用双引号而用单引号，是为了在后面 copy_script_and_source_it() 函数中 patch bashrc 文件时，保持原始 $HOME 变量，而不是被展开成具体的目录比如 /c/User/ted/my_script，
+# 这是为了解决 mobaXterm 的 Terminal/bash 中映射路 $HOME 径不同于 git-bash 从而导致的无法找到 my_script 目录的问题。
+MY_SCRIPT_FOLDER_='$HOME/my_script'
 TED_BASH_RC=.ted.bashrc
 TED_ZSH_RC=.ted.zshrc
 TED_VIM_RC=.ted.vimrc
@@ -224,7 +227,7 @@ function copy_script_to_my_script_folder() {
     __check_my_script_folder
     local arg; for arg in $@; do 
         if [[ -f $arg ]]; then
-            \cp $arg $MY_SCRIPT_FOLDER/
+            \cp $arg "$MY_SCRIPT_FOLDER"/
         fi
     done
 }
@@ -233,8 +236,8 @@ function copy_script_and_make_symlink() {
     __check_my_script_folder
     local arg; for arg in $@; do 
         if [[ -f $arg ]]; then
-            \cp $arg $MY_SCRIPT_FOLDER/
-            script_name=$MY_SCRIPT_FOLDER/${arg##*/}
+            \cp $arg "$MY_SCRIPT_FOLDER"/
+            script_name="$MY_SCRIPT_FOLDER"/${arg##*/}
             echo copy file: $arg to $script_name
             link_name=${arg##*/}
             link_name=${link_name:0:-3}
@@ -249,9 +252,9 @@ function copy_script_and_source_it() {
     __check_my_script_folder
     local arg; for arg in $@; do 
         if [[ -f $arg ]]; then
+            script_name="$MY_SCRIPT_FOLDER_"/${arg##*/}
+            echo copy file: "$arg" to "$MY_SCRIPT_FOLDER"/
             \cp $arg "$MY_SCRIPT_FOLDER"/
-            script_name=$MY_SCRIPT_FOLDER/${arg##*/}
-            echo copy file: $arg to $script_name
             cat << EOF >> ~/${TED_BASH_RC}
 if [[ -f "$script_name" ]]; then
     source "$script_name"
@@ -339,9 +342,9 @@ function copy_script_and_source_it_for_Mac() {
     __check_my_script_folder
     local arg; for arg in $@; do 
         if [[ -f $arg ]]; then
-            \cp $arg "$MY_SCRIPT_FOLDER"/
             script_name=$MY_SCRIPT_FOLDER/${arg##*/}
-            echo copy file: $arg to $script_name
+            echo copy file: $arg to "$script_name"
+            \cp $arg "$MY_SCRIPT_FOLDER"/
             cat << EOF >> ~/${TED_ZSH_RC}
 if [[ -f "$script_name" ]]; then
     source "$script_name"
