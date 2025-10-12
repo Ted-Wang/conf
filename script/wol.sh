@@ -33,7 +33,6 @@ while IFS='=' read -r key value || [[ -n "$key" ]]; do
     [[ -z "$key" ]] && continue
     WOL_CONF_MAP["${key}"]="$value"
 done < <(sed -e 's/\s*#.*$//g' ${WOL_CONF_FILE}) 
-echo ${WOL_CONF_MAP['mint']}
 
 broadcast=${2:-255.255.255.255}
 #broadcast=${2:-172.17.1.255}
