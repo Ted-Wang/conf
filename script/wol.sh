@@ -59,9 +59,19 @@ if [[ ! -z $1 ]]; then
     mac=${WOL_CONF_MAP["$1"]}
     host_name_="${1}: ${mac}"
 elif [[ -z $1 ]]; then
-    echo "NO MAC address is specified! Specify your target MAC or alias your MAC in conf file: $WOL_CONF_FILE"
+    echo "NO MAC address is specified! Specify your target MAC as an argument, or alias your MAC in conf file: $WOL_CONF_FILE"
     echo ""
-    usage
+    # list all alias machine and MAC in $WOL_CONF_FILE
+    if [[ ! -z WOL_CONF_MAP ]] && [ ${#WOL_CONF_MAP[@]} -gt 0 ]; then
+        echo "all known host(s) alias: "
+        for key in "${!WOL_CONF_MAP[@]}"; do
+            value="${WOL_CONF_MAP[$key]}"
+            echo "host: $key, MAC: $value"
+        done
+        exit 1
+    else
+        usage
+    fi
 else
     echo "\"${1}\" is not an alias name in conf file: $WOL_CONF_FILE, treat it as a MAC address"
     #mac=${1:-B8-97-5A-85-DD-A2}     # D-Mint
