@@ -1,3 +1,7 @@
+# git prompt source chain on Ubuntu:
+# ~/.bashrc -> /etc/bash_completion -> /usr/share/bash-completion/bash_completion -> /etc/bash_completion.d/*(/etc/bash_completion.d/git-prompt) -> /usr/lib/git-core/git-sh-prompt -> __git_ps1
+# if /usr/share/bash-completion/bash_completion not exist on Ubuntu, try:
+# apt install bash-completion
 
 function generateShellPromptWithGit() {
     local IMPORT_PROMPT_FILE=0
