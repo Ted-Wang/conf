@@ -49,7 +49,7 @@ if [[ "$runIn" == "Mac" ]];then
 else
     BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 fi
-echo $BASE_DIR
+echo "Base dir: $BASE_DIR"
 
 function using_zsh(){
     local zsh_ver=$(echo $ZSH_VERSION)
@@ -284,6 +284,7 @@ function conf_my_script() {
     fi
 }
 
+# old method, patch m2 to .ted.bashrc, now m2 is copied to ~/my_script/ and source it from .ted.bashrc
 function conf_m2_script(){
     # 1. add m2.sh(a very simple bookmark for shell) to ~/.ted.bashrc
     #echo -n '#--------a short bookmark function start--------' >> ~/${TED_BASH_RC}
@@ -306,8 +307,8 @@ function apply_conf_all() {
     conf_ssh
     #conf_lanuage_CN
     conf_shell_prompt_inc_git
-    conf_git
-    #conf_m2_script
+    #conf_git           # commet this int. don't need this generally, in case needed, call it manually, after then.
+    #conf_m2_script     # old method, patch m2 to .ted.bashrc, now m2 is copied to ~/my_script/ and source it from .ted.bashrc
     conf_my_script
     conf_shell_theme_for_win
 }
@@ -321,7 +322,7 @@ function apply_conf_work() {
     #conf_lanuage_CN
     conf_shell_prompt_inc_git
     #conf_git
-    #conf_m2_script
+    #conf_m2_script     # old method, patch m2 to .ted.bashrc, now m2 is copied to ~/my_script/ and source it from .ted.bashrc
     conf_my_script $1
     conf_shell_theme_for_win
 }

@@ -16,9 +16,21 @@
 
 * USTC Mirror 中科大源 https://mirrors.ustc.edu.cn/help/manjaro.html
 
-### vBox add user to group vboxsf
+### User Permission
+#- vBox add user to group vboxsf
 sudo usermod -aG vboxsf $(whoami)		# whoami 执行结果是当前用户名，注意别忘了 -a，否则移除了其他组
 sudo gpasswd -a $USER vboxsf		    # $USER 也是当前用户名
+
+### disk mount
+#- mount device with specific user/group
+mount -o gid=1000,uid=10000 /dev/sda1 /mnt/mount_point
+sync
+sudo umount /dev/sda1
+sudo umount /mnt/mount_point
+
+#- mount samba dir in cli
+sudo apt install smbclient
+mount -t cifs -o username=guest //10.0.0.11/Jing /home/user/smb
 
 ### 自动启动
 sudo cp /usr/share/applications/guake.desktop /etc/xdg/autostart        # 程序自动启动，这个对 Ubuntu 和 Manjaro 都适用

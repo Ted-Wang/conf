@@ -1,10 +1,18 @@
-# git prompt source chain on Ubuntu:
-# ~/.bashrc -> /etc/bash_completion -> /usr/share/bash-completion/bash_completion -> /etc/bash_completion.d/*(/etc/bash_completion.d/git-prompt) -> /usr/lib/git-core/git-sh-prompt -> __git_ps1
-# if /usr/share/bash-completion/bash_completion not exist on Ubuntu, try:
-# apt install bash-completion
 
 function generateShellPromptWithGit() {
     local IMPORT_PROMPT_FILE=0
+
+    # git prompt source chain on Ubuntu:
+    # ~/.bashrc -> /etc/bash_completion -> /usr/share/bash-completion/bash_completion -> /etc/bash_completion.d/*(/etc/bash_completion.d/git-prompt) -> /usr/lib/git-core/git-sh-prompt -> __git_ps1
+    # if /usr/share/bash-completion/bash_completion not exist on Ubuntu, try:
+    # apt install bash-completion
+    # this checking is for some VPS provided Ubuntu system, which has no bash-completion installed.
+    dpkg -l > /dev/null 2>&1
+    if [ $? == 0 ] && ! $(dpkg -l | grep -Eq bash-completion); then
+        echo "package bash-completion is not found, installing..."
+        sudo apt install bash-completion
+    fi
+
     # import __git_ps1() function for Manjaro
     pacman --help > /dev/null 2>&1
     if [ $? == 0 ] && [ -f /usr/share/git/completion/git-prompt.sh ]; then
