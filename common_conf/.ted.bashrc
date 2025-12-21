@@ -102,6 +102,12 @@ alias bashconf='vim ~/.bashrc'
 alias bashconf1='vim ~/.ted.bashrc'
 alias vimconf='vim ~/.ted.vimrc'
 
+alias aptv4='apt -o Acquire::ForceIPv4=true'						# use IPv4
+alias apt4='apt -o Acquire::ForceIPv4=true'							# use IPv4
+alias aptp='apt -o Acquire::http::proxy="http://proxy-rn:20171"'	# with proxy
+alias apt4p='apt -o Acquire::ForceIPv4=true -o Acquire::http::proxy="http://proxy-rn:20171"'	# use proxy+IPv4
+alias aptp4='apt -o Acquire::ForceIPv4=true -o Acquire::http::proxy="http://proxy-rn:20171"'	# use proxy+IPv4
+
 # Usage:
 #   senc -in msg.txt -out msg.encrypted
 #   sdec -in msg.encrypted -out msg.txt
