@@ -1,7 +1,9 @@
 
+" Ted Wang's .vimrc, v0.04, 2025-12-29
 " Ted Wang's .vimrc, v0.03, 2019-09-17
 
 " -----------------Ted Wang base settings-------------------
+set encoding=utf-8
 set fencs=utf-8,gbk,gb2312,gb18030,ucs-bom,cp936,latin1
 set nu
 set showcmd
@@ -119,6 +121,21 @@ set statusline=%<%f\%w%h%m%r\ [%{&ff}/%Y]\ [%{getcwd()}]%=%-14.(%=\:b%n%y%m%r%w\
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap W!! w !sudo tee > /dev/null %
+
+" 下面的键映射是给 vim 添加 move lines up and down
+" 操作，但是当前这个键映射只对 Windows 下的 gvim 生效，Ubuntu 下的 vim-gtk3
+" 也不生效，具体原因未知。
+" 另外，如果映射成 ddp 和 ddkP 是可以的，但是这样的映射会导致画面抖动，很难受。
+" Move current line or selection up/down with Alt+k/j
+" Normal mode
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+" Insert mode
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+" Visual mode
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 " -----------------Ted Wang base settings end-------------------
 
 " -----------------Ted Wang Optional settings-------------------
