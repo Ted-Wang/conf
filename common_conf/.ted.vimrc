@@ -127,15 +127,24 @@ cmap W!! w !sudo tee > /dev/null %
 " 也不生效，具体原因未知。
 " 另外，如果映射成 ddp 和 ddkP 是可以的，但是这样的映射会导致画面抖动，很难受。
 " Move current line or selection up/down with Alt+k/j
-" Normal mode
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-" Insert mode
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-" Visual mode
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+"" Normal mode
+"nnoremap <A-j> :m .+1<CR>==
+"nnoremap <A-k> :m .-2<CR>==
+"" Insert mode
+"inoremap <A-j> <Esc>:m .+1<CR>==gi
+"inoremap <A-k> <Esc>:m .-2<CR>==gi
+"" Visual mode
+"vnoremap <A-j> :m '>+1<CR>gv=gv
+"vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" Alt+jk 键映射在 terminal 和 Linux/vim-gtk3 上可能都不生效，干脆放弃，
+" 改成用 shift + up/down 来 move lines up/down
+nnoremap <S-Down> :m .+1<CR>==
+nnoremap <S-Up> :m .-2<CR>==
+inoremap <S-Down> <Esc>:m .+1<CR>==gi
+inoremap <S-Up> <Esc>:m .-2<CR>==gi
+vnoremap <S-Down> :m '>+1<CR>gv=gv
+vnoremap <S-Up> :m '<-2<CR>gv=gv
 " -----------------Ted Wang base settings end-------------------
 
 " -----------------Ted Wang Optional settings-------------------
