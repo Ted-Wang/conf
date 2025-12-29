@@ -122,31 +122,42 @@ set statusline=%<%f\%w%h%m%r\ [%{&ff}/%Y]\ [%{getcwd()}]%=%-14.(%=\:b%n%y%m%r%w\
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap W!! w !sudo tee > /dev/null %
 
-" 下面的键映射是给 vim 添加 move lines up and down
-" 操作，但是当前这个键映射只对 Windows 下的 gvim 生效，Ubuntu 下的 vim-gtk3
-" 也不生效，具体原因未知。
+" 下面的键映射是给 vim 添加 move lines up and down 操作，
+" 但是不能使用 <A-j> 这中方式映射 Alt 快捷键，否则，这个键映射只对 Windows 下的 gvim 生效，Ubuntu 下的 vim-gtk3也不生效。
+" 具体原因看这里：https://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
 " 另外，如果映射成 ddp 和 ddkP 是可以的，但是这样的映射会导致画面抖动，很难受。
 " Move current line or selection up/down with Alt+k/j
-"" Normal mode
-"nnoremap <A-j> :m .+1<CR>==
-"nnoremap <A-k> :m .-2<CR>==
-"" Insert mode
-"inoremap <A-j> <Esc>:m .+1<CR>==gi
 "inoremap <A-k> <Esc>:m .-2<CR>==gi
+"" Normal mode
+"nnoremap ^[k mz:m-2<CR>`z==
+"nnoremap ^[j mz:m+<CR>`z==
+"" Insert mode
+"inoremap ^[j <Esc>:m+<CR>==gi
+"inoremap ^[k <Esc>:m-2<CR>==gi
 "" Visual mode
-"vnoremap <A-j> :m '>+1<CR>gv=gv
-"vnoremap <A-k> :m '<-2<CR>gv=gv
+"vnoremap ^[j :m'>+<CR>gv=`<my`>mzgv`yo`z
+"vnoremap ^[k :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
 " Alt+jk 键映射在 terminal 和 Linux/vim-gtk3 上可能都不生效，干脆放弃，
 " 改成用 shift + up/down 来 move lines up/down
-nnoremap <S-Down> :m .+1<CR>==
-nnoremap <S-Up> :m .-2<CR>==
-inoremap <S-Down> <Esc>:m .+1<CR>==gi
-inoremap <S-Up> <Esc>:m .-2<CR>==gi
-vnoremap <S-Down> :m '>+1<CR>gv=gv
-vnoremap <S-Up> :m '<-2<CR>gv=gv
-" -----------------Ted Wang base settings end-------------------
+"nnoremap <S-Down> :m .+1<CR>==
+"nnoremap <S-Up> :m .-2<CR>==
+"inoremap <S-Down> <Esc>:m .+1<CR>==gi
+"inoremap <S-Up> <Esc>:m .-2<CR>==gi
+"vnoremap <S-Down> :m '>+1<CR>gv=gv
+"vnoremap <S-Up> :m '<-2<CR>gv=gv
 
+" 上面两种方式结合，使用 alt+up/down 来 move lines，更符合我的习惯
+" 这里很奇怪，我用<A-j><A-k> 无法生效，但是<A-Down> <A-Up> 确实可以正常工作的
+nnoremap <A-Down> :m .+1<CR>==
+nnoremap <A-Up> :m .-2<CR>==
+inoremap <A-Down> <Esc>:m .+1<CR>==gi
+inoremap <A-Up> <Esc>:m .-2<CR>==gi
+vnoremap <A-Down> :m '>+1<CR>gv=gv
+vnoremap <A-Up> :m '<-2<CR>gv=gv
+
+
+" -----------------Ted Wang base settings end-------------------
 " -----------------Ted Wang Optional settings-------------------
 " autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif    " Always switch to the current file directory
 
