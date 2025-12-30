@@ -156,6 +156,16 @@ inoremap <A-Up> <Esc>:m .-2<CR>==gi
 vnoremap <A-Down> :m '>+1<CR>gv=gv
 vnoremap <A-Up> :m '<-2<CR>gv=gv
 
+nm ZQ :qa!<CR>
+let $TED_BASHRC='~/.ted.bashrc'
+let $TED_VIMRC='~/.ted.vimrc'
+nm <leader>l :%s/\n\%$\@=\\|^\s*\n//g<CR>
+nm <leader>s :%s/^\s\+$//g<CR>
+nm <leader>q :q!<CR>
+nm <leader>v :e $TED_VIMRC<CR>
+nm <leader>b :e $TED_BASHRC<CR>
+no <leader>y "*y
+no <leader>p "*p
 
 " -----------------Ted Wang base settings end-------------------
 " -----------------Ted Wang Optional settings-------------------
