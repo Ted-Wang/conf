@@ -22,6 +22,7 @@ TED_VIM_RC=.ted.vimrc
 TED_TMUX_CONF=tmux.conf
 TED_BASH_RC_OLD=ted.bashrc
 TED_VIM_RC_OLD=ted.vimrc
+declare -a TED_CHEATSHEETS=("tips.md")
 
 unameOut="$(uname -s)"
 case $unameOut in
@@ -138,6 +139,7 @@ function patch_extra_bashrc(){
     done
 }
 
+# copy themes and specify default theme for git-bash on Windows
 function conf_shell_theme_for_win(){
     if [[ "$runIn" == "Win/git-bash" ]] || [[ "$runIn" == "Win/msys2" ]]; then
         echo setting up shell theme for win/git-bash MSYS2
@@ -284,6 +286,19 @@ function conf_my_script() {
     fi
 }
 
+function copy_cheatsheet() {
+    for id in "${TED_CHEATSHEETS[@]}"
+    do
+        cheat_file_name="$BASE_DIR"/cheatsheets/"$id"
+        if [[ -f $cheat_file_name ]]; then
+            echo copying file: "$cheat_file_name" to "$MY_SCRIPT_FOLDER"/
+            \cp $cheat_file_name "$MY_SCRIPT_FOLDER"/
+        else
+            echo File not found: $cheat_file_name
+        fi
+    done
+}
+
 # old method, patch m2 to .ted.bashrc, now m2 is copied to ~/my_script/ and source it from .ted.bashrc
 function conf_m2_script(){
     # 1. add m2.sh(a very simple bookmark for shell) to ~/.ted.bashrc
@@ -310,6 +325,7 @@ function apply_conf_all() {
     #conf_git           # commet this int. don't need this generally, in case needed, call it manually, after then.
     #conf_m2_script     # old method, patch m2 to .ted.bashrc, now m2 is copied to ~/my_script/ and source it from .ted.bashrc
     conf_my_script
+    copy_cheatsheet
     conf_shell_theme_for_win
 }
 
@@ -324,6 +340,7 @@ function apply_conf_work() {
     #conf_git
     #conf_m2_script     # old method, patch m2 to .ted.bashrc, now m2 is copied to ~/my_script/ and source it from .ted.bashrc
     conf_my_script $1
+    copy_cheatsheet
     conf_shell_theme_for_win
 }
 

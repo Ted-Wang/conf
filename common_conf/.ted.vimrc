@@ -156,14 +156,20 @@ inoremap <A-Up> <Esc>:m .-2<CR>==gi
 vnoremap <A-Down> :m '>+1<CR>gv=gv
 vnoremap <A-Up> :m '<-2<CR>gv=gv
 
-nm ZQ :qa!<CR>
 let $TED_BASHRC='~/.ted.bashrc'
 let $TED_VIMRC='~/.ted.vimrc'
+let $TED_SSHCONF='~/.ssh/config'
+let $TED_CHEATSHEET='~/my_script/tips.md'
+
+nm <leader>v :e $TED_VIMRC<CR>
+nm <leader>b :e $TED_BASHRC<CR>
+nm <leader>h :e $TED_SSHCONF<CR>
+nm <leader>c :e $TED_CHEATSHEET<CR>
+
+nm ZQ :qa!<CR>
 nm <leader>l :%s/\n\%$\@=\\|^\s*\n//g<CR>
 nm <leader>s :%s/^\s\+$//g<CR>
 nm <leader>q :q!<CR>
-nm <leader>v :e $TED_VIMRC<CR>
-nm <leader>b :e $TED_BASHRC<CR>
 no <leader>y "*y
 no <leader>p "*p
 
