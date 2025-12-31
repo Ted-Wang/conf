@@ -170,6 +170,7 @@ nm ZQ :qa!<CR>
 nm <leader>l :%s/\n\%$\@=\\|^\s*\n//g<CR>
 nm <leader>s :%s/^\s\+$//g<CR>
 nm <leader>q :q!<CR>
+nm <leader>d :bd<CR>
 no <leader>y "*y
 no <leader>p "*p
 
