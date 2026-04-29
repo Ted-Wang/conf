@@ -5,6 +5,7 @@
 
 WOL_CONF_FILE=~/wol.conf
 PARAM_BROAD_CAST="broadcast_ip"
+PARAM_BROAD_CAST_WIN="broadcast_ip_win"
 PARAM_INTERFACE="interface"
 PARAM_PORT="port"
 
@@ -13,7 +14,6 @@ function usage() {
     echo "    wol [alias]                           # Wake up machine with 'alias' machine (defined in ~/wol.conf), via default 'broadcast_ip', i.e. 192.168.1.255 for Win/git-bash, 255.255.255.255 for other OS"
     echo "    wol [mac_address] [broadcast_ip]      # Wake up machine with specific MAC via specific 'broadcast_ip'"
     echo "    wol [mac_address]                     # Wake up machine with specific MAC, via default 'broadcast_ip', i.e. 192.168.1.255 for win, 255.255.255.255 for other OS"
-#    echo "usage: wol "" [broadcast_ip]              # ignore MAC, only specify the boradcast_IP, in case you're using Win and not in 172.17.1/24 subnetwork"
     echo "# [mac_address] is ether a real MAC separated by ':' or '-', or an alias name defined in conf file ~/wol.conf like:"
     echo "-----------example of ~/wol.conf-----------"
     echo "    my_machine=AA:BB:CC:DD:EE:FF"
@@ -36,6 +36,13 @@ if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     usage
 fi
 
+# check OS is Win or other
+unameOut="$(uname -s)"
+case $unameOut in
+    Linux*) runIn=Linux-shell;;
+    MINGW*) runIn=Win/git-bash;;
+    Darwin*) runIn=Mac;;
+esac
 
 # read mac address alias from conf file
 declare -A WOL_CONF_MAP
@@ -44,14 +51,21 @@ while IFS='=' read -r key value || [ -n "$key" ]; do
     WOL_CONF_MAP["${key}"]="$value"
 done < <(sed -e 's/\s*#.*$//g' ${WOL_CONF_FILE}) 
 
-broadcast=${2:-255.255.255.255}
-#broadcast=${2:-192.168.1.255}
-port=9
+skipped="false"
+if [ "$runIn" == "Win/git-bash" ]; then
+    broadcast=${2:-192.168.1.255}
+    skipped="true"
+else
+    broadcast=${2:-255.255.255.255}
+fi
+port=${3:-9}
 
 conf_broadcast_ip=${WOL_CONF_MAP["$PARAM_BROAD_CAST"]}
+conf_broadcast_ip_win=${WOL_CONF_MAP["$PARAM_BROAD_CAST_WIN"]}
 conf_interface=${WOL_CONF_MAP["$PARAM_INTERFACE"]}
 conf_port=${WOL_CONF_MAP["$PARAM_PORT"]}
 #echo [DEBUG]conf_broadcast_ip: $conf_broadcast_ip
+#echo [DEBUG]conf_broadcast_ip_win: $conf_broadcast_ip_win
 #echo [DEBUG]conf_interface: $conf_interface
 #echo [DEBUG]conf_port: $conf_port
 #echo [DEBUG]broadcast: $broadcast
@@ -62,46 +76,53 @@ override="false"
 if [ ! -z $conf_broadcast_ip ]; then
 #    echo [DEBUG]user set broadcast_ip: $conf_broadcast_ip
     echo "broadcast_ip is specified: [$conf_broadcast_ip], the 'interface' setting will be ignored."
-    broadcast=$conf_broadcast_ip
+    broadcast=${2:-$conf_broadcast_ip}
     override="true"
 #    echo [DEBUG]override changed to: $override
 fi
 
-#echo [DEBUG]override prior: $override
-if [ "false" == "$override" ] && [ ! -z $conf_interface ]; then
+if [ ! -z $conf_broadcast_ip_win ]; then
+#    echo [DEBUG]user set broadcast_ip: $conf_broadcast_ip_win
+    echo "broadcast_ip_win is specified: [$conf_broadcast_ip_win], the 'interface' setting is ignored by default under Win/git-bash."
+    # [TBD] get broadcast_ip under Win/git-bash.......
+    broadcast_ip_win=$conf_broadcast_ip_win
+#    echo [DEBUG]override changed to: $override
+fi
+
+#echo [DEBUG]override prior: $override, conf_interface: $conf_interface
+if [ "false" == "$override" ] && [ "false" == "$skipped" ] && [ ! -z $conf_interface ]; then
 #    echo [DEBUG]user specify interface: [$conf_interface] and not specify broadcast_ip: [$broadcast_ip], override: [$override]
     # get broadcast address of the interface
     echo getting braodcast_ip from interface: $conf_interface
     interface_brd=$(ip -o -f inet addr show $conf_interface | awk '{print $6}')
     echo broadcast_ip of interface $conf_interface: $interface_brd
     if [ ! -z $interface_brd ]; then
-        broadcast=$interface_brd
+        broadcast=${2:-$interface_brd}
     fi
 fi
 
 if [ ! -z $conf_port ] && [ $conf_port == "7" ] ; then
-    echo "port set to: $conf_port (available ports: 7, 9)"
-    port=$conf_port
+    echo "get port number from ~/wol.conf: $conf_port (available ports: 7, 9)"
+    port=${3:-$conf_port}
 fi
 #echo [DEBUG]after setting.......
 #echo [DEBUG]conf_broadcast_ip: $conf_broadcast_ip
+#echo [DEBUG]conf_broadcast_ip_win: $conf_broadcast_ip_win
 #echo [DEBUG]conf_interface: $conf_interface
 #echo [DEBUG]conf_port: $conf_port
 #echo [DEBUG]broadcast: $broadcast
 #echo [DEBUG]port: $port
 
-# check OS is Win or other
-unameOut="$(uname -s)"
-case $unameOut in
-    Linux*) runIn=Linux-shell;;
-    MINGW*) runIn=Win/git-bash;;
-    Darwin*) runIn=Mac;;
-esac
 if [ "$runIn" == "Win/git-bash" ]; then
-    NC='ncat'                         # ncat on windows is provided by nmap.org, it can send to broadcast address without specifying any argument.
-    #broadcast=${2:-172.17.1.255}     # but ncat can send only to broadcast addr like 192.168.1.255, not able to send to 255.255.255.255.
+    NC='ncat'   # ncat on windows is provided by nmap.org, it can send to broadcast address without specifying any argument.
+                # but ncat can send only to broadcast addr like 192.168.1.255, not able to send to 255.255.255.255.
+#    echo [DEBUG]broadcast_ip_win: ${broadcast_ip_win}
+    if [ ! -z "${broadcast_ip_win}" ]; then
+        broadcast=${2:-$broadcast_ip_win}
+        echo set broadcast_ip for Win/git-bash: [${broadcast}]
+    fi
 else
-    NC='nc -b'		                # -b broadcast, without this argument, nc may not send UDP broadcast.
+    NC='nc -b'		                  # -b broadcast, without this argument, nc may not send UDP broadcast.
 fi
 
 # get MAC from alias file or use default
@@ -156,9 +177,11 @@ magic_packet_hex=$(
 
 #echo $magic_packet_hex
 echo waking up machine[$host_name_], sending wol magic packet to $broadcast:$port
-echo -e $magic_packet_hex | $NC -w1 -4ub $broadcast $port
+echo "Full command is: "
+echo "    echo -e [magic _packet with hex format] | $NC -w1 -4u $broadcast $port"
+echo -e $magic_packet_hex | $NC -w1 -4u $broadcast $port
 
 # another aproach is to use xxd to transfer string to hex
-#echo -n $magic_packet | xxd -r -p | $NC -w1 -4u $broadcast $port
+#echo -n $magic_packet | xxd -r -p | $NC -w1 -4ub $broadcast $port
 
 unset mac mac_address broadcast port magic_packet magic_packet_hex
