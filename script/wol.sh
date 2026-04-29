@@ -4,39 +4,91 @@
 # use bash wol.sh "" 192.168.1.255 to specify the broadcast address without changing MAC by default.
 
 WOL_CONF_FILE=~/wol.conf
+PARAM_BROAD_CAST="broadcast_ip"
+PARAM_INTERFACE="interface"
+PARAM_PORT="port"
 
-function usage {
+function usage() {
     echo "The usage of this tool:"
-    echo "# specify MAC and broadcast_IP:"
-    echo "    wol <mac_address> <broadcast_ip>"
-    echo "＃specify MAC without broadcast IP, will send the WoLmagic packet to default broadcast_IP. i.e. 172.17.1.255 for win, 255.255.255.255 for other OS:"
-    echo "    wol <mac_address>"
-#    echo "usage: wol "" <broadcast_ip>              # ignore MAC, only specify the boradcast_IP, in case you're using Win and not in 172.17.1/24 subnetwork"
-    echo "# <mac_address> is ether a real MAC separated by ':' or '-', or an alias name defined in conf file $WOL_CONF_FILE:"
+    echo "    wol [alias]                           # Wake up machine with 'alias' machine (defined in ~/wol.conf), via default 'broadcast_ip', i.e. 192.168.1.255 for Win/git-bash, 255.255.255.255 for other OS"
+    echo "    wol [mac_address] [broadcast_ip]      # Wake up machine with specific MAC via specific 'broadcast_ip'"
+    echo "    wol [mac_address]                     # Wake up machine with specific MAC, via default 'broadcast_ip', i.e. 192.168.1.255 for win, 255.255.255.255 for other OS"
+#    echo "usage: wol "" [broadcast_ip]              # ignore MAC, only specify the boradcast_IP, in case you're using Win and not in 172.17.1/24 subnetwork"
+    echo "# [mac_address] is ether a real MAC separated by ':' or '-', or an alias name defined in conf file ~/wol.conf like:"
+    echo "-----------example of ~/wol.conf-----------"
     echo "    my_machine=AA:BB:CC:DD:EE:FF"
-    echo "# then you can call this tool with alias name my_machine: "
+    echo "    my_machine2=AA-BB-CC-DD-EE-FF"
+    echo ""
+    echo "    broadcast_ip=192.168.1.255"
+    echo "    interface=eth0"
+    echo "    port=9"
+    echo "-------------------------------------------"
+    echo "# then you can call this tool with alias name 'my_machine': "
     echo "    wol my_machine"
-    echo "[NOTE]: <mac_address> does not support any type of list, 1 MAC for each calling."
-    echo "[NOTE]: you need 'ncat' while using this tool on Win/git-bash. ncat is included in the 'namp' tool, you can find and download it from nmap.org"
+    echo "[NOTE]: if 'broadcast_ip' is set, the 'interface' property will be ignored, otherwise, this tool will try to get broadcast ip from specified 'interface'."
+    echo "[NOTE]: [mac_address] does not support any type of list, 1 MAC for each calling."
+    echo "[NOTE]: Running this tool on Win/git-bash need 'ncat' pre-installed, which is included in the 'namp' tool, you can find and download it from nmap.org"
     echo ""
     exit 1
 }
 
-if [[ ( "$1" == "--help" ) || ( "$1" == "-h" ) ]]; then
+if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     usage
 fi
 
 
 # read mac address alias from conf file
 declare -A WOL_CONF_MAP
-while IFS='=' read -r key value || [[ -n "$key" ]]; do
-    [[ -z "$key" ]] && continue
+while IFS='=' read -r key value || [ -n "$key" ]; do
+    [ -z "$key" ] && continue
     WOL_CONF_MAP["${key}"]="$value"
 done < <(sed -e 's/\s*#.*$//g' ${WOL_CONF_FILE}) 
 
 broadcast=${2:-255.255.255.255}
-#broadcast=${2:-172.17.1.255}
-port=7
+#broadcast=${2:-192.168.1.255}
+port=9
+
+conf_broadcast_ip=${WOL_CONF_MAP["$PARAM_BROAD_CAST"]}
+conf_interface=${WOL_CONF_MAP["$PARAM_INTERFACE"]}
+conf_port=${WOL_CONF_MAP["$PARAM_PORT"]}
+#echo [DEBUG]conf_broadcast_ip: $conf_broadcast_ip
+#echo [DEBUG]conf_interface: $conf_interface
+#echo [DEBUG]conf_port: $conf_port
+#echo [DEBUG]broadcast: $broadcast
+#echo [DEBUG]port: $port
+
+override="false"
+#if [ ! -z ${WOL_CONF_MAP["$PARAM_INTERFACE"]} ]; then
+if [ ! -z $conf_broadcast_ip ]; then
+#    echo [DEBUG]user set broadcast_ip: $conf_broadcast_ip
+    echo "broadcast_ip is specified: [$conf_broadcast_ip], the 'interface' setting will be ignored."
+    broadcast=$conf_broadcast_ip
+    override="true"
+#    echo [DEBUG]override changed to: $override
+fi
+
+#echo [DEBUG]override prior: $override
+if [ "false" == "$override" ] && [ ! -z $conf_interface ]; then
+#    echo [DEBUG]user specify interface: [$conf_interface] and not specify broadcast_ip: [$broadcast_ip], override: [$override]
+    # get broadcast address of the interface
+    echo getting braodcast_ip from interface: $conf_interface
+    interface_brd=$(ip -o -f inet addr show $conf_interface | awk '{print $6}')
+    echo broadcast_ip of interface $conf_interface: $interface_brd
+    if [ ! -z $interface_brd ]; then
+        broadcast=$interface_brd
+    fi
+fi
+
+if [ ! -z $conf_port ] && [ $conf_port == "7" ] ; then
+    echo "port set to: $conf_port (available ports: 7, 9)"
+    port=$conf_port
+fi
+#echo [DEBUG]after setting.......
+#echo [DEBUG]conf_broadcast_ip: $conf_broadcast_ip
+#echo [DEBUG]conf_interface: $conf_interface
+#echo [DEBUG]conf_port: $conf_port
+#echo [DEBUG]broadcast: $broadcast
+#echo [DEBUG]port: $port
 
 # check OS is Win or other
 unameOut="$(uname -s)"
@@ -47,43 +99,48 @@ case $unameOut in
 esac
 if [ "$runIn" == "Win/git-bash" ]; then
     NC='ncat'                         # ncat on windows is provided by nmap.org, it can send to broadcast address without specifying any argument.
-    broadcast=${2:-172.17.1.255}     # but ncat can send only to broadcast addr like 192.168.1.255, not able to send to 255.255.255.255.
+    #broadcast=${2:-172.17.1.255}     # but ncat can send only to broadcast addr like 192.168.1.255, not able to send to 255.255.255.255.
 else
     NC='nc -b'		                # -b broadcast, without this argument, nc may not send UDP broadcast.
 fi
 
 # get MAC from alias file or use default
-#if [[ ! -z $1 ]] && [[ -v ${1} ]]; then
-if [[ ! -z $1 ]]; then
+#if [ ! -z $1 ] && [ -v ${1} ]; then
+if [ ! -z $1 ]; then
     #mac=${!1}
     mac=${WOL_CONF_MAP["$1"]}
     host_name_="${1}: ${mac}"
-elif [[ -z $1 ]]; then
-    echo "NO MAC address is specified! Specify your target MAC as an argument, or alias your MAC in conf file: $WOL_CONF_FILE"
+elif [ -z $1 ]; then
+    echo "NO MAC address or alias name is specified! Point out your machine MAC/alias name as first argument."
+    echo "Sugeest you use alias name and alias your machine MAC in conf file: ~/wol.conf"
+    echo "use 'wol -h' or 'wol --help' to see example of the config file."
     echo ""
     # list all alias machine and MAC in $WOL_CONF_FILE
-    if [[ ! -z WOL_CONF_MAP ]] && [ ${#WOL_CONF_MAP[@]} -gt 0 ]; then
-        echo "all known host(s) alias: "
-        for key in "${!WOL_CONF_MAP[@]}"; do
-            value="${WOL_CONF_MAP[$key]}"
-            echo "host: $key, MAC: $value"
-        done
+#    echo [DEBUG]WOL_CONF_MAP: ${WOL_CONF_MAP[@]}
+    #if [ ! -z $WOL_CONF_MAP ] && [ ${#WOL_CONF_MAP[@]} -gt 0 ]; then
+    if [ ${#WOL_CONF_MAP[@]} -gt 0 ]; then
+        #echo "all known host(s) alias: "
+        #for key in "${!WOL_CONF_MAP[@]}"; do
+            #value="${WOL_CONF_MAP[$key]}"
+            #echo "host: $key, MAC: $value"
+        #done
+        # While user call this tool with no argument(alias, MAC, etc), simply cat ~/wol.conf, istead of printing content of WOL_CONF_MAP
+        echo "content of file $WOL_CONF_FILE:"
+        echo "-----------------------------------------"
+        cat $WOL_CONF_FILE
+        echo "-----------------------------------------"
         exit 1
     else
         usage
     fi
 else
     echo "\"${1}\" is not an alias name in conf file: $WOL_CONF_FILE, treat it as a MAC address"
-    #mac=${1:-B8-97-5A-85-DD-A2}     # D-Mint
-    #mac=${1:-58-41-20-28-33-BC}     # D-Mint-2.5G
-    #mac=${1:-00-17-A4-DE-F6-C4}    # NX6325
-    #mac=${1:-08:00:27:f5:90:07}    # VM-Mint
     mac=${1}
     host_name_=${mac}
 fi
 mac_address=$(echo $mac | sed 's/://g; s/-//g')		# Strip colons from the MAC address
 
-if [[ ! ${#mac_address} -eq 12 ]]; then
+if [ ! ${#mac_address} -eq 12 ]; then
     echo "\"${mac_address}\" is not a valid MAC address, please check"
     exit 1
 fi
@@ -99,7 +156,7 @@ magic_packet_hex=$(
 
 #echo $magic_packet_hex
 echo waking up machine[$host_name_], sending wol magic packet to $broadcast:$port
-echo -e $magic_packet_hex | $NC -w1 -4u $broadcast $port
+echo -e $magic_packet_hex | $NC -w1 -4ub $broadcast $port
 
 # another aproach is to use xxd to transfer string to hex
 #echo -n $magic_packet | xxd -r -p | $NC -w1 -4u $broadcast $port
