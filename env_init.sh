@@ -271,6 +271,7 @@ function conf_my_script() {
         \rm "$MY_SCRIPT_FOLDER"/*
     fi
     copy_script_and_source_it $BASE_DIR/common_conf/m2.sh
+    copy_script_and_source_it $BASE_DIR/common_conf/ted_command.sh
 
     #copy_script_to_my_script_folder $BASE_DIR/script/dockertags.sh
     #copy_script_and_make_symlink $BASE_DIR/script/dockertags.sh
@@ -397,6 +398,7 @@ EOF
         fi
     echo copying m2.sh
     copy_script_and_source_it_for_Mac $BASE_DIR/common_conf/m2.sh
+    copy_script_and_source_it_for_Mac $BASE_DIR/common_conf/ted_command.sh  # [TBD]this script is not tested under MAC
     echo copying dockertags.sh
     copy_script_and_source_it_for_Mac $BASE_DIR/script/dockertags.sh
 
