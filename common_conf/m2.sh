@@ -54,12 +54,14 @@ if [ -n "$BASH_VERSION" ]; then
     function _cdmark_complete() {
         local MARKFILE="${MARKFILE:-$HOME/.local/share/marks.ini}"
         local curword="${COMP_WORDS[COMP_CWORD]}"
-        if [[ "$curword" =~ [-+/].* ]]; then
-        #if echo "$curword" | grep -Eq "[-+/].*" ; then
-            COMPREPLY=($(sed -r "s@^(${curword:1}.*?)=(.*$)@${curword:0:1}\1@" "$MARKFILE" | grep -v "="))
-        else
-            COMPREPLY=($(sed -r "s@^(${curword}.*?)=(.*$)@\1@" "$MARKFILE" | grep -v "="))
-        fi
+        #if [[ "$curword" =~ [-+/].* ]]; then
+        ##if echo "$curword" | grep -Eq "[-+/].*" ; then
+            #COMPREPLY=($(sed -r "s@^(${curword:1}.*?)=(.*$)@${curword:0:1}\1@" "$MARKFILE" | grep -v "="))
+        #else
+            #COMPREPLY=($(sed -r "s@^(${curword}.*?)=(.*$)@\1@" "$MARKFILE" | grep -v "="))
+        #fi
+        local opts="$(sed -r "s@^(.+?)=(.*$)@\1@" "$MARKFILE" | grep -v "=")"
+        COMPREPLY=( $(compgen -W "${opts}" -- "${curword}") )
     }
     complete -F _cdmark_complete m
 elif [ -n "$ZSH_VERSION" ]; then
