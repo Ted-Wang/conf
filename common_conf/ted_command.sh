@@ -35,3 +35,18 @@ if [ -n "BASH_VERSION" ]; then
     }
     complete -F _showip_complete showip
 fi
+
+if [ -n "BASH_VERSION" ]; then
+    function _showip6_complete() {
+        local curword="${COMP_WORDS[COMP_CWORD]}"
+        local opts=$(ip -o -f inet6 addr show | awk '/scope global/ {print $2}')
+        COMPREPLY=( $(compgen -W "${opts}" -- "${curword}") )
+        #if [[ "$curword" =~ .+ ]]; then
+            #COMPREPLY=($(echo $opts | sed -n "/^${curword}.*/p"))
+        #else
+            #COMPREPLY=($opts)
+        #fi
+    }
+    complete -F _showip6_complete showip6
+fi
+
