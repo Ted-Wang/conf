@@ -107,11 +107,23 @@ apt-get --help >/dev/null 2>&1
 if [[ $? == 0 ]]; then
     alias visudo="EDITOR=$EDITOR visudo"
 fi
+# sudo systemctl edit <service_name> may use nano, this config force to use vim, don't forget to edit visudo, to pass this env variable to root environment
+export SYSTEMD_EDITOR=/usr/bin/vim
+# if not configure correct, use update-alternatives --config editor can be also an approach
+
 
 # add alias for Manjaro
 pacman --help > /dev/null 2>&1
 if [[ $? == 0 ]] && [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
     alias sudo='sudo -E'
+fi
+
+# Debian 13 trixie by default remove lastb command, lslogins --failed does not show IP address, date and time etc. Below command could be an alternative option:
+#   sudo journalctl -u ssh -g "Failed password" --no-pager | sed 's/invalid user //' | awk '{print $1, $2, $3, "— User:", $9, "— IP:", $11, "— Port:", $13}'
+# add the above command as an alias
+lastb >/dev/null 2>&1
+if [[ $? > 0 ]]; then
+    alias lastb='journalctl -u ssh -g "Failed password" --no-pager | sed '\''s/invalid user //'\'' | awk '\''{print $1, $2, $3, "— User:", $9, "— IP:", $11, "— Port:", $13}'\'''
 fi
 
 # expand history size for shell
