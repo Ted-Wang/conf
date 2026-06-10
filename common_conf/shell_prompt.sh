@@ -9,8 +9,8 @@ function generateShellPromptWithGit() {
     # this checking is for some VPS provided Ubuntu system, which has no bash-completion installed.
     dpkg -l > /dev/null 2>&1
     if [ $? == 0 ] && ! $(dpkg -l | grep -Eq bash-completion); then
-        echo "package bash-completion is not found, installing..."
-        sudo apt install bash-completion
+        #echo "package bash-completion is not found, installing..."
+        sudo apt install bash-completion >/dev/null 2>&1
     fi
 
     # import __git_ps1() function for Manjaro
