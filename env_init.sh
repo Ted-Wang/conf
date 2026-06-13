@@ -143,14 +143,26 @@ function patch_extra_bashrc(){
 function conf_shell_theme_for_win(){
     if [[ "$runIn" == "Win/git-bash" ]] || [[ "$runIn" == "Win/msys2" ]]; then
         echo setting up shell theme for win/git-bash MSYS2
-        myThemeFile=flat-ui
-        if [[ -f $BASE_DIR/common_conf/ted-conf ]]; then
-            \cp $BASE_DIR/common_conf/ted-conf /usr/share/mintty/themes/ 
-            myThemeFile=ted-conf
+        local MINTTY_RC="$BASE_DIR/common_conf/ted.minttyrc"
+        if [[ -f ${MINTTY_RC} ]]; then
+            sum1=$(md5sum ~/.ted.minttyrc)
+            sum2=$(md5sum ${MINTTY_RC})
+            sum1=${sum1:0:32}
+            sum2=${sum2:0:32}
+            if [[ "$sum1" != "$sum2" ]]; then
+                \cp ~/.minttyrc ~/minttyrc.bak.`date "+%Y-%m-%d_%H-%M-%S"`
+                \cp ${MINTTY_RC} ~/.minttyrc
+                echo ~/.minttyrc is replaced, the old file has been backed up.
+            fi
         fi
-        if ! grep -Eq "^ThemeFile.*$" ~/.minttyrc; then 
-            echo "ThemeFile=$myThemeFile" >> ~/.minttyrc
-        fi
+        #myThemeFile=flat-ui
+        #if [[ -f $BASE_DIR/common_conf/ted-conf ]]; then
+        #    \cp $BASE_DIR/common_conf/ted-conf /usr/share/mintty/themes/
+        #    myThemeFile=ted-conf
+        #fi
+        #if ! grep -Eq "^ThemeFile.*$" ~/.minttyrc; then
+        #    echo "ThemeFile=$myThemeFile" >> ~/.minttyrc
+        #fi
     fi
 }
 

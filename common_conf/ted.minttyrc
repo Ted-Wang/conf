@@ -1,0 +1,29 @@
+Locale=zh_CN
+Charset=UTF-8
+Columns=130
+Rows=50
+ScrollbackLines=20000
+# 指定 Theme 的话，会覆盖当前文件里的配置，通常都是颜色相关的
+ThemeFile=gruvbox
+# Ubuntu Mono 字体的话，Heigth 要12，字体平滑调到 partial 就够用了，full的话，字体颜色暗淡；
+Font=Ubuntu Mono
+FontHeight=12
+FontSmoothing=partial
+# 用 Consolas 字体的话，Heigth 要11，字体平滑调到 full，否则英文字体太粗了一点。
+#Font=Consolas
+#FontHeight=11
+#FontSmoothing=full
+# 控制“粗体（Bold）”命令的处理。BoldAsFont，BoldAsColour 分别对应选项里的 Show bold as font 和 Show bold as colour，2个都置为yes，等于 Show bold as font & as colour
+BoldAsFont=yes
+# 控制“粗体（Bold）”命令的处理。Show bold as font 和 Show bold as colour 的区别在于前者通过字体的磅值（加粗）来表现，而后者通过颜色的亮化（高亮）来表现。可以二者都要。
+BoldAsColour=yes
+# xterm-256color：支持 256 种颜色。能够呈现更细腻的高级色彩主题和终端 UI（如 vim、tmux 等），是现代终端环境的标配。xterm/xterm-color：通常仅支持基础的 8 到 16 种颜色。
+Term=xterm-256color
+CursorType=block
+CursorBlinks=yes
+# 鼠标点击改变 cursor 位置，仅仅在命令行生效，在 vim 里不起作用。
+ClicksPlaceCursor=yes
+# 透明度设置，off 为关闭。
+Transparency=low
+# 指定界面语言，默认可以置空，或者设为@用Windows默认语言，或者设为 zh_CN 指定中文
+Language=
