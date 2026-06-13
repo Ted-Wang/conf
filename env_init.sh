@@ -143,17 +143,22 @@ function patch_extra_bashrc(){
 function conf_shell_theme_for_win(){
     if [[ "$runIn" == "Win/git-bash" ]] || [[ "$runIn" == "Win/msys2" ]]; then
         echo setting up shell theme for win/git-bash MSYS2
-        local MINTTY_RC="$BASE_DIR/common_conf/ted.minttyrc"
+        local MINTTY_RC="$BASE_DIR/common_conf/msys2/ted.minttyrc"
+        local MINTTY_THEME="$BASE_DIR/common_conf/msys2/ted-theme"
         if [[ -f ${MINTTY_RC} ]]; then
-            sum1=$(md5sum ~/.ted.minttyrc)
-            sum2=$(md5sum ${MINTTY_RC})
-            sum1=${sum1:0:32}
-            sum2=${sum2:0:32}
+            local sum1=$(md5sum ~/.ted.minttyrc)
+            local sum2=$(md5sum ${MINTTY_RC})
+            local sum1=${sum1:0:32}
+            local sum2=${sum2:0:32}
             if [[ "$sum1" != "$sum2" ]]; then
                 \cp ~/.minttyrc ~/minttyrc.bak.`date "+%Y-%m-%d_%H-%M-%S"`
                 \cp ${MINTTY_RC} ~/.minttyrc
                 echo ~/.minttyrc is replaced, the old file has been backed up.
             fi
+        fi
+        if [[ ! -f ~/.mintty/themes/ted-theme ]]; then
+            \mkdir -p ~/.mintty/themes
+            \cp ${MINTTY_THEME} ~/.mintty/themes/
         fi
         #myThemeFile=flat-ui
         #if [[ -f $BASE_DIR/common_conf/ted-conf ]]; then
