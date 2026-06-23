@@ -76,6 +76,13 @@ else
     endif
 endif
 
+" 根据当前模式，设置光标状态; set cursor state according to current mode: insert/replace/normal
+if !has('gui_running') && &term =~ '^xterm\|^rxvt\|^win'
+    let &t_SI = "\<Esc>[6 q" " 插入模式：稳定竖线; insert mode, stable bar
+    let &t_SR = "\<Esc>[4 q" " 替换模式：稳定下划线; replace mode, stable underline
+    let &t_EI = "\<Esc>[2 q" " 普通模式：稳定方块; normal mode, stable block
+endif
+
 " colorscheme and cursor settings
 if has('gui_running') && !OSX()
     if(&lines < 50)
