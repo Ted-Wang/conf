@@ -147,6 +147,10 @@ alias aptp4='apt -o Acquire::ForceIPv4=true -o Acquire::http::proxy="http://prox
 alias senc='openssl enc -aes-256-cbc -a -salt -p -pbkdf2 -md sha256 '
 alias sdec='openssl enc -aes-256-cbc -a -pbkdf2 -md sha256 -d '
 
+# alias command for mount NAS folder via SMB(cifs) share
+alias mtnas='mount -t cifs -o username=nas,iocharset=utf8 //nas/SSD /home/ted/nas'
+alias umtnas='umount /home/ted/nas'
+
 # this 2 lines canncel the default behavior (suspend) of short cut ctrl+z, and bind to ' fg' (the leading space is to prevent 'fg' from appearing in history)
 # then, you can press ctrl+z suspend in vim and back to shell, and use ctr+z again go back to vim.
 stty susp undef
