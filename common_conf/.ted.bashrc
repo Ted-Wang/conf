@@ -121,8 +121,7 @@ fi
 # Debian 13 trixie by default remove lastb command, lslogins --failed does not show IP address, date and time etc. Below command could be an alternative option:
 #   sudo journalctl -u ssh -g "Failed password" --no-pager | sed 's/invalid user //' | awk '{print $1, $2, $3, "— User:", $9, "— IP:", $11, "— Port:", $13}'
 # add the above command as an alias
-lastb >/dev/null 2>&1
-if [[ $? > 0 ]]; then
+if command -v lastb >/dev/null 2>&1; then
     alias lastb='journalctl -u ssh -g "Failed password" --no-pager | sed '\''s/invalid user //'\'' | awk '\''{print $1, $2, $3, "— User:", $9, "— IP:", $11, "— Port:", $13}'\'''
 fi
 
