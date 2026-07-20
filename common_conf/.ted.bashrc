@@ -149,7 +149,7 @@ alias senc='openssl enc -aes-256-cbc -a -salt -p -pbkdf2 -md sha256 '
 alias sdec='openssl enc -aes-256-cbc -a -pbkdf2 -md sha256 -d '
 
 # alias command for mount NAS folder via SMB(cifs) share
-alias mtnas='mount -t cifs -o username=nas,iocharset=utf8 //nas/SSD /home/ted/nas'
+alias mtnas='mount -t cifs -o username=nas,iocharset=utf8,uid=ted,gid=ted //nas/SSD /home/ted/nas'
 alias umtnas='umount /home/ted/nas'
 
 # this 2 lines canncel the default behavior (suspend) of short cut ctrl+z, and bind to ' fg' (the leading space is to prevent 'fg' from appearing in history)
