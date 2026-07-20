@@ -125,7 +125,7 @@ if ! command -v lastb >/dev/null 2>&1; then
     alias lastb='journalctl -u ssh -g "Failed password" --no-pager | sed '\''s/invalid user //'\'' | awk '\''{print $1, $2, $3, "— User:", $9, "— IP:", $11, "— Port:", $13}'\'''
 fi
 
-alias ssdd='f(){ sed -i "${1}d" ~/.ssh/known_hosts; }; f'
+alias ssdd='f(){ [ -z "$1" ] && { echo "No. of line to be del is not specified!"; return 1; }; sed -i "${1}d" ~/.ssh/known_hosts; }; f'
 
 # expand history size for shell
 export HISTSIZE=10000
