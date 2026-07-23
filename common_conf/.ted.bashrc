@@ -122,7 +122,10 @@ fi
 #   sudo journalctl -u ssh -g "Failed password" --no-pager | sed 's/invalid user //' | awk '{print $1, $2, $3, "— User:", $9, "— IP:", $11, "— Port:", $13}'
 # add the above command as an alias
 if ! command -v lastb >/dev/null 2>&1; then
-    alias lastb='journalctl -u ssh -g "Failed password" --no-pager | sed '\''s/invalid user //'\'' | awk '\''{print $1, $2, $3, "— User:", $9, "— IP:", $11, "— Port:", $13}'\'''
+    #alias lastb='journalctl -u ssh -g "Failed password" --no-pager | sed '\''s/invalid user //'\'' | awk '\''{print $1, $2, $3, "— User:", $9, "— IP:", $11, "— Port:", $13}'\'''
+    alias lastb='journalctl _SYSTEMD_UNIT=ssh.service -r --no-pager | awk '\''BEGIN { printf "%-12s %-15s %-16s %-15s\n", "USER", "TYPE", "IP", "TIME" } /Failed password for invalid user/ { printf "%-12s %-15s %-16s %s %s %s\n", $11, "ssh:not-found", $13, $1, $2, $3; next } /Failed password for/ { printf "%-12s %-15s %-16s %s %s %s\n", $9, "ssh:auth-fail", $11, $1, $2, $3 }'\'''
+else
+    alias lastb2='journalctl _SYSTEMD_UNIT=ssh.service -r --no-pager | awk '\''BEGIN { printf "%-12s %-15s %-16s %-15s\n", "USER", "TYPE", "IP", "TIME" } /Failed password for invalid user/ { printf "%-12s %-15s %-16s %s %s %s\n", $11, "ssh:not-found", $13, $1, $2, $3; next } /Failed password for/ { printf "%-12s %-15s %-16s %s %s %s\n", $9, "ssh:auth-fail", $11, $1, $2, $3 }'\'''
 fi
 
 alias ssdd='f(){ [ -z "$1" ] && { echo "No. of line to be del is not specified!"; return 1; }; sed -i "${1}d" ~/.ssh/known_hosts; }; f'
